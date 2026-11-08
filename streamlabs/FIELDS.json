@@ -1,0 +1,385 @@
+{
+  "gtaSize": {
+    "label": "⚙ Tamaño (%) · 100 = lo más grande sin cortes",
+    "type": "slider",
+    "value": 100,
+    "min": 40,
+    "max": 100,
+    "steps": 5
+  },
+  "gtaHold": {
+    "label": "⚙ Duración en pantalla (segundos)",
+    "type": "slider",
+    "value": 6,
+    "min": 3,
+    "max": 12,
+    "steps": 1
+  },
+  "gtaVolume": {
+    "label": "⚙ Volumen",
+    "type": "slider",
+    "value": 60,
+    "min": 0,
+    "max": 100,
+    "steps": 5
+  },
+  "gtaSound": {
+    "label": "⚙ Sonido",
+    "type": "dropdown",
+    "options": {
+      "file": "Sonidos del pack (MP3)",
+      "synth": "Sintetizado",
+      "off": "Sin sonido"
+    },
+    "value": "file"
+  },
+  "gtaPalms": {
+    "label": "⚙ Palmeras laterales",
+    "type": "dropdown",
+    "options": {
+      "si": "Sí",
+      "no": "No"
+    },
+    "value": "si"
+  },
+  "gtaShowMsg": {
+    "label": "⚙ Mostrar mensaje del usuario",
+    "type": "dropdown",
+    "options": {
+      "si": "Sí",
+      "no": "No"
+    },
+    "value": "si"
+  },
+  "gtaCurrency": {
+    "label": "⚙ Símbolo de moneda (si la plataforma no envía el monto formateado)",
+    "type": "textfield",
+    "value": "$"
+  },
+  "gtaMinTip": {
+    "label": "⚙ Donación mínima para mostrar alerta",
+    "type": "textfield",
+    "value": "0"
+  },
+  "gtaMinCheer": {
+    "label": "⚙ Bits mínimos para mostrar alerta",
+    "type": "textfield",
+    "value": "0"
+  },
+  "gtaMinKicks": {
+    "label": "⚙ KICKs mínimos para mostrar alerta",
+    "type": "textfield",
+    "value": "0"
+  },
+  "gta_follow_on": {
+    "label": "【Seguidor】 Activada",
+    "type": "dropdown",
+    "options": {
+      "si": "Sí",
+      "no": "No"
+    },
+    "value": "si"
+  },
+  "gta_follow_img": {
+    "label": "【Seguidor】 Sticker",
+    "type": "image-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/flamenco.png"
+  },
+  "gta_follow_snd": {
+    "label": "【Seguidor】 Sonido",
+    "type": "sound-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/seguidor.mp3"
+  },
+  "gta_follow_kicker": {
+    "label": "【Seguidor】 Texto pequeño",
+    "type": "textfield",
+    "value": "nuevo"
+  },
+  "gta_follow_word": {
+    "label": "【Seguidor】 Título",
+    "type": "textfield",
+    "value": "SEGUIDOR"
+  },
+  "gta_follow_msg": {
+    "label": "【Seguidor】 Mensaje ({amount} = cantidad)",
+    "type": "textfield",
+    "value": "¡Bienvenido a Vice City!"
+  },
+  "gta_sub_on": {
+    "label": "【Suscriptor】 Activada",
+    "type": "dropdown",
+    "options": {
+      "si": "Sí",
+      "no": "No"
+    },
+    "value": "si"
+  },
+  "gta_sub_img": {
+    "label": "【Suscriptor】 Sticker",
+    "type": "image-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/caiman.png"
+  },
+  "gta_sub_snd": {
+    "label": "【Suscriptor】 Sonido",
+    "type": "sound-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/suscriptor.mp3"
+  },
+  "gta_sub_kicker": {
+    "label": "【Suscriptor】 Texto pequeño",
+    "type": "textfield",
+    "value": "nuevo"
+  },
+  "gta_sub_word": {
+    "label": "【Suscriptor】 Título",
+    "type": "textfield",
+    "value": "SUSCRIPTOR"
+  },
+  "gta_sub_msg": {
+    "label": "【Suscriptor】 Mensaje ({amount} = cantidad)",
+    "type": "textfield",
+    "value": "¡Ya es parte de la banda!"
+  },
+  "gta_sub_msgm": {
+    "label": "【Suscriptor】 Mensaje si son varios meses",
+    "type": "textfield",
+    "value": "se suscribió por {amount} meses"
+  },
+  "gta_resub_on": {
+    "label": "【Resub】 Activada",
+    "type": "dropdown",
+    "options": {
+      "si": "Sí",
+      "no": "No"
+    },
+    "value": "si"
+  },
+  "gta_resub_img": {
+    "label": "【Resub】 Sticker",
+    "type": "image-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/sol.png"
+  },
+  "gta_resub_snd": {
+    "label": "【Resub】 Sonido",
+    "type": "sound-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/resub.mp3"
+  },
+  "gta_resub_kicker": {
+    "label": "【Resub】 Texto pequeño",
+    "type": "textfield",
+    "value": "de vuelta"
+  },
+  "gta_resub_word": {
+    "label": "【Resub】 Título",
+    "type": "textfield",
+    "value": "RESUB"
+  },
+  "gta_resub_msg": {
+    "label": "【Resub】 Mensaje ({amount} = cantidad)",
+    "type": "textfield",
+    "value": "{amount} meses en Vice City"
+  },
+  "gta_gift_on": {
+    "label": "【Subs regalados】 Activada",
+    "type": "dropdown",
+    "options": {
+      "si": "Sí",
+      "no": "No"
+    },
+    "value": "si"
+  },
+  "gta_gift_img": {
+    "label": "【Subs regalados】 Sticker",
+    "type": "image-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/avioneta.png"
+  },
+  "gta_gift_snd": {
+    "label": "【Subs regalados】 Sonido",
+    "type": "sound-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/regalos.mp3"
+  },
+  "gta_gift_kicker": {
+    "label": "【Subs regalados】 Texto pequeño",
+    "type": "textfield",
+    "value": "llueven"
+  },
+  "gta_gift_word": {
+    "label": "【Subs regalados】 Título",
+    "type": "textfield",
+    "value": "REGALOS"
+  },
+  "gta_gift_msg": {
+    "label": "【Subs regalados】 Mensaje ({amount} = cantidad)",
+    "type": "textfield",
+    "value": "regaló {amount} subs a la banda"
+  },
+  "gta_tip_on": {
+    "label": "【Donación】 Activada",
+    "type": "dropdown",
+    "options": {
+      "si": "Sí",
+      "no": "No"
+    },
+    "value": "si"
+  },
+  "gta_tip_img": {
+    "label": "【Donación】 Sticker",
+    "type": "image-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/manati.png"
+  },
+  "gta_tip_snd": {
+    "label": "【Donación】 Sonido",
+    "type": "sound-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/donacion.mp3"
+  },
+  "gta_tip_kicker": {
+    "label": "【Donación】 Texto pequeño",
+    "type": "textfield",
+    "value": "nueva"
+  },
+  "gta_tip_word": {
+    "label": "【Donación】 Título",
+    "type": "textfield",
+    "value": "DONACIÓN"
+  },
+  "gta_tip_msg": {
+    "label": "【Donación】 Mensaje ({amount} = cantidad)",
+    "type": "textfield",
+    "value": "donó {amount} ¡gracias!"
+  },
+  "gta_raid_on": {
+    "label": "【Raid】 Activada",
+    "type": "dropdown",
+    "options": {
+      "si": "Sí",
+      "no": "No"
+    },
+    "value": "si"
+  },
+  "gta_raid_img": {
+    "label": "【Raid】 Sticker",
+    "type": "image-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/lowrider.png"
+  },
+  "gta_raid_snd": {
+    "label": "【Raid】 Sonido",
+    "type": "sound-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/raid.mp3"
+  },
+  "gta_raid_kicker": {
+    "label": "【Raid】 Texto pequeño",
+    "type": "textfield",
+    "value": "llegó un"
+  },
+  "gta_raid_word": {
+    "label": "【Raid】 Título",
+    "type": "textfield",
+    "value": "RAID"
+  },
+  "gta_raid_msg": {
+    "label": "【Raid】 Mensaje ({amount} = cantidad)",
+    "type": "textfield",
+    "value": "llega con {amount} espectadores"
+  },
+  "gta_kicks_on": {
+    "label": "【KICKs (Kick)】 Activada",
+    "type": "dropdown",
+    "options": {
+      "si": "Sí",
+      "no": "No"
+    },
+    "value": "si"
+  },
+  "gta_kicks_img": {
+    "label": "【KICKs (Kick)】 Sticker",
+    "type": "image-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/palmera.png"
+  },
+  "gta_kicks_snd": {
+    "label": "【KICKs (Kick)】 Sonido",
+    "type": "sound-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/kicks.mp3"
+  },
+  "gta_kicks_kicker": {
+    "label": "【KICKs (Kick)】 Texto pequeño",
+    "type": "textfield",
+    "value": "llueven"
+  },
+  "gta_kicks_word": {
+    "label": "【KICKs (Kick)】 Título",
+    "type": "textfield",
+    "value": "KICKS"
+  },
+  "gta_kicks_msg": {
+    "label": "【KICKs (Kick)】 Mensaje ({amount} = cantidad)",
+    "type": "textfield",
+    "value": "envió {amount} KICKs"
+  },
+  "gta_cheer_on": {
+    "label": "【Bits (Twitch)】 Activada",
+    "type": "dropdown",
+    "options": {
+      "si": "Sí",
+      "no": "No"
+    },
+    "value": "si"
+  },
+  "gta_cheer_img": {
+    "label": "【Bits (Twitch)】 Sticker",
+    "type": "image-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/vi.png"
+  },
+  "gta_cheer_snd": {
+    "label": "【Bits (Twitch)】 Sonido",
+    "type": "sound-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/bits.mp3"
+  },
+  "gta_cheer_kicker": {
+    "label": "【Bits (Twitch)】 Texto pequeño",
+    "type": "textfield",
+    "value": "llueven"
+  },
+  "gta_cheer_word": {
+    "label": "【Bits (Twitch)】 Título",
+    "type": "textfield",
+    "value": "BITS"
+  },
+  "gta_cheer_msg": {
+    "label": "【Bits (Twitch)】 Mensaje ({amount} = cantidad)",
+    "type": "textfield",
+    "value": "lanzó {amount} bits"
+  },
+  "gta_host_on": {
+    "label": "【Host】 Activada",
+    "type": "dropdown",
+    "options": {
+      "si": "Sí",
+      "no": "No"
+    },
+    "value": "si"
+  },
+  "gta_host_img": {
+    "label": "【Host】 Sticker",
+    "type": "image-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/rstar.png"
+  },
+  "gta_host_snd": {
+    "label": "【Host】 Sonido",
+    "type": "sound-input",
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/host.mp3"
+  },
+  "gta_host_kicker": {
+    "label": "【Host】 Texto pequeño",
+    "type": "textfield",
+    "value": "nuevo"
+  },
+  "gta_host_word": {
+    "label": "【Host】 Título",
+    "type": "textfield",
+    "value": "HOST"
+  },
+  "gta_host_msg": {
+    "label": "【Host】 Mensaje ({amount} = cantidad)",
+    "type": "textfield",
+    "value": "nos hostea con {amount} espectadores"
+  }
+}
