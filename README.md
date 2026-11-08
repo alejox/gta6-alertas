@@ -18,3 +18,8 @@ Este repositorio aloja los recursos públicos (stickers y sonidos) que usan los 
 | KICKs | palmera.png | kicks.mp3 |
 | Bits | vi.png | bits.mp3 |
 | Host | rstar.png | host.mp3 |
+
+## Streamlabs
+
+Instalación en un clic: https://streamlabs.com/profile/share/custom_widget/457073239/4b32285d0994737e295adecad9d4eae3
+(elige "Crear un nuevo tema de widget" → Crear → Usar). El código del Custom Widget está en `streamlabs/`.
