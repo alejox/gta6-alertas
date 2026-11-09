@@ -1,6 +1,22 @@
 # Alertas GTA 6 · Vice City
 
-🎁 Pack de alertas gratis, regalo para la comunidad de **[alejoxcode](https://www.youtube.com/@alejoxcode)** y **[ArgeGaming](https://www.youtube.com/@argegaming)**.
+🎁 Pack de alertas gratis, regalo para la comunidad de **[AlejoxCode](https://www.youtube.com/@alejoxcode)** y **[ArgeGaming](https://www.youtube.com/@argegaming)**.
+
+
+## ⬇️ Descargar
+
+### [👉 Descargar Alertas-GTA6-ViceCity.zip](https://github.com/alejox/gta6-alertas/raw/main/descargas/Alertas-GTA6-ViceCity.zip)
+
+9 alertas animadas (seguidor, sub, resub, regalos, donación, raid, KICKs, bits y host) para **StreamElements** y **Streamlabs**, con stickers y sonidos. Funciona con Kick, Twitch y YouTube.
+
+El zip incluye:
+1. **Instalar en un clic (StreamElements)**: abre el HTML, pega tu JWT y listo.
+2. **Manual**: el código para pegar en un Custom Widget, con los stickers y los sonidos.
+3. **Streamlabs**: instalador en un clic y código manual.
+
+Lee `LEEME.txt` dentro del zip para el paso a paso.
+
+---
 
 Este repositorio aloja los recursos públicos (stickers y sonidos) que usan los widgets de StreamElements y Streamlabs del pack.
 
