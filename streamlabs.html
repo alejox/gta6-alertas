@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instalar · Alertas GTA 6 Vice City (Streamlabs)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Rubik:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--a:#ff3fa4;--b:#7b2cff;--c:#ffb03a;--bg:#120a1c;--card:#1d1129;--line:#ffffff1f;--txt:#f5ecff;--mut:#bfaed6;--ok:#3fd85a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;font-family:Rubik,system-ui,sans-serif;color:var(--txt);
+  background:radial-gradient(900px 500px at 85% -10%,#7b2cff44,transparent 60%),radial-gradient(900px 600px at 0% 110%,#ff3fa433,transparent 60%),var(--bg);
+  display:grid;place-items:center;padding:32px 16px}
+.wrap{width:min(720px,100%)}
+.brand{font-family:Bungee;font-size:13px;letter-spacing:.2em;color:var(--mut);margin-bottom:10px}
+h1{font-family:Bungee;font-size:clamp(28px,5vw,44px);line-height:1.05;
+  background:linear-gradient(180deg,#fff3a1,var(--c) 35%,var(--a) 70%,var(--b));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #2a0b3d)}
+.sub{color:var(--mut);margin:10px 0 24px;line-height:1.5}
+.strip{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.strip img{height:74px;width:auto;filter:drop-shadow(0 6px 12px #0008)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:14px}
+.step{display:flex;gap:14px;align-items:flex-start}
+.num{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-family:Bungee;font-size:15px;background:linear-gradient(135deg,var(--b),var(--a));box-shadow:0 0 18px #ff3fa455}
+.step h2{font-size:17px;font-weight:800;margin:5px 0 6px}
+.step ol,.step p{color:var(--mut);font-size:14px;line-height:1.6}
+.step ol{margin:6px 0 0 18px}
+b{color:var(--txt)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font:800 15px Rubik,sans-serif;color:#fff;text-decoration:none;padding:13px 22px;border-radius:999px;
+  background:linear-gradient(90deg,var(--b),var(--a) 70%,var(--c));box-shadow:0 8px 24px #ff3fa440;margin-top:12px;transition:transform .15s,filter .15s}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.1)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+.btn.ghost{background:#ffffff14;box-shadow:none;border:1px solid var(--line)}
+.field{display:flex;gap:8px;margin-top:12px}
+input{flex:1;min-width:0;background:#0006;border:1px solid var(--line);color:var(--txt);border-radius:12px;padding:12px 14px;font:14px ui-monospace,monospace}
+input:focus{outline:2px solid var(--a);border-color:transparent}
+.note{font-size:12.5px;color:var(--mut);margin-top:10px;line-height:1.5}
+.status{margin-top:14px;font-size:14px;line-height:1.5;display:none;padding:12px 14px;border-radius:12px}
+.status.show{display:block}.status.err{background:#ff547018;border:1px solid #ff547055;color:#ffc2cc}.status.run{background:#ffffff0d;border:1px solid var(--line)}
+.bar{height:6px;background:#ffffff14;border-radius:99px;overflow:hidden;margin-top:10px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--b),var(--a));transition:width .3s}
+.done{display:none;text-align:center}.done.show{display:block}
+.done h2{font-family:Bungee;font-size:26px;margin-bottom:6px;color:var(--ok)}
+.urlbox{display:flex;gap:8px;margin-top:14px}
+
+.gift{position:relative;overflow:hidden;background:linear-gradient(135deg,#7b2cff33,#ff3fa433 60%,#ffb03a26);border:1px solid #ff3fa455;border-radius:18px;padding:20px 22px;margin-bottom:22px;text-align:center}
+.gift::before{content:"";position:absolute;inset:-40%;background:radial-gradient(closest-side,#ff3fa422,transparent);pointer-events:none}
+.gift .tag{font-family:Bungee;font-size:12px;letter-spacing:.18em;color:var(--c)}
+.gift h2{font-size:clamp(18px,3.2vw,22px);font-weight:800;margin:6px 0 4px;line-height:1.3}
+.gift p{color:var(--mut);font-size:14px;margin-bottom:14px}
+.chs{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.ch{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--txt);background:#0006;border:1px solid var(--line);border-radius:999px;padding:7px 18px 7px 7px;transition:transform .15s,border-color .15s,background .15s}
+.ch:hover{transform:translateY(-2px);border-color:#ff3fa4;background:#0009}
+.ch img,.ch .av{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 0 0 3px #ff3fa4,0 6px 16px #0008;flex:none}
+.ch .av{display:grid;place-items:center;font-family:Bungee;font-size:18px;background:linear-gradient(135deg,var(--b),var(--a))}
+.ch b{display:block;font-size:15px}
+.ch small{display:flex;align-items:center;gap:5px;color:var(--mut);font-size:12.5px}
+.ch small::before{content:"";width:14px;height:10px;border-radius:3px;background:#ff0033;clip-path:polygon(0 0,100% 0,100% 100%,0 100%);box-shadow:inset 0 0 0 0 #fff}
+.foot{text-align:center;color:var(--mut);font-size:12px;margin-top:18px}
+.spin{width:16px;height:16px;border:2px solid #fff4;border-top-color:#fff;border-radius:50%;display:inline-block;animation:s 1s linear infinite;vertical-align:-3px;margin-right:6px}
+@keyframes s{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">ALEJOX GAMING · INSTALACIÓN EN UN CLIC</div>
+  <h1>Alertas GTA 6 · Vice City</h1>
+  <p class="sub">Versión para <b>Streamlabs</b>: 9 alertas animadas distintas (seguidor, sub, resub, regalos, donación, raid, KICKs, bits y host) con sus stickers y sonidos ya incluidos. Funciona con Kick, Twitch y YouTube.</p>
+  <div class="gift">
+    <div class="tag">🎁 REGALO PARA LA COMUNIDAD</div>
+    <h2>Este pack es un regalo para la comunidad de <span style="color:#ff7ad9">AlejoxCode</span> y <span style="color:#ffb03a">ArgeGaming</span></h2>
+    <p>Gratis para ti. Si te sirve, pásate por los canales y suscríbete 💜</p>
+    <div class="chs">
+      <a class="ch" href="https://www.youtube.com/@alejoxcode" target="_blank" rel="noopener">
+        <img src="https://yt3.googleusercontent.com/79bl50FPwk6FVe7QoL_IUz_Qejiz3ZHeuXxZUhDDHzhgdW-Slv8klzQBI2MV6P1fY1sBGvnQcX8=s240-c-k-c0x00ffffff-no-rj" alt="AlejoxCode" referrerpolicy="no-referrer" onerror="this.outerHTML='<span class=&quot;av&quot;>A</span>'">
+        <span><b>AlejoxCode</b><small>youtube.com/@alejoxcode</small></span>
+      </a>
+      <a class="ch" href="https://www.youtube.com/@argegaming" target="_blank" rel="noopener">
+        <img src="https://yt3.googleusercontent.com/qX3i5fCjbuBll7IjRABbkxQirT505oD8kTMJK9cCjJnTztdJ0JwDf0FlDc_mVY8HoCOM1FrdM8A=s240-c-k-c0x00ffffff-no-rj" alt="ArgeGaming" referrerpolicy="no-referrer" onerror="this.outerHTML='<span class=&quot;av&quot;>AG</span>'">
+        <span><b>ArgeGaming</b><small>youtube.com/@argegaming</small></span>
+      </a>
+    </div>
+  </div>
+  <div class="strip"><img src="https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/flamenco.png" alt="flamenco"><img src="https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/caiman.png" alt="caiman"><img src="https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/sol.png" alt="sol"><img src="https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/avioneta.png" alt="avioneta"><img src="https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/manati.png" alt="manati"><img src="https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/lowrider.png" alt="lowrider"><img src="https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/palmera.png" alt="palmera"><img src="https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/vi.png" alt="vi"><img src="https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/rstar.png" alt="rstar"></div>
+
+  <div class="card step"><div class="num">1</div><div>
+    <h2>Inicia sesión en Streamlabs</h2>
+    <p>Entra en <a href="https://streamlabs.com/dashboard" target="_blank" rel="noopener" style="color:var(--c)">streamlabs.com/dashboard</a> con la cuenta donde quieres las alertas.</p>
+  </div></div>
+
+  <div class="card step"><div class="num">2</div><div>
+    <h2>Instala el pack</h2>
+    <p>Pulsa el botón. Streamlabs te preguntará dónde guardarlo: elige <b>"Crear un nuevo tema de widget"</b> → <b>Crear</b> (así no tocas tus alertas actuales). Luego, en <b>Temas de widgets</b>, pulsa <b>Usar</b> en el tema nuevo.</p>
+    <a class="btn" href="https://streamlabs.com/profile/share/custom_widget/457073239/4b32285d0994737e295adecad9d4eae3" target="_blank" rel="noopener">⚡ Instalar en Streamlabs</a>
+  </div></div>
+
+  <div class="card step"><div class="num">3</div><div>
+    <h2>Añádelo a OBS / Streamlabs Desktop</h2>
+    <ol>
+      <li>Ve a <b>Todos los widgets → Widget personalizado</b> y pulsa <b>Copiar</b> en "URL del widget".</li>
+      <li>En OBS: <b>Fuente de navegador</b> → pega la URL → <b>1920 × 1080</b> → activa <b>"Controlar audio vía OBS"</b>.</li>
+      <li>Prueba con los botones <b>Probar seguir / suscripción / donación / Bits / Raids</b> de esa misma página.</li>
+    </ol>
+    <p class="note">⚠️ La URL del widget es privada: no la muestres en stream. Si ya usas el Alert Box de Streamlabs en esa escena, ocúltalo para no ver dos alertas a la vez.</p>
+  </div></div>
+
+  <div class="card step"><div class="num">✎</div><div>
+    <h2>Personalízalo sin tocar código</h2>
+    <p>En el widget personalizado, pestaña <b>Campos personalizados</b>: tamaño, duración, volumen, sonido (MP3 del pack / sintetizado / sin sonido), palmeras, moneda, mínimos de donación/bits/KICKs y, para cada evento, activarlo, cambiar sticker, sonido, título y mensaje (<b>{amount}</b> = cantidad). Luego <b>Guardar ajustes</b>.</p>
+  </div></div>
+  <p class="foot">Regalo de <a href="https://www.youtube.com/@alejoxcode" target="_blank" rel="noopener" style="color:var(--mut)">AlejoxCode</a> y <a href="https://www.youtube.com/@argegaming" target="_blank" rel="noopener" style="color:var(--mut)">ArgeGaming</a> para su comunidad · Streamlabs</p>
+</div>
+</body>
+</html>
