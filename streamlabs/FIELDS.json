@@ -83,12 +83,12 @@
   "gta_follow_img": {
     "label": "【Seguidor】 Sticker",
     "type": "image-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/flamenco.png"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/stickers/flamenco.png"
   },
   "gta_follow_snd": {
     "label": "【Seguidor】 Sonido",
     "type": "sound-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/seguidor.mp3"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/sonidos/seguidor.mp3"
   },
   "gta_follow_kicker": {
     "label": "【Seguidor】 Texto pequeño",
@@ -117,12 +117,12 @@
   "gta_sub_img": {
     "label": "【Suscriptor】 Sticker",
     "type": "image-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/caiman.png"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/stickers/caiman.png"
   },
   "gta_sub_snd": {
     "label": "【Suscriptor】 Sonido",
     "type": "sound-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/suscriptor.mp3"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/sonidos/suscriptor.mp3"
   },
   "gta_sub_kicker": {
     "label": "【Suscriptor】 Texto pequeño",
@@ -156,12 +156,12 @@
   "gta_resub_img": {
     "label": "【Resub】 Sticker",
     "type": "image-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/sol.png"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/stickers/sol.png"
   },
   "gta_resub_snd": {
     "label": "【Resub】 Sonido",
     "type": "sound-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/resub.mp3"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/sonidos/resub.mp3"
   },
   "gta_resub_kicker": {
     "label": "【Resub】 Texto pequeño",
@@ -190,12 +190,12 @@
   "gta_gift_img": {
     "label": "【Subs regalados】 Sticker",
     "type": "image-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/avioneta.png"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/stickers/avioneta.png"
   },
   "gta_gift_snd": {
     "label": "【Subs regalados】 Sonido",
     "type": "sound-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/regalos.mp3"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/sonidos/regalos.mp3"
   },
   "gta_gift_kicker": {
     "label": "【Subs regalados】 Texto pequeño",
@@ -224,12 +224,12 @@
   "gta_tip_img": {
     "label": "【Donación】 Sticker",
     "type": "image-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/manati.png"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/stickers/manati.png"
   },
   "gta_tip_snd": {
     "label": "【Donación】 Sonido",
     "type": "sound-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/donacion.mp3"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/sonidos/donacion.mp3"
   },
   "gta_tip_kicker": {
     "label": "【Donación】 Texto pequeño",
@@ -258,12 +258,12 @@
   "gta_raid_img": {
     "label": "【Raid】 Sticker",
     "type": "image-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/lowrider.png"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/stickers/lowrider.png"
   },
   "gta_raid_snd": {
     "label": "【Raid】 Sonido",
     "type": "sound-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/raid.mp3"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/sonidos/raid.mp3"
   },
   "gta_raid_kicker": {
     "label": "【Raid】 Texto pequeño",
@@ -292,12 +292,12 @@
   "gta_kicks_img": {
     "label": "【KICKs (Kick)】 Sticker",
     "type": "image-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/palmera.png"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/stickers/palmera.png"
   },
   "gta_kicks_snd": {
     "label": "【KICKs (Kick)】 Sonido",
     "type": "sound-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/kicks.mp3"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/sonidos/kicks.mp3"
   },
   "gta_kicks_kicker": {
     "label": "【KICKs (Kick)】 Texto pequeño",
@@ -326,12 +326,12 @@
   "gta_cheer_img": {
     "label": "【Bits (Twitch)】 Sticker",
     "type": "image-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/vi.png"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/stickers/vi.png"
   },
   "gta_cheer_snd": {
     "label": "【Bits (Twitch)】 Sonido",
     "type": "sound-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/bits.mp3"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/sonidos/bits.mp3"
   },
   "gta_cheer_kicker": {
     "label": "【Bits (Twitch)】 Texto pequeño",
@@ -360,12 +360,12 @@
   "gta_host_img": {
     "label": "【Host】 Sticker",
     "type": "image-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/stickers/rstar.png"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/stickers/rstar.png"
   },
   "gta_host_snd": {
     "label": "【Host】 Sonido",
     "type": "sound-input",
-    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d25f261e02d515ce0005103410597700fba0fc80/sonidos/host.mp3"
+    "value": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@a1b91a5ce23117799f1cbb694c03bb1f7f7439c2/sonidos/host.mp3"
   },
   "gta_host_kicker": {
     "label": "【Host】 Texto pequeño",
