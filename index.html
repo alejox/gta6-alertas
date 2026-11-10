@@ -106,7 +106,6 @@ input:focus{outline:2px solid var(--a);border-color:transparent}
           <button class="btn ghost" id="show" type="button" style="margin:0">👁</button>
         </div>
         <button class="btn" id="install" disabled>⚡ Instalar en StreamElements</button>
-        <button class="btn ghost" id="coverOnly" disabled style="margin-left:6px">🖼 Ya lo tengo: solo ponerle la portada</button>
         <p class="note">🔒 El token se usa solo para hablar con la API oficial de StreamElements (api.streamelements.com) y crear el overlay y subir los stickers y sonidos a tu biblioteca. No se guarda ni se envía a ningún otro sitio. Si quieres, regenéralo después en el mismo panel.</p>
         <div class="status" id="status"></div>
       </div>
@@ -214,37 +213,6 @@ btn.onclick = async () => {
     btn.disabled = false;
   }
 };
-// Solo portada: para un overlay de este pack que ya está instalado
-const cbtn = $('coverOnly');
-if (cbtn) {
-  jwt.addEventListener('input', () => { cbtn.disabled = !/^eyJ[\w-]+\.[\w-]+\.[\w-]+$/.test(clean(jwt.value)); });
-  cbtn.onclick = async () => {
-    const token = clean(jwt.value); cbtn.disabled = true; btn.disabled = true;
-    try {
-      show('run', '<span class="spin"></span>Buscando tus overlays…', 10);
-      const me = await call('/channels/me', token);
-      const list = await call('/overlays/' + me._id + '?limit=100', token);
-      const arr = Array.isArray(list) ? list : (list.docs || list.overlays || list.data || []);
-      const names = [PACK.title].concat(PACK.altTitles || []);
-      const mine = arr.filter(o => names.includes(o.name));
-      if (!mine.length) { show('err', 'No encontré ningún overlay llamado <b>' + PACK.title.replace(/[<>]/g,'') + '</b> en esta cuenta. Usa "Instalar" para crearlo con la portada.'); cbtn.disabled = false; btn.disabled = false; return; }
-      show('run', '<span class="spin"></span>Subiendo la portada…', 40);
-      const fd = new FormData(); fd.append('file', dataUrlToBlob(PACK.cover), `${PACK.slug}-portada.jpg`);
-      const url = (await call('/uploads/' + me._id, token, { method: 'POST', body: fd })).url;
-      for (let i = 0; i < mine.length; i++) {
-        show('run', '<span class="spin"></span>Poniendo la portada… (' + (i + 1) + '/' + mine.length + ')', 50 + 50 * (i + 1) / mine.length);
-        const full = await call('/overlays/' + me._id + '/' + mine[i]._id, token);
-        full.preview = url;
-        await call('/overlays/' + me._id + '/' + mine[i]._id, token, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(full) });
-      }
-      show('ok', '✅ Listo: le puse la portada a ' + mine.length + ' overlay(s). Recarga "My Overlays" en StreamElements para verla.');
-      jwt.value = '';
-    } catch (e) {
-      show('err', (e.status === 401 || e.status === 403) ? 'StreamElements rechazó el token. Vuelve a copiar el <b>JWT Token</b> completo.' : 'No se pudo poner la portada: ' + String(e.message).replace(/[<>]/g, ''));
-      cbtn.disabled = false; btn.disabled = false;
-    }
-  };
-}
 $('copy').onclick = async () => { try { await navigator.clipboard.writeText($('obsUrl').value); } catch (e) { $('obsUrl').select(); document.execCommand('copy'); } $('copy').textContent = '¡Copiada!'; setTimeout(() => $('copy').textContent = 'Copiar', 1800); };
 })();
 </script>
