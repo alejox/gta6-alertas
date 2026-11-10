@@ -5,6 +5,8 @@
 
 ## ⬇️ Descargar
 
+![Alertas GTA 6 · Vice City](portada.jpg)
+
 ### [👉 Descargar Alertas-GTA6-ViceCity.zip](https://github.com/alejox/gta6-alertas/raw/main/descargas/Alertas-GTA6-ViceCity.zip)
 
 9 alertas animadas (seguidor, sub, resub, regalos, donación, raid, KICKs, bits y host) para **StreamElements** y **Streamlabs**, con stickers y sonidos. Funciona con Kick, Twitch y YouTube.
