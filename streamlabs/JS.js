@@ -225,13 +225,16 @@ const SFX=(()=>{
   // dentro del widget; en OBS no hace falta. Esto lo desbloquea al primer clic/tecla.
   const unlock=()=>{ try{ init(); ctx.resume(); }catch(e){} };
   ['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,unlock,{passive:true}));
-  function playFile(url,delay){
-    const a=new Audio(url); a.volume=Math.min(1,CFG.volume*1.4); a.preload='auto';
-    setTimeout(()=>{ a.play().catch(()=>{}); }, Math.max(0,delay-500));
+  const AUD={};
+  function playFile(url){   // el MP3 arranca en el segundo 0, junto con la animación
+    let a=AUD[url]; if(!a){ a=new Audio(url); a.preload='auto'; AUD[url]=a; }
+    a.volume=Math.min(1,CFG.volume*1.4);
+    try{ a.pause(); a.currentTime=0; }catch(e){}
+    a.play().catch(()=>{});
   }
   function play(t,delay){
     if(muted||!CFG.sound)return;
-    if(t.sound){ playFile(t.sound,delay); return; }
+    if(t.sound){ playFile(t.sound); return; }
     init(); if(ctx.state==='suspended') ctx.resume().catch(()=>{});
     const s=t.sfx, t0=ctx.currentTime, ti=t0+delay/1000;
     // whoosh
