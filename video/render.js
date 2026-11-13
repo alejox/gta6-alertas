@@ -10,6 +10,7 @@
      NOMBRE="Usuario"   nombre que aparece en la placa
      SIN_NOMBRE=1       oculta la placa del nombre y el mensaje
      FPS=60  W=1920  H=1080  HOLD=6  (segundos en pantalla)
+     CRF=38             calidad del WebM (más bajo = mejor y más pesado)
      FORMATOS=webm      (webm = VP9 alfa + Opus; añade ,mov para ProRes 4444 alfa + AAC,
                         para Premiere/Final Cut/DaVinci: pesa cientos de MB)
      SALIDA=video/salida
@@ -26,6 +27,7 @@ const FPS = +process.env.FPS || 60;
 const W = +process.env.W || 1920;
 const H = +process.env.H || 1080;
 const HOLD = +process.env.HOLD || 6;
+const CRF = +process.env.CRF || 38;
 const NOMBRE = process.env.NOMBRE || 'Usuario';
 const SIN_NOMBRE = !!process.env.SIN_NOMBRE;
 const FORMATOS = (process.env.FORMATOS || 'webm').split(',').map(s => s.trim()).filter(Boolean);
@@ -159,7 +161,7 @@ async function renderAlerta(browser, tipo) {
   const largo = Math.max(total / FPS, audioDur).toFixed(3);
   if (FORMATOS.includes('webm')) {
     await ffmpeg([...entrada, ...pad, '-t', largo,
-      '-c:v', 'libvpx-vp9', '-pix_fmt', 'yuva420p', '-b:v', '0', '-crf', '28', '-row-mt', '1', '-deadline', 'good', '-cpu-used', '2',
+      '-c:v', 'libvpx-vp9', '-pix_fmt', 'yuva420p', '-b:v', '0', '-crf', String(CRF), '-row-mt', '1', '-deadline', 'good', '-cpu-used', '2',
       '-auto-alt-ref', '0', '-metadata:s:v:0', 'alpha_mode=1',
       '-c:a', 'libopus', '-b:a', '160k', base + '.webm']);
   }

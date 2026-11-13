@@ -1,0 +1,37 @@
+ALERTAS GTA 6 · VICE CITY — VERSIÓN VIDEO
+==========================================
+Regalo para la comunidad de AlejoxCode y ArgeGaming.
+
+9 alertas en video WebM (VP9) con FONDO TRANSPARENTE (canal alfa) y su
+sonido incluido. 1920x1080, 60 fps, unos 7 segundos cada una.
+
+CARPETAS
+  con-nombre/   La alerta completa con un nombre de ejemplo ("Usuario")
+                y el mensaje.
+  sin-nombre/   Sin la placa del nombre ni el mensaje, para plataformas
+                que ponen su propio texto encima (alertbox de
+                StreamElements o Streamlabs, Botrix, etc.).
+
+ARCHIVOS
+  seguidor.webm    Seguidor
+  suscriptor.webm  Suscriptor
+  resub.webm       Resub
+  regalos.webm     Subs regalados
+  donacion.webm    Donación
+  raid.webm        Raid
+  kicks.webm       KICKs
+  bits.webm        Bits
+  host.webm        Host
+
+CÓMO USARLOS
+  OBS: Fuente > Fuente multimedia > elige el .webm. La transparencia
+       funciona sola. Marca "Reiniciar la reproducción cuando la
+       fuente se active" y "Ocultar la fuente cuando termine la
+       reproducción".
+  StreamElements / Streamlabs (alertbox): sube el .webm como imagen o
+       video de la alerta. Como ya lleva el sonido, deja el sonido de la
+       alerta vacío o en volumen 0 para que no suene dos veces.
+  Editores de video: DaVinci Resolve y los navegadores leen la
+       transparencia del WebM. Premiere y Final Cut necesitan
+       ProRes 4444; genéralo con el script video/render.js del
+       repositorio (FORMATOS=mov).
