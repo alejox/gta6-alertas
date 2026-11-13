@@ -18,6 +18,17 @@ El zip incluye:
 
 Lee `LEEME.txt` dentro del zip para el paso a paso.
 
+### 🎬 Versión video (fondo transparente + sonido)
+
+### [👉 Descargar Alertas-GTA6-Video.zip](https://github.com/alejox/gta6-alertas/raw/main/descargas/Alertas-GTA6-Video.zip)
+
+Las 9 alertas en **WebM (VP9) con canal alfa** y su sonido incluido: 1920x1080, 60 fps, ~7 s cada una. Sirven como fuente multimedia en OBS o como video de alerta en el alertbox de StreamElements o Streamlabs.
+
+- `con-nombre/`: la alerta completa con un nombre de ejemplo ("Usuario").
+- `sin-nombre/`: sin la placa del nombre ni el mensaje, para plataformas que ponen su propio texto encima.
+
+También se pueden bajar sueltos desde [`descargas/videos/`](descargas/videos). Para regenerarlos (otro nombre, otra resolución o MOV ProRes 4444 para Premiere/Final Cut) usa `video/render.js`; las opciones están al inicio del archivo.
+
 ---
 
 Este repositorio aloja los recursos públicos (stickers y sonidos) que usan los widgets de StreamElements y Streamlabs del pack.
