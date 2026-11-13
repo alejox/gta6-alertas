@@ -5,12 +5,10 @@ Regalo para la comunidad de AlejoxCode y ArgeGaming.
 9 alertas en video WebM (VP9) con FONDO TRANSPARENTE (canal alfa) y su
 sonido incluido. 1920x1080, 60 fps, unos 7 segundos cada una.
 
-CARPETAS
-  con-nombre/   La alerta completa con un nombre de ejemplo ("Usuario")
-                y el mensaje.
-  sin-nombre/   Sin la placa del nombre ni el mensaje, para plataformas
-                que ponen su propio texto encima (alertbox de
-                StreamElements o Streamlabs, Botrix, etc.).
+LA PLACA DEL NOMBRE VA VACÍA
+  El recuadro de color donde va el nombre aparece en el video, pero sin
+  texto. Así el nombre lo pone StreamElements (o Streamlabs) con el texto
+  de la alerta: usa {name} y colócalo encima del recuadro.
 
 ARCHIVOS
   seguidor.webm    Seguidor
@@ -31,6 +29,11 @@ CÓMO USARLOS
   StreamElements / Streamlabs (alertbox): sube el .webm como imagen o
        video de la alerta. Como ya lleva el sonido, deja el sonido de la
        alerta vacío o en volumen 0 para que no suene dos veces.
+       En el texto de la alerta deja solo {name} (o {name} y {amount}),
+       con letra blanca, cursiva y negrita (por ejemplo Rubik 900 Italic),
+       y muévelo hasta que quede dentro del recuadro. El recuadro aparece
+       a los ~0,9 s (a los ~1,2 s en Regalos y Raid) y se va a los ~6 s.
+       En StreamElements usa el diseño "texto sobre la imagen".
   Editores de video: DaVinci Resolve y los navegadores leen la
        transparencia del WebM. Premiere y Final Cut necesitan
        ProRes 4444; genéralo con el script video/render.js del

@@ -24,8 +24,7 @@ Lee `LEEME.txt` dentro del zip para el paso a paso.
 
 Las 9 alertas en **WebM (VP9) con canal alfa** y su sonido incluido: 1920x1080, 60 fps, ~7 s cada una. Sirven como fuente multimedia en OBS o como video de alerta en el alertbox de StreamElements o Streamlabs.
 
-- `con-nombre/`: la alerta completa con un nombre de ejemplo ("Usuario").
-- `sin-nombre/`: sin la placa del nombre ni el mensaje, para plataformas que ponen su propio texto encima.
+El recuadro del nombre va **vacío**, para que el nombre lo ponga StreamElements (o Streamlabs) con el texto de la alerta (`{name}`) colocado encima.
 
 También se pueden bajar sueltos desde [`descargas/videos/`](descargas/videos). Para regenerarlos (otro nombre, otra resolución o MOV ProRes 4444 para Premiere/Final Cut) usa `video/render.js`; las opciones están al inicio del archivo.
 

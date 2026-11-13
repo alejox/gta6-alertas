@@ -7,8 +7,9 @@
      node video/render.js                  # las 9 alertas
      node video/render.js follow raid      # solo algunas
    Opciones (variables de entorno):
-     NOMBRE="Usuario"   nombre que aparece en la placa
-     SIN_NOMBRE=1       oculta la placa del nombre y el mensaje
+     (por defecto la placa del nombre sale vacía y sin mensaje, para poner
+      el nombre encima con el texto de la alerta de StreamElements)
+     NOMBRE="Usuario"   escribe ese nombre en la placa y muestra el mensaje
      FPS=60  W=1920  H=1080  HOLD=6  (segundos en pantalla)
      CRF=38             calidad del WebM (más bajo = mejor y más pesado)
      FORMATOS=webm      (webm = VP9 alfa + Opus; añade ,mov para ProRes 4444 alfa + AAC,
@@ -28,8 +29,7 @@ const W = +process.env.W || 1920;
 const H = +process.env.H || 1080;
 const HOLD = +process.env.HOLD || 6;
 const CRF = +process.env.CRF || 38;
-const NOMBRE = process.env.NOMBRE || 'Usuario';
-const SIN_NOMBRE = !!process.env.SIN_NOMBRE;
+const NOMBRE = process.env.NOMBRE || '';
 const FORMATOS = (process.env.FORMATOS || 'webm').split(',').map(s => s.trim()).filter(Boolean);
 const SALIDA = path.resolve(process.env.SALIDA || path.join(__dirname, 'salida'));
 
@@ -96,7 +96,8 @@ function paginaWidget() {
   const html = fs.readFileSync(path.join(ROOT, 'streamlabs/HTML.html'), 'utf8');
   const css = fs.readFileSync(path.join(ROOT, 'streamlabs/CSS.css'), 'utf8');
   const js = fs.readFileSync(path.join(ROOT, 'streamlabs/JS.js'), 'utf8');
-  const extra = SIN_NOMBRE ? '.plate,.msg{display:none!important}' : '';
+  // Placa vacía: el texto queda invisible pero conserva el alto, y la placa un ancho fijo
+  const extra = NOMBRE ? '' : '.msg{display:none!important}.name{visibility:hidden}.plate{min-width:560px}';
   return `<!doctype html><html><head><meta charset="utf-8"><style>${css}\n${extra}</style></head>
 <body>${html}<script>${js}</script></body></html>`;
 }
@@ -136,7 +137,7 @@ async function renderAlerta(browser, tipo) {
 
   await page.evaluate(({ tipo, nombre, amount }) => {
     window.playAlert({ type: tipo, name: nombre, amount, message: '' });
-  }, { tipo, nombre: NOMBRE, amount: cfg.amount || 0 });
+  }, { tipo, nombre: NOMBRE || 'Usuario', amount: cfg.amount || 0 });
   await page.waitForFunction(() => document.getElementById('alert').classList.contains('on'));
   const t0 = await page.evaluate(() => window.__vt());
   await page.evaluate(() => window.__sync());
