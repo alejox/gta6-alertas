@@ -28,6 +28,14 @@ El recuadro del nombre va **vacío**, para que el nombre lo ponga StreamElements
 
 También se pueden bajar sueltos desde [`descargas/videos/`](descargas/videos). Para regenerarlos (otro nombre, otra resolución o MOV ProRes 4444 para Premiere/Final Cut) usa `video/render.js`; las opciones están al inicio del archivo.
 
+### 🌴 Escenas (intro, pausa, vuelvo, salida, juego, hablar y transición)
+
+### [👉 Descargar Alertas-GTA6-Escenas.zip](https://github.com/alejox/gta6-alertas/raw/main/descargas/Alertas-GTA6-Escenas.zip)
+
+![Intro](descargas/escenas/intro.png)
+
+Escenas animadas 1920x1080 para OBS como fuente de navegador (`escenas/index.html?escena=intro&canal=TuCanal`), con textos editables desde la dirección, más una transición stinger en WebM transparente (punto de transición: 750 ms) y las versiones en PNG. Instrucciones en el `LEEME.txt` del zip.
+
 ---
 
 Este repositorio aloja los recursos públicos (stickers y sonidos) que usan los widgets de StreamElements y Streamlabs del pack.

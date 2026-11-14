@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Escenas GTA 6 · Vice City</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Pacifico&family=Rubik:ital,wght@0,700;1,800;1,900&display=block" rel="stylesheet">
+<!--
+  ESCENAS GTA 6 · VICE CITY — fuente de navegador para OBS (1920x1080)
+  Elige la escena con ?escena=  intro | pausa | vuelvo | fin | juego | hablar | transicion
+  Opciones:  canal=TuCanal   kicker=...  titulo=...  sub=...  min=5 (cuenta atrás)
+             cam=der (cámara a la derecha en "juego")   l1= l2= l3= (textos de las placas)
+  Sin ?escena se abre el menú con todas.
+-->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:transparent}
+body{font-family:'Rubik',sans-serif;-webkit-font-smoothing:antialiased}
+body.menu{background:#0d0616;overflow:auto}
+:root{--s1:#1b0638;--s2:#6a2cff;--s3:#ff3fa4;--s4:#ffb03a;--s5:#ffe9a8;--accent:#ff3fa4;--accent2:#7b2cff;--ink:#16052a;--glow:rgba(255,63,164,.6)}
+.t-intro{--s1:#1b0638;--s2:#6a2cff;--s3:#ff3fa4;--s4:#ffb03a;--s5:#ffe9a8;--accent:#ff3fa4;--accent2:#7b2cff;--ink:#1d0726;--glow:rgba(255,63,164,.6)}
+.t-vuelvo{--s1:#031c26;--s2:#0b6f86;--s3:#22d3a6;--s4:#b9f56a;--s5:#f3ffc4;--accent:#22d3a6;--accent2:#0b6fb8;--ink:#04202a;--glow:rgba(34,211,166,.6)}
+.t-pausa{--s1:#0f0536;--s2:#3b1fd1;--s3:#9b4bff;--s4:#ff7ad9;--s5:#ffd6f5;--accent:#a04bff;--accent2:#3b3bff;--ink:#12063a;--glow:rgba(160,75,255,.65)}
+.t-fin{--s1:#2a0714;--s2:#b0243a;--s3:#ff7a1f;--s4:#ffc93a;--s5:#fff1b0;--accent:#ff8f1f;--accent2:#d0246b;--ink:#2a0a12;--glow:rgba(255,143,31,.6)}
+
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden}
+
+/* ---------- piezas de paisaje ---------- */
+.sky{position:absolute;inset:0;background:linear-gradient(180deg,var(--s1) 0%,var(--s2) 34%,var(--s3) 62%,var(--s4) 84%,var(--s5) 100%)}
+.sun{position:absolute;border-radius:50%;background:linear-gradient(180deg,#fff7c2 0%,var(--s4) 40%,var(--s3) 100%);
+  -webkit-mask-image:repeating-linear-gradient(180deg,#000 0 22px,transparent 22px 30px),linear-gradient(180deg,#000 52%,transparent 52%);-webkit-mask-composite:source-over;
+  filter:drop-shadow(0 0 60px var(--glow))}
+.sun.b{-webkit-mask-image:linear-gradient(180deg,#000 0 50%,transparent 50%),repeating-linear-gradient(180deg,#000 0 16px,transparent 16px 30px)}
+.city{position:absolute;left:0;right:0;bottom:0}
+.city svg{position:absolute;inset:0;width:100%;height:100%}
+.grid{position:absolute;left:-50%;right:-50%;bottom:0;height:46%;transform-origin:50% 0;transform:perspective(420px) rotateX(62deg);
+  background:linear-gradient(180deg,var(--ink),transparent 70%),
+   repeating-linear-gradient(90deg,var(--accent) 0 3px,transparent 3px 120px),
+   repeating-linear-gradient(180deg,var(--accent) 0 3px,transparent 3px 90px),var(--ink);
+  animation:road 1.6s linear infinite;opacity:.95}
+@keyframes road{to{background-position:0 0,0 0,0 90px,0 0}}
+.palm{position:absolute;bottom:0;transform-origin:50% 100%;animation:sway 5s ease-in-out infinite alternate}
+.palm svg{width:100%;height:100%;overflow:visible}
+.palm .body{fill:var(--ink)} .palm .rim{fill:none;stroke:var(--s3);stroke-width:2.2;stroke-linecap:round;opacity:.9}
+.palm.f svg{transform:scaleX(-1)}
+@keyframes sway{from{transform:rotate(-2.2deg)}to{transform:rotate(2.2deg)}}
+.stk{position:absolute;object-fit:contain;filter:drop-shadow(0 14px 0 rgba(0,0,0,.35)) drop-shadow(0 0 30px var(--glow));animation:bob 3.2s ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(0) rotate(-2deg)}to{transform:translateY(-18px) rotate(2deg)}}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.9) 1.2px,transparent 1.6px),radial-gradient(rgba(255,255,255,.6) 1px,transparent 1.4px);background-size:140px 120px,90px 70px;background-position:20px 30px,60px 10px;
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent 55%);animation:tw 2.4s ease-in-out infinite alternate}
+@keyframes tw{to{opacity:.45}}
+.halft{position:absolute;inset:0;background-image:radial-gradient(rgba(0,0,0,.16) 2px,transparent 2.6px);background-size:10px 10px;-webkit-mask-image:linear-gradient(200deg,transparent 35%,#000);mix-blend-mode:multiply}
+
+/* ---------- collage de paneles inclinados ---------- */
+.collage{position:absolute;inset:0;background:#07030d}
+.pn{position:absolute;inset:0;opacity:0;animation:pin .9s cubic-bezier(.16,1,.3,1) forwards}
+.pn .in{position:absolute;inset:-40px;animation:pan 16s ease-in-out infinite alternate}
+.pn:nth-child(even) .in{animation-direction:alternate-reverse}
+@keyframes pin{from{opacity:0;transform:translate(var(--fx,0),var(--fy,60px))}to{opacity:1;transform:none}}
+@keyframes pan{from{transform:translateX(-26px) scale(1.04)}to{transform:translateX(26px) scale(1.04)}}
+.pn .tint{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.45))}
+.pn.dim .in{filter:saturate(.9) brightness(.62)}
+.sweep{position:absolute;inset:0;background:linear-gradient(105deg,transparent 44%,rgba(255,255,255,.16) 50%,transparent 56%);background-size:300% 100%;animation:sweep 6s ease-in-out infinite;mix-blend-mode:screen;pointer-events:none}
+@keyframes sweep{0%{background-position:150% 0}60%,100%{background-position:-50% 0}}
+.vig{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 45%,rgba(0,0,0,.55) 100%);pointer-events:none}
+
+/* ---------- título ---------- */
+.hero{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-4deg);z-index:5}
+.over{font-weight:700;letter-spacing:.62em;font-size:26px;color:#fff;text-shadow:0 3px 0 var(--ink),0 0 18px var(--glow);margin-bottom:6px;padding-left:.62em;opacity:0;animation:up .6s .5s cubic-bezier(.16,1,.3,1) forwards}
+.kick{font-family:'Pacifico',cursive;font-size:104px;line-height:1;color:var(--accent);align-self:center;margin:0 0 -22px -520px;z-index:3;position:relative;transform:rotate(-6deg);white-space:nowrap;
+  text-shadow:4px 0 #fff,-4px 0 #fff,0 4px #fff,0 -4px #fff,3px 3px #fff,-3px 3px #fff,3px -3px #fff,-3px -3px #fff,6px 2px #fff,-6px 2px #fff,2px 6px #fff,2px -6px #fff,5px 5px #fff,-5px 5px #fff,5px -5px #fff,-5px -5px #fff,0 12px 0 var(--ink),7px 12px 0 var(--ink),-7px 12px 0 var(--ink),0 18px 30px rgba(0,0,0,.5);
+  opacity:0;animation:kin .6s .95s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes kin{from{opacity:0;transform:rotate(-30deg) scale(0)}to{opacity:1;transform:rotate(-6deg) scale(1)}}
+.word{font-family:'Bungee',sans-serif;font-size:210px;line-height:.95;display:grid;white-space:nowrap;opacity:0;animation:slam .6s .6s cubic-bezier(.55,0,1,.45) forwards}
+.word>span{grid-area:1/1;text-align:center;position:relative}
+.word .d{z-index:1}.word .s{z-index:2}.word .f{z-index:3}
+.word .d{color:var(--ink);-webkit-text-stroke:40px var(--ink);transform:translateY(20px);filter:drop-shadow(0 26px 30px rgba(0,0,0,.6))}
+.word .s{color:#fff;-webkit-text-stroke:24px #fff}
+.word .f{color:transparent;background-image:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.95) 50%,transparent 58%),linear-gradient(180deg,#fff 0%,var(--s4) 30%,var(--s3) 64%,var(--s2) 100%);
+  background-size:300% 100%,100% 100%;background-position:150% 0,0 0;background-repeat:no-repeat;-webkit-background-clip:text;background-clip:text;animation:shine 3.4s 1.6s ease-in-out infinite}
+@keyframes shine{0%{background-position:150% 0,0 0}55%,100%{background-position:-50% 0,0 0}}
+@keyframes slam{from{opacity:0;transform:scale(2.4);filter:blur(14px)}70%{opacity:1;transform:scale(.94);filter:blur(0)}to{opacity:1;transform:scale(1)}}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.row{display:flex;align-items:center;gap:26px;margin-top:26px;opacity:0;animation:up .6s 1.3s cubic-bezier(.16,1,.3,1) forwards}
+.pill{transform:skewX(-12deg);padding:12px 40px 14px;border:4px solid #fff;border-radius:10px;background:linear-gradient(90deg,var(--accent2),var(--accent) 70%,var(--s4));box-shadow:0 9px 0 var(--ink),0 16px 36px rgba(0,0,0,.5),0 0 36px var(--glow);position:relative;overflow:hidden}
+.pill b{display:block;transform:skewX(12deg);font-weight:900;font-style:italic;font-size:40px;color:#fff;text-shadow:0 4px 0 rgba(0,0,0,.4);white-space:nowrap}
+.pill::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 45%,transparent 60%);transform:translateX(-120%);animation:ps 3.4s 2s ease-in-out infinite}
+@keyframes ps{0%{transform:translateX(-120%)}50%,100%{transform:translateX(120%)}}
+.stars{display:flex;gap:8px}
+.stars i{width:46px;height:46px;background:#fff;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);filter:drop-shadow(0 4px 0 var(--ink));animation:wanted 2.4s ease-in-out infinite}
+.stars i:nth-child(2){animation-delay:.15s}.stars i:nth-child(3){animation-delay:.3s}.stars i:nth-child(4){animation-delay:.45s}.stars i:nth-child(5){animation-delay:.6s}
+@keyframes wanted{0%,55%,100%{opacity:1;transform:scale(1)}65%{opacity:.25;transform:scale(.8)}75%{opacity:1;transform:scale(1.15)}}
+.stars.sm i{width:26px;height:26px}
+.count{font-family:'Bungee',sans-serif;font-size:58px;color:#fff;text-shadow:0 5px 0 var(--ink),0 0 24px var(--glow);min-width:190px;text-align:center}
+.tag{position:absolute;z-index:6;display:flex;align-items:center;gap:16px;font-family:'Bungee',sans-serif;font-size:30px;color:#fff;text-shadow:0 4px 0 var(--ink),0 0 18px var(--glow)}
+.tag.bl{left:72px;bottom:60px}.tag.tr{right:72px;top:58px}
+.live{display:inline-block;width:18px;height:18px;border-radius:50%;background:#ff2b4f;box-shadow:0 0 0 4px #fff,0 0 20px #ff2b4f;animation:tw 1s ease-in-out infinite alternate}
+
+/* ---------- marcos y placas (juego / hablar) ---------- */
+.frame{position:absolute;border-radius:18px;box-shadow:0 12px 0 var(--ink),0 22px 50px rgba(0,0,0,.5),0 0 44px var(--glow)}
+.frame::before{content:"";position:absolute;inset:0;border-radius:18px;padding:9px;background:linear-gradient(120deg,var(--accent2),var(--accent) 55%,var(--s4));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.frame::after{content:"";position:absolute;inset:9px;border-radius:10px;border:3px solid #fff;box-shadow:inset 0 0 0 3px var(--ink)}
+.frame .cut{position:absolute;right:-22px;top:-26px;z-index:2}
+.plate{position:absolute;transform:skewX(-12deg);padding:10px 34px 12px;border:4px solid #fff;border-radius:10px;background:linear-gradient(90deg,var(--accent2),var(--accent) 70%,var(--s4));box-shadow:0 8px 0 var(--ink),0 14px 30px rgba(0,0,0,.45),0 0 30px var(--glow);overflow:hidden;white-space:nowrap}
+.plate>span{display:flex;align-items:center;gap:14px;transform:skewX(12deg);font-weight:900;font-style:italic;font-size:34px;color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.45)}
+.plate::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.5) 45%,transparent 60%);transform:translateX(-120%);animation:ps 5s 1s ease-in-out infinite}
+.lab{position:absolute;display:flex;align-items:stretch;transform:skewX(-12deg);border:3px solid #fff;border-radius:9px;overflow:hidden;box-shadow:0 7px 0 var(--ink),0 12px 26px rgba(0,0,0,.45);height:62px}
+.lab .ic{width:66px;display:grid;place-items:center;background:var(--ink)}
+.lab .ic i{width:30px;height:30px;background:var(--accent);transform:skewX(12deg)}
+.lab .tx{display:flex;flex-direction:column;justify-content:center;padding:0 26px 0 16px;background:linear-gradient(90deg,rgba(22,5,42,.92),rgba(22,5,42,.72));min-width:250px}
+.lab .tx small{transform:skewX(12deg);font-weight:700;font-size:15px;letter-spacing:.2em;color:var(--s4);text-transform:uppercase;line-height:1.1}
+.lab .tx b{transform:skewX(12deg);font-weight:900;font-style:italic;font-size:26px;color:#fff;line-height:1.1;white-space:nowrap}
+.i-heart{clip-path:path("M15 28 C-6 12 4 -2 15 7 C26 -2 36 12 15 28Z")}
+.i-star{clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.i-coin{border-radius:50%;box-shadow:inset 0 0 0 5px rgba(0,0,0,.3)}
+.chat{position:absolute;border-radius:18px;background:linear-gradient(180deg,rgba(22,5,42,.82),rgba(22,5,42,.62));backdrop-filter:blur(2px)}
+.chat h3{position:absolute;left:30px;top:22px;font-family:'Bungee',sans-serif;font-weight:400;font-size:28px;color:#fff;text-shadow:0 3px 0 var(--ink);display:flex;gap:12px;align-items:center}
+.chat .ln{position:absolute;left:30px;right:30px;top:72px;height:3px;background:linear-gradient(90deg,var(--accent),transparent)}
+.enter{opacity:0;animation:up .7s cubic-bezier(.16,1,.3,1) forwards}
+
+/* ---------- transición ---------- */
+.band{position:absolute;top:-10%;height:120%;left:-25%;width:150%;transform:translateX(-130%) skewX(-12deg);will-change:transform}
+.band.k{background:var(--ink);overflow:hidden}
+.band.k::after{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--accent2) 2.4px,transparent 3px);background-size:22px 22px;opacity:.5;-webkit-mask-image:linear-gradient(200deg,transparent 30%,#000)}
+.emb{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transform:scale(0);z-index:3}
+.emb img{width:640px;height:420px;object-fit:contain;filter:drop-shadow(0 14px 0 rgba(0,0,0,.4)) drop-shadow(0 0 40px var(--glow))}
+.emb .stars i{width:64px;height:64px;animation:none}
+
+/* ---------- menú ---------- */
+.menu #stage{display:none}
+#menu{max-width:1200px;margin:0 auto;padding:40px 24px 80px;color:#fff}
+#menu h1{font-family:'Bungee',sans-serif;font-weight:400;font-size:40px;margin-bottom:6px}
+#menu p{color:#cdb8e6;margin-bottom:26px;line-height:1.5}
+#menu code{background:#241236;padding:2px 7px;border-radius:5px;color:#ffd0ee}
+#menu .gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:22px}
+#menu a{display:block;text-decoration:none;color:#fff;background:#190b28;border:2px solid #3a1d57;border-radius:12px;overflow:hidden}
+#menu a:hover{border-color:#ff3fa4}
+#menu iframe{width:1920px;height:1080px;border:0;transform-origin:0 0;pointer-events:none;background:repeating-conic-gradient(#2a1a3a 0 25%,#1c1028 0 50%) 0 0/60px 60px}
+#menu .th{height:0;padding-bottom:56.25%;position:relative;overflow:hidden}
+#menu .th iframe{position:absolute;left:0;top:0}
+#menu .cp{padding:12px 16px}
+#menu .cp b{font-family:'Bungee',sans-serif;font-weight:400;font-size:18px;display:block}
+#menu .cp span{color:#b9a3d6;font-size:14px}
+</style></head>
+<body>
+<div id="stage"></div>
+<div id="menu" hidden></div>
+<script>
+(()=>{
+const STK='../stickers/';
+const Q=new URLSearchParams(location.search);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const P=(k,d)=>esc(Q.has(k)?Q.get(k):d);
+const PALM='<svg viewBox="0 0 230 470" aria-hidden="true"><path class="body" d="M96 470 C 100 360, 112 240, 116 96 L 128 97 C 126 240, 116 360, 114 470 Z"/><path class="rim" d="M114 470 C 116 360, 124 240, 127 100"/><path class="body" transform="translate(122 92) rotate(-42)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><path class="body" transform="translate(122 92) rotate(-8)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><path class="body" transform="translate(122 92) rotate(24) scale(.92)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><path class="body" transform="translate(122 92) scale(-1 1) rotate(-48)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><path class="body" transform="translate(122 92) scale(-1 1) rotate(-12)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><path class="body" transform="translate(122 92) scale(-1 1) rotate(22) scale(.9)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><path class="body" transform="translate(122 92) rotate(-78) scale(.8)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><path class="body" transform="translate(122 92) scale(-1 1) rotate(-80) scale(.75)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><circle class="body" cx="122" cy="96" r="9"/></svg>';
+const palm=(x,h,f,d)=>`<div class="palm ${f?'f':''}" style="left:${x}px;width:${Math.round(h*.49)}px;height:${h}px;animation-delay:${d||0}s">${PALM}</div>`;
+const stars=(n,c)=>`<div class="stars ${c||''}">${'<i></i>'.repeat(n)}</div>`;
+
+/* Skyline generado (siempre igual para la misma semilla) */
+function city(seed,w,h,opts){opts=opts||{};let s=seed;const R=()=>(s=(s*16807)%2147483647)/2147483647;
+  let x=-20,out='',win='';
+  while(x<w+20){const bw=40+R()*90,bh=h*(.25+R()*.75);const y=h-bh;
+    out+=`<rect x="${x.toFixed(0)}" y="${y.toFixed(0)}" width="${bw.toFixed(0)}" height="${bh.toFixed(0)}"/>`;
+    if(R()>.6) out+=`<rect x="${(x+bw*.3).toFixed(0)}" y="${(y-18).toFixed(0)}" width="${(bw*.4).toFixed(0)}" height="18"/><rect x="${(x+bw*.48).toFixed(0)}" y="${(y-52).toFixed(0)}" width="4" height="36"/>`;
+    for(let wy=y+14;wy<h-10;wy+=22) for(let wx=x+8;wx<x+bw-10;wx+=16) if(R()>.62) win+=`<rect x="${wx.toFixed(0)}" y="${wy.toFixed(0)}" width="7" height="10"/>`;
+    x+=bw+(R()>.7?10:0);}
+  return `<div class="city" style="height:${h}px;${opts.style||''}"><svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><g fill="var(--ink)">${out}</g><g fill="var(--s4)" opacity="${opts.win==null?.85:opts.win}">${win}</g></svg></div>`;}
+
+/* Paneles inclinados tipo portada: 3 arriba + 3 abajo */
+const K=.21,G=18;
+function polyTop(a,b,first,last){const y0=36,y1=522,o0=(540-y0)*K,o1=(540-y1)*K;
+  return `polygon(${first?36:a+o0}px ${y0}px,${last?1884:b+o0-G}px ${y0}px,${last?1884:b+o1-G}px ${y1}px,${first?36:a+o1}px ${y1}px)`;}
+function polyBot(a,b,first,last){const y0=558,y1=1044,o0=(540-y0)*K,o1=(540-y1)*K;
+  return `polygon(${first?36:a+o0}px ${y0}px,${last?1884:b+o0-G}px ${y0}px,${last?1884:b+o1-G}px ${y1}px,${first?36:a+o1}px ${y1}px)`;}
+function panel(clip,html,i,cls,from){return `<div class="pn ${cls||''}" style="clip-path:${clip};animation-delay:${(i*.09).toFixed(2)}s;--fx:${from[0]}px;--fy:${from[1]}px"><div class="in">${html}</div><div class="tint"></div><div class="halft"></div></div>`;}
+
+function collage(a,b){
+  const T=[36,560,1330,1884],B=[36,700,1400,1884];
+  const p=[];
+  p.push(panel(polyTop(T[0],T[1],true,false),`<div class="sky"></div><div class="dots"></div><div class="sun" style="width:420px;height:420px;left:150px;top:150px"></div>${palm(60,430,0,0)}${palm(400,360,1,-2)}`,0,'',[-80,-40]));
+  p.push(panel(polyTop(T[1],T[2],false,false),`<div class="sky"></div><div class="dots"></div><div class="sun b" style="width:560px;height:560px;left:740px;top:170px"></div>${city(7,1920,330,{style:'bottom:520px'})}`,1,'dim',[0,-80]));
+  p.push(panel(polyTop(T[2],T[3],false,true),`<div class="sky" style="transform:scaleY(-1)"></div><img class="stk" src="${STK}${a}.png" style="left:1420px;top:90px;width:440px;height:400px">`,2,'',[80,-40]));
+  p.push(panel(polyBot(B[0],B[1],true,false),`<div class="sky" style="top:520px"></div><div class="grid" style="height:300px"></div><img class="stk" src="${STK}${b}.png" style="left:70px;top:590px;width:600px;height:420px;animation-delay:-1.4s">`,3,'',[-80,40]));
+  p.push(panel(polyBot(B[1],B[2],false,false),`<div class="sky" style="top:520px"></div>${city(23,1920,300,{})}<div class="grid" style="height:130px"></div>`,4,'dim',[0,80]));
+  p.push(panel(polyBot(B[2],B[3],false,true),`<div class="sky" style="top:520px;transform:scaleY(-1)"></div><div class="dots"></div>${palm(1380,470,0,-1)}${palm(1640,400,1,-3)}<div class="sun" style="width:300px;height:300px;left:1500px;top:640px"></div>`,5,'',[80,40]));
+  return `<div class="collage">${p.join('')}<div class="sweep"></div><div class="vig"></div></div>`;}
+
+function hero(o){
+  const w=o.titulo;const big=w.length>9?Math.floor(210*9/w.length):210;
+  return `<div class="hero">
+    <div class="over">${o.over}</div>
+    <div class="kick" style="margin-left:${-Math.round(Math.min(w.length,9)*big*.33+110)}px">${o.kicker}</div>
+    <div class="word" style="font-size:${big}px">${['d','s','f'].map(c=>`<span class="${c}">${w}</span>`).join('')}</div>
+    <div class="row">${stars(o.stars)}<div class="pill"><b>${o.sub}</b></div>${o.count?'<div class="count" id="count"></div>':''}</div>
+  </div>
+  <div class="tag bl"><span class="live"></span>${o.canal}</div>
+  <div class="tag tr">VICE CITY ${stars(3,'sm')}</div>`;}
+
+const canal=P('canal','@TUCANAL');
+const FULL={
+  intro:{t:'t-intro',a:'lowrider',b:'flamenco',over:'EL DIRECTO',kicker:'ya casi',titulo:'EMPEZAMOS',sub:'¡No te vayas!',stars:3,name:'Intro',d:'Empezamos pronto · admite cuenta atrás con min=5'},
+  pausa:{t:'t-pausa',a:'sol',b:'manati',over:'DIRECTO',kicker:'estamos en',titulo:'PAUSA',sub:'Un momento…',stars:2,name:'Pausa',d:'Directo en pausa'},
+  vuelvo:{t:'t-vuelvo',a:'palmera',b:'caiman',over:'NO TE MUEVAS',kicker:'ahora',titulo:'VOLVEMOS',sub:'Ya regreso',stars:4,name:'Ya vuelvo',d:'Descanso corto (BRB)'},
+  fin:{t:'t-fin',a:'avioneta',b:'rstar',over:'FIN DEL DIRECTO',kicker:'¡gracias,',titulo:'BANDA!',sub:'Nos vemos en el próximo',stars:5,name:'Salida',d:'Fin del directo'},
+};
+const lab=(x,y,ic,t,v,d)=>`<div class="lab enter" style="left:${x}px;top:${y}px;animation-delay:${d}s"><div class="ic"><i class="${ic}"></i></div><div class="tx"><small>${t}</small><b>${v}</b></div></div>`;
+const frame=(x,y,w,h,d,extra)=>`<div class="frame enter" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;animation-delay:${d}s">${extra||''}</div>`;
+const L=[['i-heart','Último seguidor',P('l1','—')],['i-star','Último sub',P('l2','—')],['i-coin','Top donación',P('l3','—')]];
+
+function juego(){
+  const der=Q.get('cam')==='der';const W=480,H=270,x=der?1920-W-56:56,y=1080-H-128;
+  const labs=L.map((l,i)=>lab(der?70+i*400:1920-70-(3-i)*400+50,984,l[0],l[1],l[2],.5+i*.12)).join('');
+  return `<div class="t-intro" style="position:absolute;inset:0">
+    ${frame(x,y,W,H,.1,`<div class="cut">${stars(3,'sm')}</div>`)}
+    <div class="plate enter" style="left:${x+34}px;top:${y+H-12}px;animation-delay:.35s"><span>${canal}</span></div>
+    ${labs}
+    <div class="tag ${der?'':'tr'}" style="${der?'left:60px;top:44px':'top:44px;right:60px'}"><span class="live"></span>EN VIVO ${stars(3,'sm')}</div>
+  </div>`;}
+
+function hablar(){
+  const cx=64,cy=150,cw=1216,ch=684, hx=1336,hw=520;
+  const bg=`<div class="t-intro" style="position:absolute;inset:0;
+     -webkit-mask-image:linear-gradient(#000,#000),linear-gradient(#000,#000);-webkit-mask-size:100% 100%,${cw-22}px ${ch-22}px;-webkit-mask-position:0 0,${cx+11}px ${cy+11}px;-webkit-mask-repeat:no-repeat;-webkit-mask-composite:xor;mask-composite:exclude">
+     <div class="sky" style="bottom:200px"></div><div style="position:absolute;left:0;right:0;bottom:0;height:240px;background:var(--ink)"></div><div class="dots"></div>
+     <div class="sun" style="width:640px;height:640px;left:1180px;top:250px"></div>
+     ${city(11,1920,360,{style:'bottom:230px',win:.7})}
+     <div class="grid" style="height:240px"></div>
+     ${palm(-40,720,0,0)}${palm(1700,640,1,-2)}${palm(1560,470,0,-3.5)}
+     <div class="vig"></div><div style="position:absolute;inset:0;background:rgba(14,3,30,.32)"></div><div class="sweep"></div></div>`;
+  return bg+`<div class="t-intro" style="position:absolute;inset:0">
+    <div class="tag" style="left:${cx+8}px;top:54px;font-size:54px"><span style="font-family:Pacifico;font-size:50px;color:var(--accent);text-shadow:3px 0 #fff,-3px 0 #fff,0 3px #fff,0 -3px #fff,2px 2px #fff,-2px 2px #fff,2px -2px #fff,-2px -2px #fff,0 8px 0 var(--ink);transform:rotate(-6deg);margin-right:6px">solo</span>CHARLANDO ${stars(3,'sm')}</div>
+    <div class="tag tr" style="top:70px"><span class="live"></span>EN VIVO</div>
+    ${frame(cx,cy,cw,ch,.1)}
+    <div class="plate enter" style="left:${cx+50}px;top:${cy+ch-16}px;animation-delay:.35s"><span>${canal} ${stars(4,'sm')}</span></div>
+    <div class="chat enter" style="left:${hx}px;top:${cy}px;width:${hw}px;height:${ch}px;animation-delay:.2s"><h3><i class="i-star" style="width:26px;height:26px;background:var(--accent);display:block"></i>CHAT</h3><div class="ln"></div></div>
+    ${frame(hx,cy,hw,ch,.2)}
+    ${L.map((l,i)=>lab(cx+470+i*400,954,l[0],l[1],l[2],.5+i*.12)).join('')}
+  </div>`;}
+
+function transicion(){
+  stage.className='t-intro';
+  stage.innerHTML=`<div class="band" style="background:var(--s4)"></div><div class="band" style="background:var(--accent)"></div><div class="band" style="background:var(--accent2)"></div><div class="band k"></div>
+    <div class="emb"><img src="${STK}${P('sticker','vi')}.png">${stars(5)}</div>`;
+  const T=1600,loop=Q.get('loop')!=='0';const o={duration:T+(loop?900:0),iterations:loop?Infinity:1,fill:'both'};const k=T/o.duration;
+  const sk=' skewX(-12deg)',IN='cubic-bezier(.7,0,.2,1)';
+  stage.querySelectorAll('.band').forEach((b,i)=>{const a=(i*70)/T,z=(850+(3-i)*70)/T,d=470/T;
+    b.animate([{transform:'translateX(-130%)'+sk,offset:0},{transform:'translateX(-130%)'+sk,offset:a*k,easing:IN},{transform:'translateX(0)'+sk,offset:(a+d)*k},{transform:'translateX(0)'+sk,offset:z*k,easing:IN},{transform:'translateX(130%)'+sk,offset:(z+d)*k},{transform:'translateX(130%)'+sk,offset:1}],o);});
+  stage.querySelector('.emb').animate([{transform:'scale(0) rotate(-20deg)',offset:0},{transform:'scale(0) rotate(-20deg)',offset:.26*k,easing:'cubic-bezier(.34,1.56,.64,1)'},{transform:'scale(1) rotate(-4deg)',offset:.46*k},{transform:'scale(1.04) rotate(-4deg)',offset:.55*k,easing:IN},{transform:'translateX(1900px) scale(.9) rotate(6deg)',offset:.8*k},{transform:'translateX(1900px) scale(.9)',offset:1}],o);
+}
+const stage=document.getElementById('stage');
+const e=Q.get('escena');
+if(!e){
+  document.body.classList.add('menu');const m=document.getElementById('menu');m.hidden=false;
+  const all=[...Object.entries(FULL).map(([k,v])=>[k,v.name,v.d]),['juego','Streaming','Overlay transparente: cámara, nombre y placas'],['hablar','Hablar','Cámara grande + chat (hueco de cámara transparente)'],['transicion','Transición','Cortinilla entre escenas (también en video WebM)']];
+  m.innerHTML=`<h1>Escenas GTA 6 · Vice City</h1><p>En OBS: <b>Fuente → Navegador</b>, 1920×1080, y pega la dirección de la escena. Cambia textos con <code>&canal=TuCanal</code>, <code>&titulo=</code>, <code>&kicker=</code>, <code>&sub=</code>, <code>&min=5</code> (cuenta atrás), <code>&cam=der</code>, <code>&l1= &l2= &l3=</code>.</p><div class="gr">`+
+   all.map(([k,n,d])=>`<a href="?escena=${k}"><div class="th"><iframe src="?escena=${k}" loading="lazy"></iframe></div><div class="cp"><b>${n}</b><span>${d} · <code>?escena=${k}</code></span></div></a>`).join('')+`</div>`;
+  const fit=()=>m.querySelectorAll('.th').forEach(t=>{t.firstChild.style.transform=`scale(${t.clientWidth/1920})`;});
+  addEventListener('resize',fit);fit();return;
+}
+const fit=()=>{const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform=`scale(${s})`;};
+addEventListener('resize',fit);fit();
+if(FULL[e]){const f=FULL[e];stage.className=f.t;
+  const min=parseFloat(Q.get('min'))||0;
+  stage.innerHTML=collage(f.a,f.b)+hero({over:P('over',f.over),kicker:P('kicker',f.kicker),titulo:P('titulo',f.titulo),sub:P('sub',f.sub),stars:f.stars,canal,count:min>0});
+  if(min>0){const end=Date.now()+min*60000,c=document.getElementById('count');const tick=()=>{const r=Math.max(0,Math.round((end-Date.now())/1000));c.textContent=String(Math.floor(r/60)).padStart(2,'0')+':'+String(r%60).padStart(2,'0');};tick();setInterval(tick,250);}
+}else if(e==='juego'){stage.innerHTML=juego();}
+else if(e==='hablar'){stage.innerHTML=hablar();}
+else if(e==='transicion'){transicion();}
+})();
+</script>
+</body></html>
