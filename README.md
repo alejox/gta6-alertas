@@ -11,7 +11,7 @@
 
 Todo en un solo zip: las 9 alertas, las 6 escenas (intro, streaming, hablar, pausa, ya vuelvo y salida) y la transición con sonido.
 
-**Instalación con el JWT:** abre `Instalar - Pack completo.html`, pega tu JWT Token de StreamElements y en un clic se crean el overlay de alertas y un overlay por cada escena, con su URL lista para pegar como fuente de navegador en OBS o Streamlabs Desktop. El `LEEME.txt` trae también la instalación manual.
+**Instalación con el JWT:** abre `Instalar - Pack completo.html`, pega tu JWT Token de StreamElements y en un clic se crean el overlay de alertas y un overlay por cada escena, con su URL lista para pegar como fuente de navegador en OBS o Streamlabs Desktop. Cada pieza de cada escena (fondo, título, marco de cámara, nombre, placas, EN VIVO, cuenta atrás…) es un elemento independiente que se mueve, escala u oculta en el editor, con sus ajustes de canal y textos. El `LEEME.txt` trae también la instalación manual.
 
 ### Solo las alertas
 

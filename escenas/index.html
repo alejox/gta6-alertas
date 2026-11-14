@@ -7,7 +7,7 @@
   ESCENAS GTA 6 · VICE CITY — fuente de navegador para OBS (1920x1080)
   Elige la escena con ?escena=  intro | pausa | vuelvo | fin | juego | hablar | transicion
   Opciones:  canal=TuCanal   kicker=...  titulo=...  sub=...  min=5 (cuenta atrás)
-             cam=der (cámara a la derecha en "juego")   l1= l2= l3= (textos de las placas)
+             cam=izq (cámara a la izquierda en "juego")   l1= l2= l3= (textos de las placas)
   Sin ?escena se abre el menú con todas.
 -->
 <style>
@@ -125,6 +125,9 @@ body.menu{background:#0d0616;overflow:auto}
 .emb img{width:640px;height:420px;object-fit:contain;filter:drop-shadow(0 14px 0 rgba(0,0,0,.4)) drop-shadow(0 0 40px var(--glow))}
 .emb .stars i{width:64px;height:64px;animation:none}
 
+#pz>*{position:relative!important;left:auto!important;top:auto!important;right:auto!important;bottom:auto!important}
+#pz>.tag,#pz>.lab,#pz>.row{display:flex}
+
 /* ---------- menú ---------- */
 .menu #stage{display:none}
 #menu{max-width:1200px;margin:0 auto;padding:40px 24px 80px;color:#fff}
@@ -190,10 +193,10 @@ function hero(o){
     <div class="over">${o.over}</div>
     <div class="kick" style="margin-left:${-Math.round(Math.min(w.length,9)*big*.33+110)}px">${o.kicker}</div>
     <div class="word" style="font-size:${big}px">${['d','s','f'].map(c=>`<span class="${c}">${w}</span>`).join('')}</div>
-    <div class="row">${stars(o.stars)}<div class="pill"><b>${o.sub}</b></div>${o.count?'<div class="count" id="count"></div>':''}</div>
+    <div class="row">${Q.get('verestrellas')!=='no'?stars(o.stars):''}${Q.get('verplaca')!=='no'?`<div class="pill"><b>${o.sub}</b></div>`:''}${o.count?'<div class="count" id="count"></div>':''}</div>
   </div>
-  <div class="tag bl"><span class="live"></span>${o.canal}</div>
-  <div class="tag tr">VICE CITY ${stars(3,'sm')}</div>`;}
+  ${Q.get('vercanal')!=='no'?`<div class="tag bl"><span class="live"></span>${o.canal}</div>`:''}
+  ${Q.get('verciudad')!=='no'?`<div class="tag tr">VICE CITY ${stars(3,'sm')}</div>`:''}`;}
 
 const canal=P('canal','@TUCANAL');const canalP=canal||'&nbsp;';const pmin=canal?'':'min-width:340px;';
 if(Q.has('bucle')){const st=document.createElement('style');st.textContent='.pn .in{animation-duration:5s}.stk{animation-duration:2.5s}.sweep{animation-duration:5s}.word .f{animation-duration:5s}.stars i{animation-duration:2.5s}.grid{animation-duration:1.25s}.dots{animation-duration:2.5s}.pill::before{animation-duration:5s}';document.head.appendChild(st);}
@@ -208,26 +211,62 @@ const frame=(x,y,w,h,d,extra)=>`<div class="frame enter" style="left:${x}px;top:
 const L=[['i-heart','Último seguidor',P('l1','—')],['i-star','Último sub',P('l2','—')],['i-coin','Top donación',P('l3','—')]];
 
 function juego(){
-  const der=Q.get('cam')==='der';const W=480,H=270,x=der?1920-W-56:56,y=1080-H-128;
-  const labs=L.map((l,i)=>lab(der?70+i*400:1920-70-(3-i)*400+50,984,l[0],l[1],l[2],.5+i*.12)).join('');
+  const izq=Q.get('cam')==='izq';const W=480,H=270,x=izq?56:1920-W-56,y=1080-H-128;
+  const labs=L.map((l,i)=>lab(56+i*340,48,l[0],l[1],l[2],.5+i*.12)).join('');
   return `<div class="t-intro" style="position:absolute;inset:0">
     ${frame(x,y,W,H,.1,`<div class="cut">${stars(3,'sm')}</div>`)}
     <div class="plate enter" style="left:${x+34}px;top:${y+H-12}px;animation-delay:.35s;${pmin}"><span>${canalP}</span></div>
     ${labs}
-    <div class="tag ${der?'':'tr'}" style="${der?'left:60px;top:44px':'top:44px;right:60px'}"><span class="live"></span>EN VIVO ${stars(3,'sm')}</div>
+    <div class="tag tr" style="top:44px;right:60px"><span class="live"></span>EN VIVO ${stars(3,'sm')}</div>
   </div>`;}
 
-function hablar(){
-  const cx=64,cy=150,cw=1216,ch=684, hx=1336,hw=520;
-  const bg=`<div class="t-intro" style="position:absolute;inset:0;
-     -webkit-mask-image:linear-gradient(#000,#000),linear-gradient(#000,#000);-webkit-mask-size:100% 100%,${cw-22}px ${ch-22}px;-webkit-mask-position:0 0,${cx+11}px ${cy+11}px;-webkit-mask-repeat:no-repeat;-webkit-mask-composite:xor;mask-composite:exclude">
+/* Piezas sueltas: en StreamElements cada una es un widget que se mueve, escala u oculta por separado */
+function pieza(k){
+  const si=n=>Q.get(n)!=='no';const tema=Q.get('tema')||'intro';
+  const IC={corazon:'i-heart',estrella:'i-star',moneda:'i-coin'};
+  let html,modo='caja',pad=40;
+  if(k==='marco') html=frame(0,0,480,270,0,si('estrellas')?`<div class="cut">${stars(3,'sm')}</div>`:'');
+  else if(k==='marcogrande') html=frame(0,0,1216,684,0);
+  else if(k==='nombre'){modo='alto';html=`<div class="plate enter"><span style="justify-content:space-between">${canalP}${si('estrellas')?' '+stars(4,'sm'):''}</span></div>`;}
+  else if(k==='etiqueta'){modo='alto';html=lab(0,0,IC[Q.get('icono')]||'i-heart',P('lt','Último seguidor'),P('lv','—'),0);}
+  else if(k==='envivo'){modo='alto';html=`<div class="tag"><span class="live"></span>${P('texto','EN VIVO')}${si('estrellas')?' '+stars(3,'sm'):''}</div>`;}
+  else if(k==='titulo'){modo='alto';html=`<div class="tag" style="font-size:54px"><span style="font-family:Pacifico;font-size:50px;color:var(--accent);text-shadow:3px 0 #fff,-3px 0 #fff,0 3px #fff,0 -3px #fff,2px 2px #fff,-2px 2px #fff,2px -2px #fff,-2px -2px #fff,0 8px 0 var(--ink);transform:rotate(-6deg);margin-right:6px">${P('kicker','solo')}</span>${P('texto','CHARLANDO')}${si('estrellas')?' '+stars(3,'sm'):''}</div>`;}
+  else if(k==='chat') html=`<div style="position:relative;width:520px;height:684px"><div class="chat" style="inset:0"><h3><i class="i-star" style="width:26px;height:26px;background:var(--accent);display:block"></i>${P('texto','CHAT')}</h3><div class="ln"></div></div>${frame(0,0,520,684,0)}</div>`;
+  else if(k==='fondo'){stage.innerHTML=fondoHablar(si('hueco'));return;}
+  else if(k==='collage'){const f=FULL[tema]||FULL.intro;stage.className=f.t;stage.innerHTML=collage(f.a,f.b);return;}
+  else if(k==='heroe'){const f=FULL[tema]||FULL.intro;const w=P('titulo',f.titulo),big=w.length>9?Math.floor(210*9/w.length):210;
+    html=`<div style="display:flex;flex-direction:column;align-items:center;transform:rotate(-4deg);padding:70px 90px 60px">
+      <div class="over">${P('over',f.over)}</div>
+      <div class="kick" style="margin-left:${-Math.round(Math.min(w.length,9)*big*.33+110)}px">${P('kicker',f.kicker)}</div>
+      <div class="word" style="font-size:${big}px">${['d','s','f'].map(c=>`<span class="${c}">${w}</span>`).join('')}</div></div>`;}
+  else if(k==='subplaca'){modo='alto';const f=FULL[tema]||FULL.intro;html=`<div class="row" style="margin:0;transform:rotate(-4deg);padding:14px 6px">${si('estrellas')?stars(f.stars):''}<div class="pill"><b>${P('sub',f.sub)}</b></div></div>`;}
+  else if(k==='cuenta'){modo='alto';html=`<div class="count" id="count" style="min-width:230px">00:00</div>`;}
+  else if(k==='canal'){modo='alto';html=`<div class="tag"><span class="live"></span>${canal}</div>`;}
+  else if(k==='ciudad'){modo='alto';html=`<div class="tag">${P('texto','VICE CITY')}${si('estrellas')?' '+stars(3,'sm'):''}</div>`;}
+  else return;
+  stage.className='t-'+(FULL[tema]?tema:'intro');
+  stage.innerHTML=`<div id="pz" style="position:absolute;left:${pad}px;top:${pad}px;display:inline-block">${html}</div>`;
+  const pz=document.getElementById('pz');
+  const medir=()=>{const w=pz.offsetWidth+pad*2,h=pz.offsetHeight+pad*2+16;stage.style.width=w+'px';stage.style.height=h+'px';
+    const sc=modo==='alto'?innerHeight/h:Math.min(innerWidth/w,innerHeight/h);stage.style.transform=`scale(${sc})`;window.__pz=[w,h];};
+  addEventListener('resize',medir);medir();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(medir);
+  if(k==='cuenta') cuenta(parseFloat(Q.get('min'))||5);
+}
+function cuenta(min){const end=Date.now()+min*60000,c=document.getElementById('count');const tick=()=>{const r=Math.max(0,Math.round((end-Date.now())/1000));c.textContent=String(Math.floor(r/60)).padStart(2,'0')+':'+String(r%60).padStart(2,'0');};tick();setInterval(tick,250);}
+
+function fondoHablar(hueco){
+  const cx=64,cy=150,cw=1216,ch=684;
+  return `<div class="t-intro" style="position:absolute;inset:0;${hueco?`
+     -webkit-mask-image:linear-gradient(#000,#000),linear-gradient(#000,#000);-webkit-mask-size:100% 100%,${cw-22}px ${ch-22}px;-webkit-mask-position:0 0,${cx+11}px ${cy+11}px;-webkit-mask-repeat:no-repeat;-webkit-mask-composite:xor;mask-composite:exclude`:''}">
      <div class="sky" style="bottom:200px"></div><div style="position:absolute;left:0;right:0;bottom:0;height:240px;background:var(--ink)"></div><div class="dots"></div>
      <div class="sun" style="width:640px;height:640px;left:1180px;top:250px"></div>
      ${city(11,1920,360,{style:'bottom:230px',win:.7})}
      <div class="grid" style="height:240px"></div>
      ${palm(-40,720,0,0)}${palm(1700,640,1,-2)}${palm(1560,470,0,-3.5)}
-     <div class="vig"></div><div style="position:absolute;inset:0;background:rgba(14,3,30,.32)"></div><div class="sweep"></div></div>`;
-  return bg+`<div class="t-intro" style="position:absolute;inset:0">
+     <div class="vig"></div><div style="position:absolute;inset:0;background:rgba(14,3,30,.32)"></div><div class="sweep"></div></div>`;}
+function hablar(){
+  const cx=64,cy=150,cw=1216,ch=684, hx=1336,hw=520;
+  return fondoHablar(true)+`<div class="t-intro" style="position:absolute;inset:0">
     <div class="tag" style="left:${cx+8}px;top:54px;font-size:54px"><span style="font-family:Pacifico;font-size:50px;color:var(--accent);text-shadow:3px 0 #fff,-3px 0 #fff,0 3px #fff,0 -3px #fff,2px 2px #fff,-2px 2px #fff,2px -2px #fff,-2px -2px #fff,0 8px 0 var(--ink);transform:rotate(-6deg);margin-right:6px">solo</span>CHARLANDO ${stars(3,'sm')}</div>
     <div class="tag tr" style="top:70px"><span class="live"></span>EN VIVO</div>
     ${frame(cx,cy,cw,ch,.1)}
@@ -252,20 +291,21 @@ const e=Q.get('escena');
 if(!e){
   document.body.classList.add('menu');const m=document.getElementById('menu');m.hidden=false;
   const all=[...Object.entries(FULL).map(([k,v])=>[k,v.name,v.d]),['juego','Streaming','Overlay transparente: cámara, nombre y placas'],['hablar','Hablar','Cámara grande + chat (hueco de cámara transparente)'],['transicion','Transición','Cortinilla entre escenas (también en video WebM)']];
-  m.innerHTML=`<h1>Escenas GTA 6 · Vice City</h1><p>En OBS: <b>Fuente → Navegador</b>, 1920×1080, y pega la dirección de la escena. Cambia textos con <code>&canal=TuCanal</code>, <code>&titulo=</code>, <code>&kicker=</code>, <code>&sub=</code>, <code>&min=5</code> (cuenta atrás), <code>&cam=der</code>, <code>&l1= &l2= &l3=</code>.</p><div class="gr">`+
+  m.innerHTML=`<h1>Escenas GTA 6 · Vice City</h1><p>En OBS: <b>Fuente → Navegador</b>, 1920×1080, y pega la dirección de la escena. Cambia textos con <code>&canal=TuCanal</code>, <code>&titulo=</code>, <code>&kicker=</code>, <code>&sub=</code>, <code>&min=5</code> (cuenta atrás), <code>&cam=izq</code>, <code>&l1= &l2= &l3=</code>.</p><div class="gr">`+
    all.map(([k,n,d])=>`<a href="?escena=${k}"><div class="th"><iframe src="?escena=${k}" loading="lazy"></iframe></div><div class="cp"><b>${n}</b><span>${d} · <code>?escena=${k}</code></span></div></a>`).join('')+`</div>`;
   const fit=()=>m.querySelectorAll('.th').forEach(t=>{t.firstChild.style.transform=`scale(${t.clientWidth/1920})`;});
   addEventListener('resize',fit);fit();return;
 }
 const fit=()=>{const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform=`scale(${s})`;};
-addEventListener('resize',fit);fit();
+if(e!=='pieza'||Q.get('pieza')==='fondo'||Q.get('pieza')==='collage'){addEventListener('resize',fit);fit();}
 if(FULL[e]){const f=FULL[e];stage.className=f.t;
   const min=parseFloat(Q.get('min'))||0;
   stage.innerHTML=collage(f.a,f.b)+hero({over:P('over',f.over),kicker:P('kicker',f.kicker),titulo:P('titulo',f.titulo),sub:P('sub',f.sub),stars:f.stars,canal,count:min>0});
-  if(min>0){const end=Date.now()+min*60000,c=document.getElementById('count');const tick=()=>{const r=Math.max(0,Math.round((end-Date.now())/1000));c.textContent=String(Math.floor(r/60)).padStart(2,'0')+':'+String(r%60).padStart(2,'0');};tick();setInterval(tick,250);}
+  if(min>0) cuenta(min);
 }else if(e==='juego'){stage.innerHTML=juego();}
 else if(e==='hablar'){stage.innerHTML=hablar();}
 else if(e==='transicion'){transicion();}
+else if(e==='pieza'){pieza(Q.get('pieza'));}
 }
 if(!window.__ESC_WIDGET) escMain();
 </script>
