@@ -194,14 +194,15 @@ function hero(o){
   <div class="tag bl"><span class="live"></span>${o.canal}</div>
   <div class="tag tr">VICE CITY ${stars(3,'sm')}</div>`;}
 
-const canal=P('canal','@TUCANAL');
+const canal=P('canal','@TUCANAL');const canalP=canal||'&nbsp;';const pmin=canal?'':'min-width:340px;';
+if(Q.has('bucle')){const st=document.createElement('style');st.textContent='.pn .in{animation-duration:5s}.stk{animation-duration:2.5s}.sweep{animation-duration:5s}.word .f{animation-duration:5s}.stars i{animation-duration:2.5s}.grid{animation-duration:1.25s}.dots{animation-duration:2.5s}.pill::before{animation-duration:5s}';document.head.appendChild(st);}
 const FULL={
   intro:{t:'t-intro',a:'lowrider',b:'flamenco',over:'EL DIRECTO',kicker:'ya casi',titulo:'EMPEZAMOS',sub:'¡No te vayas!',stars:3,name:'Intro',d:'Empezamos pronto · admite cuenta atrás con min=5'},
   pausa:{t:'t-pausa',a:'sol',b:'manati',over:'DIRECTO',kicker:'estamos en',titulo:'PAUSA',sub:'Un momento…',stars:2,name:'Pausa',d:'Directo en pausa'},
   vuelvo:{t:'t-vuelvo',a:'palmera',b:'caiman',over:'NO TE MUEVAS',kicker:'ahora',titulo:'VOLVEMOS',sub:'Ya regreso',stars:4,name:'Ya vuelvo',d:'Descanso corto (BRB)'},
   fin:{t:'t-fin',a:'avioneta',b:'rstar',over:'FIN DEL DIRECTO',kicker:'¡gracias,',titulo:'BANDA!',sub:'Nos vemos en el próximo',stars:5,name:'Salida',d:'Fin del directo'},
 };
-const lab=(x,y,ic,t,v,d)=>`<div class="lab enter" style="left:${x}px;top:${y}px;animation-delay:${d}s"><div class="ic"><i class="${ic}"></i></div><div class="tx"><small>${t}</small><b>${v}</b></div></div>`;
+const lab=(x,y,ic,t,v,d)=>`<div class="lab enter" style="left:${x}px;top:${y}px;animation-delay:${d}s"><div class="ic"><i class="${ic}"></i></div><div class="tx"><small>${t}</small><b>${v||'&nbsp;'}</b></div></div>`;
 const frame=(x,y,w,h,d,extra)=>`<div class="frame enter" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;animation-delay:${d}s">${extra||''}</div>`;
 const L=[['i-heart','Último seguidor',P('l1','—')],['i-star','Último sub',P('l2','—')],['i-coin','Top donación',P('l3','—')]];
 
@@ -210,7 +211,7 @@ function juego(){
   const labs=L.map((l,i)=>lab(der?70+i*400:1920-70-(3-i)*400+50,984,l[0],l[1],l[2],.5+i*.12)).join('');
   return `<div class="t-intro" style="position:absolute;inset:0">
     ${frame(x,y,W,H,.1,`<div class="cut">${stars(3,'sm')}</div>`)}
-    <div class="plate enter" style="left:${x+34}px;top:${y+H-12}px;animation-delay:.35s"><span>${canal}</span></div>
+    <div class="plate enter" style="left:${x+34}px;top:${y+H-12}px;animation-delay:.35s;${pmin}"><span>${canalP}</span></div>
     ${labs}
     <div class="tag ${der?'':'tr'}" style="${der?'left:60px;top:44px':'top:44px;right:60px'}"><span class="live"></span>EN VIVO ${stars(3,'sm')}</div>
   </div>`;}
@@ -229,7 +230,7 @@ function hablar(){
     <div class="tag" style="left:${cx+8}px;top:54px;font-size:54px"><span style="font-family:Pacifico;font-size:50px;color:var(--accent);text-shadow:3px 0 #fff,-3px 0 #fff,0 3px #fff,0 -3px #fff,2px 2px #fff,-2px 2px #fff,2px -2px #fff,-2px -2px #fff,0 8px 0 var(--ink);transform:rotate(-6deg);margin-right:6px">solo</span>CHARLANDO ${stars(3,'sm')}</div>
     <div class="tag tr" style="top:70px"><span class="live"></span>EN VIVO</div>
     ${frame(cx,cy,cw,ch,.1)}
-    <div class="plate enter" style="left:${cx+50}px;top:${cy+ch-16}px;animation-delay:.35s"><span>${canal} ${stars(4,'sm')}</span></div>
+    <div class="plate enter" style="left:${cx+50}px;top:${cy+ch-16}px;animation-delay:.35s;${canal?'':'min-width:520px;'}"><span style="justify-content:space-between">${canalP} ${stars(4,'sm')}</span></div>
     <div class="chat enter" style="left:${hx}px;top:${cy}px;width:${hw}px;height:${ch}px;animation-delay:.2s"><h3><i class="i-star" style="width:26px;height:26px;background:var(--accent);display:block"></i>CHAT</h3><div class="ln"></div></div>
     ${frame(hx,cy,hw,ch,.2)}
     ${L.map((l,i)=>lab(cx+470+i*400,954,l[0],l[1],l[2],.5+i*.12)).join('')}
