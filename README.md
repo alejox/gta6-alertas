@@ -5,6 +5,14 @@
 
 ## ⬇️ Descargar
 
+### 🎮 Pack completo para Streamlabs (alertas + escenas + transición)
+
+### [👉 Descargar Pack-GTA6-ViceCity-Streamlabs.zip](https://github.com/alejox/gta6-alertas/raw/main/descargas/Pack-GTA6-ViceCity-Streamlabs.zip)
+
+Todo en un solo zip para Streamlabs Desktop: las 9 alertas, las 6 escenas (intro, pausa, ya vuelvo, salida, streaming y hablar) y la transición con sonido. El `LEEME.txt` trae la instalación en 3 pasos.
+
+### Solo las alertas
+
 ![Alertas GTA 6 · Vice City](portada.jpg)
 
 ### [👉 Descargar Alertas-GTA6-ViceCity.zip](https://github.com/alejox/gta6-alertas/raw/main/descargas/Alertas-GTA6-ViceCity.zip)
@@ -34,7 +42,7 @@ También se pueden bajar sueltos desde [`descargas/videos/`](descargas/videos). 
 
 ![Intro](descargas/escenas/intro.png)
 
-Escenas animadas 1920x1080 para OBS como fuente de navegador (`escenas/index.html?escena=intro&canal=TuCanal`), con textos editables desde la dirección, más una transición stinger en WebM transparente (punto de transición: 750 ms) y las versiones en PNG. Instrucciones en el `LEEME.txt` del zip.
+Escenas animadas 1920x1080 para OBS como fuente de navegador (`escenas/index.html?escena=intro&canal=TuCanal`), con textos editables desde la dirección, más una transición stinger en WebM transparente y con sonido (punto de transición: 750 ms) y las versiones en PNG. Instrucciones en el `LEEME.txt` del zip.
 
 ---
 

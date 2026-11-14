@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* Renderiza la transición de escenas (escenas/index.html?escena=transicion)
-   a WebM VP9 con fondo transparente. Uso: node video/render-transicion.js
+   a WebM VP9 con fondo transparente y el sonido sonidos/transicion.mp3. Uso: node video/render-transicion.js
    El punto de corte (pantalla tapada) está en 750 ms. */
 const fs = require('fs'), path = require('path');
 const { spawnSync } = require('child_process');
@@ -20,7 +20,8 @@ const FPS = 60, DUR = 1600;
     await p.screenshot({ path: path.join(frames, String(f).padStart(4, '0') + '.png'), omitBackground: true });
   }
   await b.close();
-  const r = spawnSync('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-framerate', String(FPS), '-i', path.join(frames, '%04d.png'),
+  const r = spawnSync('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-framerate', String(FPS), '-i', path.join(frames, '%04d.png'), '-i', path.join(ROOT, 'sonidos/transicion.mp3'),
+    '-filter_complex', '[1:a]apad[a]', '-map', '0:v', '-map', '[a]', '-shortest', '-c:a', 'libopus', '-b:a', '160k',
     '-c:v', 'libvpx-vp9', '-pix_fmt', 'yuva420p', '-b:v', '0', '-crf', '30', '-row-mt', '1', '-auto-alt-ref', '0', path.join(out, 'transicion.webm')], { stdio: 'inherit' });
   fs.rmSync(frames, { recursive: true, force: true });
   process.exit(r.status);
