@@ -145,9 +145,10 @@ body.menu{background:#0d0616;overflow:auto}
 <div id="stage"></div>
 <div id="menu" hidden></div>
 <script>
-(()=>{
-const STK='../stickers/';
-const Q=new URLSearchParams(location.search);
+function escMain(){
+const CFG=window.__ESC||null;   // dentro del widget de StreamElements la configuración llega por aquí
+const STK=CFG?CFG.stk:'../stickers/';
+const Q=CFG?{get:k=>(CFG[k]==null||CFG[k]==='')?null:String(CFG[k]),has:k=>CFG[k]!=null&&CFG[k]!==''}:new URLSearchParams(location.search);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const P=(k,d)=>esc(Q.has(k)?Q.get(k):d);
 const PALM='<svg viewBox="0 0 230 470" aria-hidden="true"><path class="body" d="M96 470 C 100 360, 112 240, 116 96 L 128 97 C 126 240, 116 360, 114 470 Z"/><path class="rim" d="M114 470 C 116 360, 124 240, 127 100"/><path class="body" transform="translate(122 92) rotate(-42)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><path class="body" transform="translate(122 92) rotate(-8)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><path class="body" transform="translate(122 92) rotate(24) scale(.92)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><path class="body" transform="translate(122 92) scale(-1 1) rotate(-48)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><path class="body" transform="translate(122 92) scale(-1 1) rotate(-12)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><path class="body" transform="translate(122 92) scale(-1 1) rotate(22) scale(.9)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><path class="body" transform="translate(122 92) rotate(-78) scale(.8)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><path class="body" transform="translate(122 92) scale(-1 1) rotate(-80) scale(.75)" d="M0 0 C 30 -22, 72 -20, 110 6 C 92 0, 80 4, 70 2 C 58 6, 46 4, 36 6 C 24 8, 12 6, 0 6 Z"/><circle class="body" cx="122" cy="96" r="9"/></svg>';
@@ -265,6 +266,7 @@ if(FULL[e]){const f=FULL[e];stage.className=f.t;
 }else if(e==='juego'){stage.innerHTML=juego();}
 else if(e==='hablar'){stage.innerHTML=hablar();}
 else if(e==='transicion'){transicion();}
-})();
+}
+if(!window.__ESC_WIDGET) escMain();
 </script>
 </body></html>

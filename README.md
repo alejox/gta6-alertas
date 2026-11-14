@@ -9,7 +9,9 @@
 
 ### [👉 Descargar Pack-GTA6-ViceCity-Streamlabs.zip](https://github.com/alejox/gta6-alertas/raw/main/descargas/Pack-GTA6-ViceCity-Streamlabs.zip)
 
-Todo en un solo zip para Streamlabs Desktop: las 9 alertas, las 6 escenas (intro, pausa, ya vuelvo, salida, streaming y hablar) y la transición con sonido. El `LEEME.txt` trae la instalación en 3 pasos.
+Todo en un solo zip: las 9 alertas, las 6 escenas (intro, streaming, hablar, pausa, ya vuelvo y salida) y la transición con sonido.
+
+**Instalación con el JWT:** abre `Instalar - Pack completo.html`, pega tu JWT Token de StreamElements y en un clic se crean el overlay de alertas y un overlay por cada escena, con su URL lista para pegar como fuente de navegador en OBS o Streamlabs Desktop. El `LEEME.txt` trae también la instalación manual.
 
 ### Solo las alertas
 
