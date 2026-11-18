@@ -45,14 +45,17 @@ function campos(k, c) {
 }
 const EVENTOS = { 'tip-latest': true, 'follower-latest': true, 'subscriber-latest': true, 'kicks-latest': true, 'raid-latest': true, 'host-latest': true, 'cheer-latest': true };
 const piezas = minPiezas(L);
-const scenes = Object.keys(L.escenas).map(key => {
+function widget([name, k, b, c], i, tema) {
+  const fields = { mPieza: { type: 'hidden', label: '-', value: k }, mTema: { type: 'hidden', label: '-', value: tema }, mRetraso: { type: 'hidden', label: '-', value: c.retraso || '0' }, ...campos(k, c) };
+  return { name, listeners: k === 'alerta' ? EVENTOS : {}, css: { 'z-index': i + 1, left: b[0], top: b[1], width: b[2] + 'px', height: b[3] + 'px', opacity: 1 },
+    fields: JSON.stringify(fields), fieldData: Object.fromEntries(Object.entries(fields).map(([n, f]) => [n, f.value])) };
+}
+// Las alertas van en su propio overlay, para ponerlo encima de las escenas que quieras
+const ALERTAS = { name: 'Minimal · Alertas', desc: '9 alertas: ponla encima de Streaming y Hablar', widgets: [widget(L.alertas, 0, 'intro')] };
+const scenes = [ALERTAS, ...Object.keys(L.escenas).map(key => {
   const s = L.escenas[key];
-  return { name: 'Minimal · ' + s.nombre, desc: s.desc, widgets: piezas[key].map(([name, k, b, c], i) => {
-    const fields = { mPieza: { type: 'hidden', label: '-', value: k }, mTema: { type: 'hidden', label: '-', value: s.tema }, mRetraso: { type: 'hidden', label: '-', value: c.retraso || '0' }, ...campos(k, c) };
-    return { name, listeners: k === 'alerta' ? EVENTOS : {}, css: { 'z-index': i + 1, left: b[0], top: b[1], width: b[2] + 'px', height: b[3] + 'px', opacity: 1 },
-      fields: JSON.stringify(fields), fieldData: Object.fromEntries(Object.entries(fields).map(([n, f]) => [n, f.value])) };
-  }) };
-});
+  return { name: 'Minimal · ' + s.nombre, desc: s.desc, widgets: piezas[key].map((p, i) => widget(p, i, s.tema)) };
+})];
 const cover = 'data:image/jpeg;base64,' + fs.readFileSync(path.join(__dirname, 'portada.jpg')).toString('base64');
 const PACK = { html: '<div id="p"></div>', css, js, scenes, cover };
 
@@ -168,19 +171,18 @@ btn.onclick = async () => {
 </body></html>
 `;
 const PASOS = `<ol>
-      <li>Crea una escena por cada línea y añade su URL como <b>Fuente de navegador</b> (1920×1080, con "Controlar audio vía OBS" para oír las alertas).</li>
+      <li>Crea una escena por cada línea de <b>Intro</b> a <b>Salida</b> y añade su URL como <b>Fuente de navegador</b> de 1920×1080.</li>
+      <li>La URL de <b>Alertas</b> es independiente: añádela como otra Fuente de navegador de 1920×1080, <b>encima de todo</b>, en las escenas donde quieras alertas (normalmente Streaming y Hablar). Marca "Controlar audio vía OBS" para oír los sonidos.</li>
       <li>En <b>Streaming</b> y <b>Hablar</b> pon tu cámara debajo de la fuente y ajústala al marco.</li>
       <li>En el editor (enlace "Editar") cada pieza es independiente: arrástrala, cámbiale el tamaño u ocúltala con el ojo. En <b>Settings</b> están las secciones <b>⚙️ Canal</b> y <b>⚙️ Elemento</b>.</li>
       <li>El chat y el aviso de alerta muestran ejemplos solo dentro del editor; en el directo salen los reales.</li>
     </ol>`;
 const html = page(PACK, { titulo: 'Pack Minimal · Vice City', pasos: PASOS,
-  sub: 'Pega tu JWT y este instalador crea en tu cuenta de <b>StreamElements</b> las <b>6 escenas minimalistas</b> (intro, streaming, hablar, pausa, ya vuelvo y salida) con <b>chat horizontal inferior</b> y <b>alertas</b> discretas y destacadas. Cada pieza se mueve, escala u oculta por separado.' });
+  sub: 'Pega tu JWT y este instalador crea en tu cuenta de <b>StreamElements</b> las <b>6 escenas minimalistas</b> (intro, streaming, hablar, pausa, ya vuelvo y salida) con <b>chat horizontal inferior</b>, y aparte un overlay de <b>alertas</b> discretas y destacadas para ponerlo encima de las escenas que quieras. Cada pieza se mueve, escala u oculta por separado.' });
 fs.writeFileSync(path.join(ROOT, 'instalar-minimal.html'), html);
 
 /* Instalador solo de las alertas: un overlay con la pieza "Alertas" arriba al centro */
-const al = JSON.parse(JSON.stringify(scenes.find(x => x.name.endsWith('Streaming')).widgets.find(w => w.name === 'Alertas')));
-al.css = { 'z-index': 1, left: 560, top: 60, width: '800px', height: '124px', opacity: 1 };
-const soloAlertas = page({ ...PACK, scenes: [{ name: 'Alertas Minimal · Vice City', desc: '9 alertas: discretas y destacadas con sticker', widgets: [al] }] }, { titulo: 'Alertas Minimal · Vice City',
+const soloAlertas = page({ ...PACK, scenes: [{ ...ALERTAS, name: 'Alertas Minimal · Vice City', desc: '9 alertas: discretas y destacadas con sticker' }] }, { titulo: 'Alertas Minimal · Vice City',
   sub: 'Pega tu JWT y este instalador crea en tu cuenta de <b>StreamElements</b> un overlay con las <b>9 alertas minimalistas</b>: discretas para seguidores y destacadas, con sticker, para subs, regalos, donaciones, raids, hosts, bits y KICKs.',
   pasos: `<ol>
       <li>Añade la URL como <b>Fuente de navegador</b> de 1920×1080 en OBS o Streamlabs Desktop, encima de tu juego y tu cámara, y marca "Controlar audio vía OBS" para oír los sonidos.</li>
