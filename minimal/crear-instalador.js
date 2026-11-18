@@ -45,7 +45,7 @@ const piezas = minPiezas(L);
 const scenes = Object.keys(L.escenas).map(key => {
   const s = L.escenas[key];
   return { name: 'Minimal · ' + s.nombre, desc: s.desc, widgets: piezas[key].map(([name, k, b, c], i) => {
-    const fields = { mPieza: { type: 'hidden', label: '-', value: k }, mTema: { type: 'hidden', label: '-', value: s.tema }, ...campos(k, c) };
+    const fields = { mPieza: { type: 'hidden', label: '-', value: k }, mTema: { type: 'hidden', label: '-', value: s.tema }, mRetraso: { type: 'hidden', label: '-', value: c.retraso || '0' }, ...campos(k, c) };
     return { name, listeners: k === 'alerta' ? EVENTOS : {}, css: { 'z-index': i + 1, left: b[0], top: b[1], width: b[2] + 'px', height: b[3] + 'px', opacity: 1 },
       fields: JSON.stringify(fields), fieldData: Object.fromEntries(Object.entries(fields).map(([n, f]) => [n, f.value])) };
   }) };
