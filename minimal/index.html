@@ -6,7 +6,7 @@
 <!--
   PACK MINIMAL · VICE CITY — escenas minimalistas con chat horizontal inferior (1920x1080)
   ?escena=intro | streaming | hablar | pausa | vuelvo | fin     (&canal=TuCanal)
-  ?pieza=fondo | titulo | cuenta | canal | texto | marco | nombre | etiqueta | envivo | barra | chat | alerta
+  ?pieza=fondo | titulo | logo | cuenta | canal | texto | marco | nombre | etiqueta | envivo | barra | chat | alerta
   Sin parámetros se abre el menú. En StreamElements cada pieza es un widget independiente
   (lo crea instalar-minimal.html con el JWT). La distribución está en el bloque "layout".
 -->
@@ -68,6 +68,12 @@ body{font-family:'Rubik',sans-serif;-webkit-font-smoothing:antialiased;color:#ff
 .dot.live::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #ff2b4f;animation:onda 1.6s ease-out infinite}
 @keyframes late{50%{transform:scale(.82)}}
 @keyframes onda{from{transform:scale(1);opacity:.9}to{transform:scale(2.8);opacity:0}}
+
+/* logo */
+.logo{position:absolute;inset:0;animation:lin .9s cubic-bezier(.34,1.4,.64,1) both;animation-delay:var(--d,0s)}
+.logo img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 3vh color-mix(in srgb,var(--b) 55%,transparent));animation:lfl 5s ease-in-out infinite alternate}
+@keyframes lin{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+@keyframes lfl{from{transform:translateY(2%)}to{transform:translateY(-2%)}}
 
 /* placas */
 .pill{position:absolute;inset:0;display:flex;align-items:center;gap:20vh;padding:0 26vh 0 0;background:rgba(22,5,42,.84);border-radius:10vh;overflow:hidden;white-space:nowrap}
@@ -143,6 +149,7 @@ body.menu{background:#0d0616;overflow:auto}
 <script id="layout" type="application/json">
 {
   "sonidos": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d926553af1227572d2e1112b55b146e9cb55c1c1/sonidos/",
+  "logo": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d926553af1227572d2e1112b55b146e9cb55c1c1/stickers/vi.png",
   "escenas": {
     "intro":     {"nombre": "Intro",     "desc": "Empezamos pronto, con cuenta atrás", "tema": "intro",  "full": {"over": "El directo", "titulo": "Empezamos", "sub": "No te vayas", "cuenta": true}},
     "streaming": {"nombre": "Streaming", "desc": "Cámara, placas, alertas y chat horizontal", "tema": "intro", "piezas": [
@@ -205,6 +212,7 @@ else if(k==='envivo') root.innerHTML=`<div class="row in ${Q.get('lado')==='der'
 else if(k==='marco')  root.innerHTML=`<div class="frw"><div class="fr"></div></div><span class="frc a"></span><span class="frc b"></span>`;
 else if(k==='nombre') root.innerHTML=`<div class="pill in"><b>${canal}</b></div>`;
 else if(k==='etiqueta') root.innerHTML=`<div class="lab in"><div><small>${P('lt','Último seguidor')}</small><b>${P('lv','—')}</b></div></div>`;
+else if(k==='logo')   root.innerHTML=`<div class="logo"><img src="${P('logo',(CFG&&CFG.__logo)||'../stickers/vi.png')}" alt=""></div>`;
 else if(k==='barra')  root.innerHTML=`<div class="bar"></div>`;
 else if(k==='chat')   chat();
 else if(k==='alerta') alerta();
@@ -310,6 +318,7 @@ window.minPiezas=function(L){
       ['Vice City','texto',[1380,40,500,36],{texto:'Vice City',lado:'der',retraso:'1.5'}],
       ['Franja del chat','barra',[0,1020,1920,60],{retraso:'0.2'}],
       ['Chat horizontal','chat',[24,1020,1872,60],{retraso:'0.6'}]];
+    if(!f.cuenta) p.splice(2,0,['Logo','logo',[810,500,300,200],{retraso:'1.3'}]);
     if(f.cuenta) p.splice(2,0,['Cuenta atrás','cuenta',[790,590,340,96],{min:'5',retraso:'1.8'}]);
     out[k]=p;}
   return out;

@@ -14,7 +14,7 @@ const minPiezas = eval('(' + piezasFn + ')');
 const js = `window.__MIN_WIDGET=1;
 ${main}
 window.addEventListener('onWidgetLoad', function(ev){
-  var d=ev.detail||{}, f=d.fieldData||{}, c={__sonidos:'${L.sonidos}', __editor:!!(d.overlay&&d.overlay.isEditorMode)};
+  var d=ev.detail||{}, f=d.fieldData||{}, c={__sonidos:'${L.sonidos}', __logo:'${L.logo}', __editor:!!(d.overlay&&d.overlay.isEditorMode)};
   for(var k in f) if(/^m[A-Z]/.test(k)) c[k.slice(1).toLowerCase()]=f[k];   // mCanal -> canal
   window.__MIN=c; minMain();
 });
@@ -30,6 +30,7 @@ function campos(k, c) {
   switch (k) {
     case 'fondo': return c.hueco ? { mHueco: sino('Hueco transparente para la cámara (posición de fábrica)', 'si') } : {};
     case 'titulo': return { mOver: txt('Texto pequeño de arriba', c.over), mTitulo: txt('Título', c.titulo), mSub: txt('Texto de abajo', c.sub), mLado: drop('Alineación', 'centro', { centro: 'Centrado', izq: 'Izquierda' }) };
+    case 'logo': return { mLogo: txt('Imagen del logo (URL; vacío = logo de GTA VI del pack)', '') };
     case 'cuenta': return { mMin: num('Minutos', 5, 1, 120) };
     case 'canal': case 'nombre': return { mCanal: txt('Nombre del canal', '@TUCANAL', GC) };
     case 'texto': case 'envivo': return { mTexto: txt('Texto', c.texto || 'En vivo'), mLado: lado(c.lado) };
