@@ -33,10 +33,15 @@ body{font-family:'Rubik',sans-serif;-webkit-font-smoothing:antialiased;color:#ff
 @keyframes tw{to{opacity:.5}}
 .bg .sun{position:absolute;left:50%;top:66%;width:42vh;height:42vh;margin:-21vh 0 0 -21vh;border-radius:50%;padding:.35vh;background:linear-gradient(180deg,var(--c),var(--b) 55%,var(--a));
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:sun 7s ease-in-out infinite alternate}
+.bg .sw{position:absolute;inset:0;-webkit-mask-image:conic-gradient(from -90deg at 50% 66%,#000 var(--draw),transparent 0);animation:trazo 1.6s .3s cubic-bezier(.6,0,.2,1) forwards}
 @keyframes sun{from{transform:translateY(1.2vh)}to{transform:translateY(-1.2vh)}}
 .bg .cut{position:absolute;left:0;right:0;top:66%;bottom:0;background:linear-gradient(180deg,#16052a,#1d0a33)}
-.bg .hz{position:absolute;left:8%;right:8%;top:66%;height:2px;background:linear-gradient(90deg,transparent,var(--a),var(--b),var(--c),transparent)}
-.bg .ln{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--b) 55%,transparent),transparent)}
+.bg .hz{position:absolute;left:8%;right:8%;top:66%;height:2px;background:linear-gradient(90deg,transparent,var(--a),var(--b),var(--c),transparent);animation:hz 1.2s cubic-bezier(.16,1,.3,1) both}
+@keyframes hz{from{transform:scaleX(0)}to{transform:none}}
+.bg .ray{position:absolute;left:50%;top:66%;width:2px;height:0;margin-left:-1px;background:linear-gradient(180deg,var(--b),transparent);opacity:.5;animation:ray 4s ease-in-out infinite;animation-delay:1.6s}
+@keyframes ray{0%{height:0;opacity:.6}60%,100%{height:30%;opacity:0}}
+.bg .ln{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--b) 55%,transparent),transparent);animation:ln 6s linear infinite}
+@keyframes ln{0%{transform:translateY(0);opacity:0}15%{opacity:.5}100%{transform:translateY(26vh);opacity:0}}
 
 /* textos */
 .tit{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;white-space:nowrap}
@@ -47,6 +52,14 @@ body{font-family:'Rubik',sans-serif;-webkit-font-smoothing:antialiased;color:#ff
 .tit i{display:block;height:1.6vh;min-height:3px;width:30vh;background:var(--g);border-radius:9px;margin:2.5vh 0 4.5vh;animation:bar 3.2s ease-in-out infinite alternate}
 @keyframes bar{from{width:22vh}to{width:60vh}}
 .tit span{font-weight:500;font-size:10vh;color:#e6d8f7;letter-spacing:.04em}
+.tit.in{animation:none}
+.tit.in small{animation:tsm .9s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--d,0s)}
+.tit.in h1{animation:th1 .8s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--d,0s) + .2s)}
+.tit.in i{animation:tbar .7s cubic-bezier(.16,1,.3,1) both,bar 3.2s ease-in-out infinite alternate;animation-delay:calc(var(--d,0s) + .65s),calc(var(--d,0s) + 1.35s)}
+.tit.in span{animation:in .7s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--d,0s) + .85s)}
+@keyframes tsm{from{opacity:0;letter-spacing:1.2em}to{opacity:1;letter-spacing:.5em}}
+@keyframes th1{from{opacity:0;clip-path:inset(100% 0 0 0);transform:translateY(30%) skewX(-8deg)}to{opacity:1;clip-path:inset(-10% -5% -10% -5%);transform:none}}
+@keyframes tbar{from{width:0;opacity:0}to{width:22vh;opacity:1}}
 .mono{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:78vh;font-variant-numeric:tabular-nums;letter-spacing:.04em}
 .row{position:absolute;inset:0;display:flex;align-items:center;gap:22vh;white-space:nowrap;font-weight:700;font-size:48vh;letter-spacing:.14em;text-transform:uppercase}
 .row.der{justify-content:flex-end}
@@ -178,7 +191,7 @@ const canal=P('canal','@TUCANAL');
 if(k==='fondo'){
   const h=(Q.get('hueco')==='si')?(Q.get('caja')||'240,96,1440,810').split(',').map(Number):null;
   const m=h?`-webkit-mask-image:linear-gradient(#000,#000),linear-gradient(#000,#000);-webkit-mask-size:100% 100%,${(h[2]-6)/19.2}% ${(h[3]-6)/10.8}%;-webkit-mask-position:0 0,${(h[0]+3)/(1920-h[2]+6)*100}% ${(h[1]+3)/(1080-h[3]+6)*100}%;-webkit-mask-repeat:no-repeat;-webkit-mask-composite:xor;mask-composite:exclude`:'';
-  root.innerHTML=`<div class="bg" style="${m}"><div class="st"></div><div class="sun"></div><div class="cut"></div><div class="hz"></div>${[72,79,88].map((y,i)=>`<div class="ln" style="top:${y}%;opacity:${.5-i*.14}"></div>`).join('')}</div>`;
+  root.innerHTML=`<div class="bg" style="${m}"><div class="st"></div><div class="sw"><div class="sun"></div></div><div class="cut"></div><div class="hz"></div><div class="ray"></div>${[0,1,2,3].map(i=>`<div class="ln" style="top:67%;animation-delay:${-i*1.5}s"></div>`).join('')}</div>`;
 }
 else if(k==='titulo') root.innerHTML=`<div class="tit in ${Q.get('lado')==='izq'?'izq':''}"><small>${P('over','El directo')}</small><h1>${P('titulo','Empezamos')}</h1><i></i><span>${P('sub','No te vayas')}</span></div>`;
 else if(k==='cuenta'){
@@ -292,12 +305,12 @@ window.minPiezas=function(L){
     if(s.piezas){out[k]=s.piezas;continue;}
     const f=s.full, p=[
       ['Fondo','fondo',[0,0,1920,1080],{}],
-      ['Título','titulo',[360,150,1200,330],{over:f.over,titulo:f.titulo,sub:f.sub}],
-      ['Nombre del canal','canal',[40,956,700,40],{}],
-      ['Vice City','texto',[1380,40,500,36],{texto:'Vice City',lado:'der'}],
-      ['Franja del chat','barra',[0,1020,1920,60],{}],
-      ['Chat horizontal','chat',[24,1020,1872,60],{}]];
-    if(f.cuenta) p.splice(2,0,['Cuenta atrás','cuenta',[790,590,340,96],{min:'5'}]);
+      ['Título','titulo',[360,150,1200,330],{over:f.over,titulo:f.titulo,sub:f.sub,retraso:'0.5'}],
+      ['Nombre del canal','canal',[40,956,700,40],{retraso:'1.5'}],
+      ['Vice City','texto',[1380,40,500,36],{texto:'Vice City',lado:'der',retraso:'1.5'}],
+      ['Franja del chat','barra',[0,1020,1920,60],{retraso:'0.2'}],
+      ['Chat horizontal','chat',[24,1020,1872,60],{retraso:'0.6'}]];
+    if(f.cuenta) p.splice(2,0,['Cuenta atrás','cuenta',[790,590,340,96],{min:'5',retraso:'1.8'}]);
     out[k]=p;}
   return out;
 };
