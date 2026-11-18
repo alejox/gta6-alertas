@@ -28,7 +28,8 @@ const sino = (label, value) => drop(label, value, { si: 'Sí', no: 'No' });
 const lado = v => drop('Alineación', v || 'izq', { izq: 'Izquierda', der: 'Derecha' });
 function campos(k, c) {
   switch (k) {
-    case 'fondo': return c.hueco ? { mHueco: sino('Hueco transparente para la cámara (posición de fábrica)', 'si') } : {};
+    case 'fondo': return c.hueco ? { mHueco: sino('Hueco transparente para la cámara (posición de fábrica)', 'si') }
+      : { mFondo: drop('Fondo', c.fondo || 'solido', { solido: 'Sólido (oscuro)', velo: 'Transparente con velo oscuro suave', nada: 'Transparente del todo' }) };
     case 'titulo': return { mOver: txt('Texto pequeño de arriba', c.over), mTitulo: txt('Título', c.titulo), mSub: txt('Texto de abajo', c.sub), mLado: drop('Alineación', 'centro', { centro: 'Centrado', izq: 'Izquierda' }) };
     case 'logo': return { mLogo: txt('Imagen del logo (URL; vacío = logo de GTA VI del pack)', '') };
     case 'cuenta': return { mMin: num('Minutos', 5, 1, 120) };
