@@ -60,9 +60,9 @@ const PACK = { html: '<div id="p"></div>', css, js, scenes, cover };
 const base = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
 const style = /<style>([\s\S]*?)<\/style>/.exec(base)[1];
 const gift = /(<div class="gift">[\s\S]*?)\n  <img class="cover"/.exec(base)[1];
-const html = `<!DOCTYPE html>
+const page = (PACK, T) => `<!DOCTYPE html>
 <html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Instalar · Pack Minimal · Vice City</title>
+<title>Instalar · ${T.titulo}</title>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Rubik:wght@400;600;800&display=swap" rel="stylesheet">
 <style>${style}
 .res{text-align:left;border-top:1px solid var(--line);padding:14px 0 4px;margin-top:14px}.res b{font-size:15px}.res small{color:var(--mut);margin-left:8px}.res .urlbox{margin-top:8px}.res a{color:var(--c);font-size:13px;margin-left:8px}
@@ -70,8 +70,8 @@ const html = `<!DOCTYPE html>
 </style></head><body>
 <div class="wrap">
   <div class="brand">ALEJOX GAMING · INSTALACIÓN EN UN CLIC</div>
-  <h1>Pack Minimal · Vice City</h1>
-  <p class="sub">Pega tu JWT y este instalador crea en tu cuenta de <b>StreamElements</b> las <b>6 escenas minimalistas</b> (intro, streaming, hablar, pausa, ya vuelvo y salida) con <b>chat horizontal inferior</b> y <b>alertas discretas</b>. Cada pieza se mueve, escala u oculta por separado.</p>
+  <h1>${T.titulo}</h1>
+  <p class="sub">${T.sub}</p>
   ${gift}
   <img class="cover" id="cover" alt="" style="width:100%;border-radius:16px;margin:0 0 18px;box-shadow:0 16px 40px #0008">
   <div id="steps">
@@ -94,12 +94,7 @@ const html = `<!DOCTYPE html>
     <h2>¡Instalado!</h2>
     <p class="sub" style="margin:4px 0 0">Cada línea es una URL para una <b>Fuente de navegador de 1920×1080</b> en OBS o Streamlabs Desktop.</p>
     <div id="results"></div>
-    <ol>
-      <li>Crea una escena por cada línea y añade su URL como <b>Fuente de navegador</b> (1920×1080, con "Controlar audio vía OBS" para oír las alertas).</li>
-      <li>En <b>Streaming</b> y <b>Hablar</b> pon tu cámara debajo de la fuente y ajústala al marco.</li>
-      <li>En el editor (enlace "Editar") cada pieza es independiente: arrástrala, cámbiale el tamaño u ocúltala con el ojo. En <b>Settings</b> están las secciones <b>⚙️ Canal</b> y <b>⚙️ Elemento</b>.</li>
-      <li>El chat y el aviso de alerta muestran ejemplos solo dentro del editor; en el directo salen los reales.</li>
-    </ol>
+    ${T.pasos}
     <p class="note">⚠️ Estas URLs son privadas: no las muestres en stream.</p>
   </div>
   <p class="foot">Regalo de <a href="https://www.youtube.com/@alejoxcode" target="_blank" rel="noopener" style="color:var(--mut)">AlejoxCode</a> y <a href="https://www.youtube.com/@argegaming" target="_blank" rel="noopener" style="color:var(--mut)">ArgeGaming</a> para su comunidad · Instalador basado en la API pública de StreamElements</p>
@@ -172,5 +167,27 @@ btn.onclick = async () => {
 </script>
 </body></html>
 `;
+const PASOS = `<ol>
+      <li>Crea una escena por cada línea y añade su URL como <b>Fuente de navegador</b> (1920×1080, con "Controlar audio vía OBS" para oír las alertas).</li>
+      <li>En <b>Streaming</b> y <b>Hablar</b> pon tu cámara debajo de la fuente y ajústala al marco.</li>
+      <li>En el editor (enlace "Editar") cada pieza es independiente: arrástrala, cámbiale el tamaño u ocúltala con el ojo. En <b>Settings</b> están las secciones <b>⚙️ Canal</b> y <b>⚙️ Elemento</b>.</li>
+      <li>El chat y el aviso de alerta muestran ejemplos solo dentro del editor; en el directo salen los reales.</li>
+    </ol>`;
+const html = page(PACK, { titulo: 'Pack Minimal · Vice City', pasos: PASOS,
+  sub: 'Pega tu JWT y este instalador crea en tu cuenta de <b>StreamElements</b> las <b>6 escenas minimalistas</b> (intro, streaming, hablar, pausa, ya vuelvo y salida) con <b>chat horizontal inferior</b> y <b>alertas</b> discretas y destacadas. Cada pieza se mueve, escala u oculta por separado.' });
 fs.writeFileSync(path.join(ROOT, 'instalar-minimal.html'), html);
+
+/* Instalador solo de las alertas: un overlay con la pieza "Alertas" arriba al centro */
+const al = JSON.parse(JSON.stringify(scenes.find(x => x.name.endsWith('Streaming')).widgets.find(w => w.name === 'Alertas')));
+al.css = { 'z-index': 1, left: 560, top: 60, width: '800px', height: '124px', opacity: 1 };
+const soloAlertas = page({ ...PACK, scenes: [{ name: 'Alertas Minimal · Vice City', desc: '9 alertas: discretas y destacadas con sticker', widgets: [al] }] }, { titulo: 'Alertas Minimal · Vice City',
+  sub: 'Pega tu JWT y este instalador crea en tu cuenta de <b>StreamElements</b> un overlay con las <b>9 alertas minimalistas</b>: discretas para seguidores y destacadas, con sticker, para subs, regalos, donaciones, raids, hosts, bits y KICKs.',
+  pasos: `<ol>
+      <li>Añade la URL como <b>Fuente de navegador</b> de 1920×1080 en OBS o Streamlabs Desktop, encima de tu juego y tu cámara, y marca "Controlar audio vía OBS" para oír los sonidos.</li>
+      <li>En el editor (enlace "Editar") arrastra la alerta a donde la quieras y cámbiale el tamaño. Dentro del editor se ven dos alertas de ejemplo en bucle.</li>
+      <li>En <b>Settings → ⚙️ Elemento</b>: segundos en pantalla, sonido y volumen, sticker sí/no, mínimos de donación, bits y KICKs, y a partir de cuántos bits o KICKs la alerta pasa a destacada.</li>
+      <li>Si ya tienes otro Alert Box en la misma escena, ocúltalo para que no salgan dos alertas.</li>
+    </ol>` });
+fs.writeFileSync(path.join(ROOT, 'instalar-alertas-minimal.html'), soloAlertas);
+
 console.log('instalar-minimal.html', (html.length / 1e6).toFixed(2), 'MB ·', scenes.map(s => s.name + '(' + s.widgets.length + ')').join(' | '));

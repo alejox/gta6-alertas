@@ -21,7 +21,15 @@ Todo en un solo zip: las 9 alertas, las 6 escenas (intro, streaming, hablar, pau
 
 Los mismos colores en versión minimalista: 6 escenas con una franja inferior para el chat horizontal, chat horizontal propio y avisos de alerta discretos. Se instala con el JWT de StreamElements (`Instalar - Pack Minimal.html`) y cada pieza se mueve, escala u oculta por separado.
 
-### Solo las alertas
+### 🔔 Alertas Minimal (solo las alertas)
+
+### [👉 Descargar Alertas-Minimal-ViceCity.zip](https://github.com/alejox/gta6-alertas/raw/main/descargas/Alertas-Minimal-ViceCity.zip)
+
+![Alertas Minimal](descargas/minimal/diseno/alertas.png)
+
+9 alertas minimalistas en dos niveles: discretas para seguidores y destacadas, con el sticker del evento, para subs, regalos, donaciones, raids, hosts, bits y KICKs. Se instalan con el JWT de StreamElements; el zip trae una página para verlas animadas antes de instalar.
+
+### Alertas originales (grandes, con stickers)
 
 ![Alertas GTA 6 · Vice City](portada.jpg)
 
