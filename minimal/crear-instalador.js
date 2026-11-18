@@ -28,7 +28,8 @@ const sino = (label, value) => drop(label, value, { si: 'Sí', no: 'No' });
 const lado = v => drop('Alineación', v || 'izq', { izq: 'Izquierda', der: 'Derecha' });
 function campos(k, c) {
   switch (k) {
-    case 'fondo': return c.hueco ? { mHueco: sino('Hueco transparente para la cámara (posición de fábrica)', 'si'), ...(c.caja ? { mCaja: { type: 'hidden', label: '-', value: c.caja }, mLienzo: { type: 'hidden', label: '-', value: c.lienzo } } : {}) }
+    case 'fondo': return c.hueco || c.horizonte ? { ...(c.horizonte ? { mHorizonte: { type: 'hidden', label: '-', value: c.horizonte }, mSol: { type: 'hidden', label: '-', value: c.sol } } : {}), ...(c.hueco ? { mHueco: sino('Hueco transparente para la cámara (posición de fábrica)', 'si'), ...(c.caja ? { mCaja: { type: 'hidden', label: '-', value: c.caja }, mLienzo: { type: 'hidden', label: '-', value: c.lienzo } } : {}) }
+      : { mFondo: drop('Fondo', c.fondo || 'solido', { solido: 'Sólido (oscuro)', velo: 'Transparente con velo oscuro suave', nada: 'Transparente del todo' }) }) }
       : { mFondo: drop('Fondo', c.fondo || 'solido', { solido: 'Sólido (oscuro)', velo: 'Transparente con velo oscuro suave', nada: 'Transparente del todo' }) };
     case 'titulo': return { mOver: txt('Texto pequeño de arriba', c.over), mTitulo: txt('Título', c.titulo), mSub: txt('Texto de abajo', c.sub), mLado: drop('Alineación', 'centro', { centro: 'Centrado', izq: 'Izquierda' }) };
     case 'logo': return { mLogo: txt('Imagen del logo (URL; vacío = logo de GTA VI del pack)', '') };
@@ -47,7 +48,7 @@ const EVENTOS = { 'tip-latest': true, 'follower-latest': true, 'subscriber-lates
 const piezas = minPiezas(L);
 function widget([name, k, b, c], i, tema) {
   const fields = { mPieza: { type: 'hidden', label: '-', value: k }, mTema: { type: 'hidden', label: '-', value: tema }, mRetraso: { type: 'hidden', label: '-', value: c.retraso || '0' }, ...campos(k, c) };
-  return { name, listeners: k === 'alerta' ? EVENTOS : {}, css: { 'z-index': i + 1, left: b[0], top: b[1], width: b[2] + 'px', height: b[3] + 'px', opacity: 1 },
+  return { name, visible: c.oculto !== 'si', listeners: k === 'alerta' ? EVENTOS : {}, css: { 'z-index': i + 1, left: b[0], top: b[1], width: b[2] + 'px', height: b[3] + 'px', opacity: 1 },
     fields: JSON.stringify(fields), fieldData: Object.fromEntries(Object.entries(fields).map(([n, f]) => [n, f.value])) };
 }
 // Las alertas van en su propio overlay, para ponerlo encima de las escenas que quieras
@@ -140,7 +141,7 @@ btn.onclick = async () => {
       const s = PACK.scenes[i];
       show('run', '<span class="spin"></span>Creando la escena <b>' + s.name + '</b>… (' + (i + 1) + '/' + PACK.scenes.length + ')', 10 + 90 * (i + 1) / PACK.scenes.length);
       const widgets = s.widgets.map((x, n) => ({
-        id: n + 1, group: null, version: 2.2, type: 'se-widget-custom-event-list', name: x.name, visible: true, locked: false, listener: null, listeners: x.listeners,
+        id: n + 1, group: null, version: 2.2, type: 'se-widget-custom-event-list', name: x.name, visible: x.visible !== false, locked: false, listener: null, listeners: x.listeners,
         css: x.css, variables: { html: PACK.html, css: PACK.css, js: PACK.js, fields: x.fields, fieldData: x.fieldData },
         provider: me.provider || me.providerId || undefined
       }));
@@ -200,6 +201,7 @@ const vertical = page({ ...PACK, scenes: VERT }, { titulo: 'Pack Minimal Vertica
   pasos: `<ol>
       <li>Añade cada URL como <b>Fuente de navegador de 1080×1920</b> (ancho 1080, alto 1920) en tu escena vertical de OBS (plugin Aitum Vertical o lienzo vertical) o de Streamlabs Desktop (salida doble / vertical).</li>
       <li>En <b>Hablar</b> pon tu cámara debajo de la fuente y ajústala al marco.</li>
+      <li>Todo está dentro de la <b>zona segura de TikTok LIVE y YouTube Shorts</b>: nada queda bajo la barra de arriba, los botones de la derecha ni los comentarios de abajo. El chat horizontal viene <b>oculto</b> porque la app ya muestra los comentarios; actívalo con el ojo si lo quieres.</li>
       <li>En <b>Intro</b> y <b>Salida</b> el fondo es transparente con un velo suave: pon detrás lo que quieras mostrar con un filtro de desenfoque.</li>
       <li>En el editor (enlace "Editar") cada pieza es independiente: arrástrala, cámbiale el tamaño u ocúltala. En <b>Settings</b> están <b>⚙️ Canal</b> y <b>⚙️ Elemento</b>.</li>
     </ol>` });

@@ -31,14 +31,15 @@ body{font-family:'Rubik',sans-serif;-webkit-font-smoothing:antialiased;color:#ff
 .bg{position:absolute;inset:0;overflow:hidden;background:radial-gradient(90% 60% at 50% 112%,color-mix(in srgb,var(--b) 38%,transparent),transparent 70%),linear-gradient(180deg,#0b0316,#16052a 70%,#1d0a33)}
 .bg .st{position:absolute;inset:0 0 34% 0;background-image:radial-gradient(rgba(255,255,255,.75) 1px,transparent 1.5px),radial-gradient(rgba(255,255,255,.45) 1px,transparent 1.4px);background-size:190px 150px,120px 110px;background-position:30px 40px,80px 10px;-webkit-mask-image:linear-gradient(180deg,#000,transparent);animation:tw 3s ease-in-out infinite alternate}
 @keyframes tw{to{opacity:.5}}
-.bg .sun{position:absolute;left:50%;top:66%;width:42vh;height:42vh;margin:-21vh 0 0 -21vh;border-radius:50%;padding:.35vh;background:linear-gradient(180deg,var(--c),var(--b) 55%,var(--a));
+.bg{--hz:66%;--sol:42vh}
+.bg .sun{position:absolute;left:50%;top:var(--hz);width:var(--sol);height:var(--sol);margin:calc(var(--sol)/-2) 0 0 calc(var(--sol)/-2);border-radius:50%;padding:.35vh;background:linear-gradient(180deg,var(--c),var(--b) 55%,var(--a));
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:sun 7s ease-in-out infinite alternate}
-.bg .sw{position:absolute;inset:0;-webkit-mask-image:conic-gradient(from -90deg at 50% 66%,#000 var(--draw),transparent 0);animation:trazo 1.6s .3s cubic-bezier(.6,0,.2,1) forwards}
+.bg .sw{position:absolute;inset:0;-webkit-mask-image:conic-gradient(from -90deg at 50% var(--hz),#000 var(--draw),transparent 0);animation:trazo 1.6s .3s cubic-bezier(.6,0,.2,1) forwards}
 @keyframes sun{from{transform:translateY(1.2vh)}to{transform:translateY(-1.2vh)}}
-.bg .cut{position:absolute;left:0;right:0;top:66%;bottom:0;background:linear-gradient(180deg,#16052a,#1d0a33)}
-.bg .hz{position:absolute;left:8%;right:8%;top:66%;height:2px;background:linear-gradient(90deg,transparent,var(--a),var(--b),var(--c),transparent);animation:hz 1.2s cubic-bezier(.16,1,.3,1) both}
+.bg .cut{position:absolute;left:0;right:0;top:var(--hz);bottom:0;background:linear-gradient(180deg,#16052a,#1d0a33)}
+.bg .hz{position:absolute;left:8%;right:8%;top:var(--hz);height:2px;background:linear-gradient(90deg,transparent,var(--a),var(--b),var(--c),transparent);animation:hz 1.2s cubic-bezier(.16,1,.3,1) both}
 @keyframes hz{from{transform:scaleX(0)}to{transform:none}}
-.bg .ray{position:absolute;left:50%;top:66%;width:2px;height:0;margin-left:-1px;background:linear-gradient(180deg,var(--b),transparent);opacity:.5;animation:ray 4s ease-in-out infinite;animation-delay:1.6s}
+.bg .ray{position:absolute;left:50%;top:var(--hz);width:2px;height:0;margin-left:-1px;background:linear-gradient(180deg,var(--b),transparent);opacity:.5;animation:ray 4s ease-in-out infinite;animation-delay:1.6s}
 @keyframes ray{0%{height:0;opacity:.6}60%,100%{height:30%;opacity:0}}
 .bg .ln{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--b) 55%,transparent),transparent);animation:ln 6s linear infinite}
 @keyframes ln{0%{transform:translateY(0);opacity:0}15%{opacity:.5}100%{transform:translateY(26vh);opacity:0}}
@@ -47,7 +48,7 @@ body{font-family:'Rubik',sans-serif;-webkit-font-smoothing:antialiased;color:#ff
 .bg.velo,.bg.nada{background:none}
 .bg.velo{background:linear-gradient(180deg,rgba(11,3,22,.62),rgba(22,5,42,.28) 42%,rgba(22,5,42,.34) 66%,rgba(11,3,22,.7))}
 .bg.velo .st,.bg.nada .st,.bg.velo .cut,.bg.nada .cut{display:none}
-.bg.velo .sw,.bg.nada .sw{clip-path:inset(0 0 34% 0)}
+.bg.velo .sw,.bg.nada .sw{clip-path:inset(0 0 calc(100% - var(--hz)) 0)}
 
 /* textos */
 .tit{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;white-space:nowrap}
@@ -501,17 +502,32 @@ body.menu{background:#0d0616;overflow:auto}
       1920
      ],
      {
+      "horizonte": "56",
+      "sol": "34",
       "fondo": "velo"
+     }
+    ],
+    [
+     "Nombre del canal",
+     "canal",
+     [
+      60,
+      276,
+      520,
+      40
+     ],
+     {
+      "retraso": "1.5"
      }
     ],
     [
      "Título",
      "titulo",
      [
-      40,
-      520,
-      1000,
-      280
+      180,
+      330,
+      720,
+      230
      ],
      {
       "over": "El directo",
@@ -524,10 +540,10 @@ body.menu{background:#0d0616;overflow:auto}
      "Cuenta atrás",
      "cuenta",
      [
-      370,
-      1100,
-      340,
-      110
+      380,
+      930,
+      320,
+      100
      ],
      {
       "min": "5",
@@ -535,57 +551,31 @@ body.menu{background:#0d0616;overflow:auto}
      }
     ],
     [
-     "Nombre del canal",
-     "canal",
-     [
-      40,
-      1712,
-      700,
-      44
-     ],
-     {
-      "retraso": "1.5"
-     }
-    ],
-    [
-     "Vice City",
-     "texto",
-     [
-      540,
-      70,
-      480,
-      40
-     ],
-     {
-      "texto": "Vice City",
-      "lado": "der",
-      "retraso": "1.5"
-     }
-    ],
-    [
      "Franja del chat",
      "barra",
      [
-      0,
-      1830,
-      1080,
-      90
+      60,
+      1110,
+      840,
+      60
      ],
      {
-      "retraso": "0.2"
+      "retraso": "0.2",
+      "oculto": "si"
      }
     ],
     [
      "Chat horizontal",
      "chat",
      [
-      20,
-      1830,
-      1040,
-      90
+      72,
+      1110,
+      816,
+      60
      ],
      {
-      "retraso": "0.6"
+      "retraso": "0.6",
+      "oculto": "si"
      }
     ]
    ]
@@ -610,8 +600,10 @@ body.menu{background:#0d0616;overflow:auto}
      ],
      {
       "hueco": "si",
-      "caja": "60,240,960,1280",
-      "lienzo": "1080,1920"
+      "caja": "60,340,840,640",
+      "lienzo": "1080,1920",
+      "horizonte": "62",
+      "sol": "0"
      }
     ],
     [
@@ -619,9 +611,9 @@ body.menu{background:#0d0616;overflow:auto}
      "texto",
      [
       60,
-      160,
-      600,
-      48
+      276,
+      420,
+      44
      ],
      {
       "texto": "Charlando",
@@ -632,10 +624,10 @@ body.menu{background:#0d0616;overflow:auto}
      "En vivo",
      "envivo",
      [
-      760,
-      160,
-      260,
-      48
+      600,
+      276,
+      300,
+      44
      ],
      {
       "lado": "der",
@@ -647,9 +639,9 @@ body.menu{background:#0d0616;overflow:auto}
      "marco",
      [
       60,
-      240,
-      960,
-      1280
+      340,
+      840,
+      640
      ],
      {
       "retraso": "0.25"
@@ -660,9 +652,9 @@ body.menu{background:#0d0616;overflow:auto}
      "nombre",
      [
       60,
-      1544,
-      420,
-      56
+      994,
+      400,
+      52
      ],
      {
       "retraso": "1.2"
@@ -673,9 +665,9 @@ body.menu{background:#0d0616;overflow:auto}
      "etiqueta",
      [
       60,
-      1628,
-      300,
-      64
+      1058,
+      270,
+      56
      ],
      {
       "lt": "Último seguidor",
@@ -687,10 +679,10 @@ body.menu{background:#0d0616;overflow:auto}
      "Placa · Último sub",
      "etiqueta",
      [
-      390,
-      1628,
-      300,
-      64
+      345,
+      1058,
+      270,
+      56
      ],
      {
       "lt": "Último sub",
@@ -702,10 +694,10 @@ body.menu{background:#0d0616;overflow:auto}
      "Placa · Top donación",
      "etiqueta",
      [
-      720,
-      1628,
-      300,
-      64
+      630,
+      1058,
+      270,
+      56
      ],
      {
       "lt": "Top donación",
@@ -717,26 +709,28 @@ body.menu{background:#0d0616;overflow:auto}
      "Franja del chat",
      "barra",
      [
-      0,
-      1830,
-      1080,
-      90
+      60,
+      1124,
+      840,
+      60
      ],
      {
-      "retraso": "0.2"
+      "retraso": "0.2",
+      "oculto": "si"
      }
     ],
     [
      "Chat horizontal",
      "chat",
      [
-      20,
-      1830,
-      1040,
-      90
+      72,
+      1124,
+      816,
+      60
      ],
      {
-      "retraso": "0.6"
+      "retraso": "0.6",
+      "oculto": "si"
      }
     ]
    ]
@@ -759,16 +753,32 @@ body.menu{background:#0d0616;overflow:auto}
       1080,
       1920
      ],
-     {}
+     {
+      "horizonte": "56",
+      "sol": "34"
+     }
+    ],
+    [
+     "Nombre del canal",
+     "canal",
+     [
+      60,
+      276,
+      520,
+      40
+     ],
+     {
+      "retraso": "1.5"
+     }
     ],
     [
      "Título",
      "titulo",
      [
-      40,
-      520,
-      1000,
-      280
+      180,
+      330,
+      720,
+      230
      ],
      {
       "over": "Directo",
@@ -782,7 +792,7 @@ body.menu{background:#0d0616;overflow:auto}
      "logo",
      [
       390,
-      1040,
+      850,
       300,
       200
      ],
@@ -791,57 +801,31 @@ body.menu{background:#0d0616;overflow:auto}
      }
     ],
     [
-     "Nombre del canal",
-     "canal",
-     [
-      40,
-      1712,
-      700,
-      44
-     ],
-     {
-      "retraso": "1.5"
-     }
-    ],
-    [
-     "Vice City",
-     "texto",
-     [
-      540,
-      70,
-      480,
-      40
-     ],
-     {
-      "texto": "Vice City",
-      "lado": "der",
-      "retraso": "1.5"
-     }
-    ],
-    [
      "Franja del chat",
      "barra",
      [
-      0,
-      1830,
-      1080,
-      90
+      60,
+      1110,
+      840,
+      60
      ],
      {
-      "retraso": "0.2"
+      "retraso": "0.2",
+      "oculto": "si"
      }
     ],
     [
      "Chat horizontal",
      "chat",
      [
-      20,
-      1830,
-      1040,
-      90
+      72,
+      1110,
+      816,
+      60
      ],
      {
-      "retraso": "0.6"
+      "retraso": "0.6",
+      "oculto": "si"
      }
     ]
    ]
@@ -865,17 +849,32 @@ body.menu{background:#0d0616;overflow:auto}
       1920
      ],
      {
+      "horizonte": "56",
+      "sol": "34",
       "fondo": "velo"
+     }
+    ],
+    [
+     "Nombre del canal",
+     "canal",
+     [
+      60,
+      276,
+      520,
+      40
+     ],
+     {
+      "retraso": "1.5"
      }
     ],
     [
      "Título",
      "titulo",
      [
-      40,
-      520,
-      1000,
-      280
+      180,
+      330,
+      720,
+      230
      ],
      {
       "over": "Fin del directo",
@@ -889,7 +888,7 @@ body.menu{background:#0d0616;overflow:auto}
      "logo",
      [
       390,
-      1040,
+      850,
       300,
       200
      ],
@@ -898,61 +897,42 @@ body.menu{background:#0d0616;overflow:auto}
      }
     ],
     [
-     "Nombre del canal",
-     "canal",
-     [
-      40,
-      1712,
-      700,
-      44
-     ],
-     {
-      "retraso": "1.5"
-     }
-    ],
-    [
-     "Vice City",
-     "texto",
-     [
-      540,
-      70,
-      480,
-      40
-     ],
-     {
-      "texto": "Vice City",
-      "lado": "der",
-      "retraso": "1.5"
-     }
-    ],
-    [
      "Franja del chat",
      "barra",
      [
-      0,
-      1830,
-      1080,
-      90
+      60,
+      1110,
+      840,
+      60
      ],
      {
-      "retraso": "0.2"
+      "retraso": "0.2",
+      "oculto": "si"
      }
     ],
     [
      "Chat horizontal",
      "chat",
      [
-      20,
-      1830,
-      1040,
-      90
+      72,
+      1110,
+      816,
+      60
      ],
      {
-      "retraso": "0.6"
+      "retraso": "0.6",
+      "oculto": "si"
      }
     ]
    ]
   }
+ },
+ "zonaSegura": {
+  "x": 60,
+  "y": 260,
+  "w": 840,
+  "h": 920,
+  "nota": "TikTok LIVE + YouTube Shorts, la más restrictiva"
  }
 }
 </script>
@@ -972,7 +952,7 @@ const canal=P('canal','@TUCANAL');
 if(k==='fondo'){
   const h=(Q.get('hueco')==='si')?(Q.get('caja')||'240,96,1440,810').split(',').map(Number):null, [LW,LH]=(Q.get('lienzo')||'1920,1080').split(',').map(Number);
   const m=h?`-webkit-mask-image:linear-gradient(#000,#000),linear-gradient(#000,#000);-webkit-mask-size:100% 100%,${(h[2]-6)/LW*100}% ${(h[3]-6)/LH*100}%;-webkit-mask-position:0 0,${(h[0]+3)/(LW-h[2]+6)*100}% ${(h[1]+3)/(LH-h[3]+6)*100}%;-webkit-mask-repeat:no-repeat;-webkit-mask-composite:xor;mask-composite:exclude`:'';
-  root.innerHTML=`<div class="bg ${({velo:'velo',nada:'nada'})[Q.get('fondo')]||''}" style="${m}"><div class="st"></div><div class="sw"><div class="sun"></div></div><div class="cut"></div><div class="hz"></div><div class="ray"></div>${[0,1,2,3].map(i=>`<div class="ln" style="top:67%;animation-delay:${-i*1.5}s"></div>`).join('')}</div>`;
+  root.innerHTML=`<div class="bg ${({velo:'velo',nada:'nada'})[Q.get('fondo')]||''}" style="${m};${Q.get('horizonte')?`--hz:${parseFloat(Q.get('horizonte'))}%;`:''}${Q.get('sol')?`--sol:${parseFloat(Q.get('sol'))}vh;`:''}"><div class="st"></div><div class="sw"><div class="sun"></div></div><div class="cut"></div><div class="hz"></div><div class="ray"></div>${[0,1,2,3].map(i=>`<div class="ln" style="top:calc(var(--hz) + 1%);animation-delay:${-i*1.5}s"></div>`).join('')}</div>`;
 }
 else if(k==='titulo') root.innerHTML=`<div class="tit in ${Q.get('lado')==='izq'?'izq':''}"><small>${P('over','El directo')}</small><h1>${P('titulo','Empezamos')}</h1><i></i><span>${P('sub','No te vayas')}</span></div>`;
 else if(k==='cuenta'){
@@ -1083,7 +1063,9 @@ function minLocal(){
   if(e&&piezas[e]){
     const [W,H]=L.escenas[e].lienzo||[1920,1080];
     const c=document.createElement('div');c.id='comp';c.style.width=W+'px';c.style.height=H+'px';document.body.appendChild(c);
-    piezas[e].forEach(p=>{const f=document.createElement('iframe');f.src=url(L.escenas[e].tema,p);f.style.cssText=`left:${p[2][0]}px;top:${p[2][1]}px;width:${p[2][2]}px;height:${p[2][3]}px`;c.appendChild(f);});
+    piezas[e].filter(p=>p[3].oculto!=='si').forEach(p=>{const f=document.createElement('iframe');f.src=url(L.escenas[e].tema,p);f.style.cssText=`left:${p[2][0]}px;top:${p[2][1]}px;width:${p[2][2]}px;height:${p[2][3]}px`;c.appendChild(f);});
+    if(Q.get('guia')&&L.zonaSegura&&L.escenas[e].lienzo){const z=L.zonaSegura,g=document.createElement('div');g.style.cssText=`position:absolute;inset:0;pointer-events:none;z-index:99;background:rgba(255,40,60,.32);-webkit-mask:linear-gradient(#000 0 0),linear-gradient(#000 0 0) ${z.x}px ${z.y}px/${z.w}px ${z.h}px no-repeat;-webkit-mask-composite:xor;mask-composite:exclude;outline:3px dashed #fff;outline-offset:-3px`;
+      g.innerHTML=`<div style="position:absolute;left:${z.x}px;top:${z.y}px;width:${z.w}px;height:${z.h}px;border:3px dashed #fff"></div>`;c.appendChild(g);}
     const fit=()=>{const k=Math.min(innerWidth/W,innerHeight/H);c.style.transform=`translateX(${(innerWidth-W*k)/2}px) scale(${k})`;};addEventListener('resize',fit);fit();return;
   }
   document.body.classList.add('menu');const m=document.createElement('div');m.id='menu';document.body.appendChild(m);
