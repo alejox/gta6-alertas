@@ -14,7 +14,7 @@ const minPiezas = eval('(' + piezasFn + ')');
 const js = `window.__MIN_WIDGET=1;
 ${main}
 window.addEventListener('onWidgetLoad', function(ev){
-  var d=ev.detail||{}, f=d.fieldData||{}, c={__sonidos:'${L.sonidos}', __logo:'${L.logo}', __editor:!!(d.overlay&&d.overlay.isEditorMode)};
+  var d=ev.detail||{}, f=d.fieldData||{}, c={__sonidos:'${L.sonidos}', __stk:'${L.logo}'.replace(/vi\\.png$/,''), __logo:'${L.logo}', __editor:!!(d.overlay&&d.overlay.isEditorMode)};
   for(var k in f) if(/^m[A-Z]/.test(k)) c[k.slice(1).toLowerCase()]=f[k];   // mCanal -> canal
   window.__MIN=c; minMain();
 });
@@ -37,7 +37,8 @@ function campos(k, c) {
     case 'texto': case 'envivo': return { mTexto: txt('Texto', c.texto || 'En vivo'), mLado: lado(c.lado) };
     case 'etiqueta': return { mLt: txt('Título', c.lt), mLv: txt('Texto (o deja — y pon encima una etiqueta de StreamElements)', c.lv) };
     case 'chat': return { mMax: num('Máximo de mensajes en pantalla', 8, 1, 30), mLado: drop('Los mensajes nuevos entran por', 'der', { der: 'La derecha', izq: 'La izquierda' }), mColor: drop('Color de los nombres', 'acento', { acento: 'Color del pack', usuario: 'Color de cada usuario' }) };
-    case 'alerta': return { mSeg: num('Segundos en pantalla', 5, 2, 30), mSonido: sino('Sonido', 'si'), mVolumen: num('Volumen (0-100)', 50, 0, 100), mMoneda: txt('Símbolo de moneda', '$'),
+    case 'alerta': return { mSeg: num('Segundos en pantalla (las destacadas duran 3 más)', 5, 2, 30), mSonido: sino('Sonido', 'si'), mVolumen: num('Volumen (0-100)', 50, 0, 100), mMoneda: txt('Símbolo de moneda', '$'),
+      mStickers: sino('Sticker en las alertas destacadas', 'si'), mDestBits: num('Bits para que la alerta sea destacada', 100, 0, 1000000), mDestKicks: num('KICKs para que la alerta sea destacada', 100, 0, 1000000),
       mMinTip: num('Donación mínima', 0, 0, 100000), mMinBits: num('Bits mínimos', 0, 0, 1000000), mMinKicks: num('KICKs mínimos', 0, 0, 1000000) };
     default: return {};
   }

@@ -122,10 +122,11 @@ body{font-family:'Rubik',sans-serif;-webkit-font-smoothing:antialiased;color:#ff
 .msg span{font-weight:500;color:#f1e8fb}
 .msg img{height:52vh;vertical-align:middle;margin:0 2vh}
 
-/* alerta */
-.al{position:absolute;inset:0;display:flex;align-items:center;gap:18vh;padding-right:28vh;background:rgba(22,5,42,.92);border-radius:12vh;overflow:hidden;white-space:nowrap;opacity:0}
-.al::before{content:"";flex:none;align-self:stretch;width:9vh;min-width:5px;background:linear-gradient(180deg,var(--c),var(--b),var(--a))}
-.al::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--g);transform-origin:0 50%;transform:scaleX(0)}
+/* alertas en dos niveles: discreta (píldora pequeña) y destacada (más grande, con el sticker como icono) */
+.alw{position:absolute;inset:0;display:flex;justify-content:center;align-items:flex-start}
+.al{position:relative;display:flex;align-items:center;gap:8vh;height:52vh;max-width:100%;padding-right:14vh;background:rgba(22,5,42,.92);border-radius:7vh;white-space:nowrap;opacity:0;--ev:var(--b)}
+.al::before{content:"";flex:none;align-self:stretch;width:4.5vh;min-width:5px;border-radius:7vh 0 0 7vh;background:linear-gradient(180deg,var(--c),var(--b),var(--a))}
+.al::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:100%;border-radius:0 0 7vh 7vh;background:var(--g);transform-origin:0 50%;transform:scaleX(0)}
 .al.on{animation:alin .5s cubic-bezier(.16,1,.3,1) forwards}
 .al.on::after{animation:alp var(--hold,5s) linear forwards}
 .al.off{animation:alout .4s ease-in forwards}
@@ -133,10 +134,28 @@ body{font-family:'Rubik',sans-serif;-webkit-font-smoothing:antialiased;color:#ff
 @keyframes alout{from{opacity:1}to{opacity:0;transform:translateY(-40%)}}
 @keyframes alp{from{transform:scaleX(1)}to{transform:scaleX(0)}}
 @keyframes alt{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+.al .alc{display:flex;align-items:baseline;gap:8vh;min-width:0}
 .al.on small{animation:alt .4s .15s both}.al.on b{animation:alt .45s .28s both}.al.on em{animation:alt .45s .42s both}
-.al small{font-weight:700;font-size:22vh;letter-spacing:.22em;color:var(--c);text-transform:uppercase}
-.al b{font-weight:900;font-style:italic;font-size:40vh}
-.al em{font-style:normal;font-weight:500;font-size:30vh;color:#e6d8f7;overflow:hidden;text-overflow:ellipsis}
+.al small{font-weight:700;font-size:12vh;letter-spacing:.22em;color:var(--c);text-transform:uppercase}
+.al b{font-weight:900;font-style:italic;font-size:22vh}
+.al em{font-style:normal;font-weight:500;font-size:16vh;color:#e6d8f7;overflow:hidden;text-overflow:ellipsis}
+.al .ico{display:none}
+/* destacada */
+.al.big{height:92vh;gap:5vh;padding-right:22vh;border-radius:9vh;margin-top:4vh}
+.al.big::before{background:var(--ev);width:5.5vh;border-radius:9vh 0 0 9vh}
+.al.big::after{background:linear-gradient(90deg,var(--ev),var(--c));height:4px;border-radius:0 0 9vh 9vh}
+.al.big .ico{display:block;flex:none;position:relative;width:104vh;height:92vh;margin:0 0 0 1vh}
+.al.big .ico img{position:absolute;left:0;top:5vh;width:100%;height:80vh;object-fit:contain;filter:drop-shadow(0 1.5vh 0 rgba(0,0,0,.35))}
+.al.big .ico::before{content:"";position:absolute;left:50%;top:50%;width:44vh;height:44vh;margin:-22vh;border-radius:50%;border:2px solid var(--ev);opacity:0}
+.al.big.on .ico img{animation:stk .7s .12s cubic-bezier(.34,1.56,.64,1) both,stf 2.4s 1s ease-in-out infinite alternate}
+.al.big.on .ico::before{animation:ring 1.1s .25s ease-out both}
+@keyframes stk{from{opacity:0;transform:scale(0) rotate(-25deg)}to{opacity:1;transform:none}}
+@keyframes stf{from{transform:rotate(-3deg)}to{transform:rotate(3deg) translateY(-3%)}}
+@keyframes ring{from{opacity:.9;transform:scale(.4)}to{opacity:0;transform:scale(2.1)}}
+.al.big .alc{flex-direction:column;align-items:flex-start;justify-content:center;gap:2.5vh}
+.al.big small{font-size:13vh;color:var(--ev);filter:brightness(1.35)}
+.al.big b{font-size:33vh;line-height:1}
+.al.big em{font-size:17vh}
 
 /* vista local */
 body.menu{background:#0d0616;overflow:auto}
@@ -169,7 +188,7 @@ body.menu{background:#0d0616;overflow:auto}
       ["Placa · Último sub",      "etiqueta", [298, 28, 250, 56], {"lt": "Último sub", "lv": "—", "retraso": "0.65"}],
       ["Placa · Top donación",    "etiqueta", [564, 28, 250, 56], {"lt": "Top donación", "lv": "—", "retraso": "0.8"}],
       ["En vivo",          "envivo",   [1688, 34, 200, 44], {"lado": "der", "retraso": "0.9"}],
-      ["Alertas",          "alerta",   [640, 100, 640, 68], {"retraso": "0"}]
+      ["Alertas",          "alerta",   [560, 92, 800, 124], {"retraso": "0"}]
     ]},
     "hablar":    {"nombre": "Hablar",    "desc": "Cámara grande y chat horizontal", "tema": "intro", "piezas": [
       ["Fondo",            "fondo",    [0, 0, 1920, 1080], {"hueco": "si"}],
@@ -182,7 +201,7 @@ body.menu{background:#0d0616;overflow:auto}
       ["Placa · Top donación",    "etiqueta", [1430, 918, 250, 56], {"lt": "Top donación", "lv": "—"}],
       ["Franja del chat",  "barra",    [0, 1020, 1920, 60], {}],
       ["Chat horizontal",  "chat",     [24, 1020, 1872, 60], {}],
-      ["Alertas",          "alerta",   [640, 120, 640, 68], {}]
+      ["Alertas",          "alerta",   [560, 116, 800, 124], {}]
     ]},
     "pausa":     {"nombre": "Pausa",     "desc": "Directo en pausa", "tema": "pausa",  "full": {"over": "Directo", "titulo": "En pausa", "sub": "Un momento"}},
     "vuelvo":    {"nombre": "Ya vuelvo", "desc": "Descanso corto",   "tema": "vuelvo", "full": {"over": "No te muevas", "titulo": "Ya volvemos", "sub": "Enseguida regreso"}},
@@ -257,21 +276,30 @@ function chat(){
   }
 }
 
-/* ---------- alertas discretas ---------- */
+/* ---------- alertas: discretas y destacadas ---------- */
 function alerta(){
   const hold=Math.max(2,parseFloat(Q.get('seg'))||5), snd=Q.get('sonido')!=='no', vol=Math.min(1,Math.max(0,(parseFloat(Q.get('volumen'))||50)/100));
   const minTip=+Q.get('mintip')||0, minBits=+Q.get('minbits')||0, minKicks=+Q.get('minkicks')||0, cur=Q.get('moneda')||'$';
-  const T={follow:['Nuevo seguidor','seguidor'],sub:['Nuevo suscriptor','suscriptor'],resub:['Resub','resub'],gift:['Subs regalados','regalos'],tip:['Donación','donacion'],raid:['Raid','raid'],kicks:['KICKs','kicks'],cheer:['Bits','bits'],host:['Host','host']};
-  root.innerHTML=`<div class="al" id="al" style="--hold:${hold}s"><div><small id="alt"></small></div><b id="aln"></b><em id="alx"></em></div>`;
+  const destBits=Q.get('destbits')==null?100:+Q.get('destbits'), destKicks=Q.get('destkicks')==null?100:+Q.get('destkicks');
+  const conStk=Q.get('stickers')!=='no', STK=(CFG&&CFG.__stk)||'../stickers/';
+  // tipo: [título, sonido, sticker, color, destacada]
+  const T={follow:['Nuevo seguidor','seguidor','flamenco','#ff3fa4',false],sub:['Nuevo suscriptor','suscriptor','caiman','#2f7bff',true],resub:['Resub','resub','sol','#ffae1f',true],
+    gift:['Subs regalados','regalos','avioneta','#ff2f8e',true],tip:['Donación','donacion','manati','#ffa51c',true],raid:['Raid','raid','lowrider','#6a3dff',true],
+    kicks:['KICKs','kicks','palmera','#3fd85a',d=>(+d.amount||0)>=destKicks],cheer:['Bits','bits','vi','#ff4fa8',d=>(+d.amount||0)>=destBits],host:['Host','host','rstar','#d03bff',true]};
+  root.innerHTML=`<div class="alw"><div class="al" id="al"><span class="ico"><img id="ali" alt=""></span><div class="alc"><small id="alt"></small><b id="aln"></b><em id="alx"></em></div></div></div>`;
   const el=document.getElementById('al'), q=[]; let busy=false;
-  const extra=d=>({resub:`${d.amount} meses`,gift:`regaló ${d.amount} subs`,tip:`${cur}${Math.round((+d.amount||0)*100)/100}`,raid:`${d.amount} espectadores`,kicks:`${d.amount} KICKs`,cheer:`${d.amount} bits`,host:`${d.amount} espectadores`}[d.type]||'');
+  if(conStk) Object.values(T).forEach(t=>{const i=new Image();i.src=STK+t[2]+'.png';});   // precarga
+  const extra=d=>({resub:`${d.amount} meses`,gift:`regaló ${d.amount} ${+d.amount===1?'sub':'subs'}`,tip:`${cur}${Math.round((+d.amount||0)*100)/100}`,raid:`llega con ${d.amount} espectadores`,kicks:`${d.amount} KICKs`,cheer:`${d.amount} bits`,host:`con ${d.amount} espectadores`}[d.type]||'');
   const fin=()=>{try{SE_API.resumeQueue();}catch(e){}};
   function next(){
     if(busy||!q.length) return; busy=true; const d=q.shift(), t=T[d.type];
+    const big=typeof t[4]==='function'?t[4](d):t[4], h=big?hold+3:hold;
     document.getElementById('alt').textContent=t[0]; document.getElementById('aln').textContent=d.name; document.getElementById('alx').textContent=extra(d);
+    document.getElementById('ali').src=big&&conStk?STK+t[2]+'.png':''; el.querySelector('.ico').style.display=big&&conStk?'':'none';
+    el.style.setProperty('--ev',t[3]); el.style.setProperty('--hold',h+'s');
     if(snd&&CFG&&CFG.__sonidos){try{const a=new Audio(CFG.__sonidos+t[1]+'.mp3');a.volume=vol;a.play().catch(()=>{});}catch(e){}}
-    el.className='al'; void el.offsetWidth; el.className='al on';
-    setTimeout(()=>{el.className='al off';setTimeout(()=>{busy=false;fin();next();},450);},hold*1000);
+    const cls='al'+(big?' big':''); el.className=cls; void el.offsetWidth; el.className=cls+' on';
+    setTimeout(()=>{el.className=cls+' off';setTimeout(()=>{busy=false;fin();next();},450);},h*1000);
   }
   const play=d=>{if(!T[d.type]){fin();return;} q.push(d);next();};
   window.addEventListener('onEventReceived',o=>{
@@ -291,8 +319,9 @@ function alerta(){
       case 'host-latest':  play({type:'host',name,amount:e.amount}); break;
     }
   });
-  if(editor){   // aviso de ejemplo: solo en el editor o en la vista local
-    const demo=()=>play({type:'follow',name:'Leonida_Fan'}); setTimeout(demo,2200); setInterval(demo,(hold+3)*1000);
+  if(editor){   // ejemplos (uno destacado y uno discreto): solo en el editor o en la vista local
+    const D=Q.get('ejemplo')?[{type:Q.get('ejemplo'),name:'Leonida_Fan',amount:Q.get('cantidad')||5}]:[{type:'sub',name:'Leonida_Fan'},{type:'follow',name:'ViceCityKid'}]; let n=0;
+    const demo=()=>play(D[n++%D.length]); setTimeout(demo,2200); setInterval(demo,(hold+6)*1000);
   }
 }
 }
