@@ -21,6 +21,12 @@ Todo en un solo zip: las 9 alertas, las 6 escenas (intro, streaming, hablar, pau
 
 Los mismos colores en versión minimalista: 6 escenas con una franja inferior para el chat horizontal, chat horizontal propio y avisos de alerta discretos. Se instala con el JWT de StreamElements (`Instalar - Pack Minimal.html`) y cada pieza se mueve, escala u oculta por separado.
 
+### 📱 Pack Minimal Vertical (1080×1920)
+
+### [👉 Descargar Pack-Minimal-Vertical.zip](https://github.com/alejox/gta6-alertas/raw/main/descargas/Pack-Minimal-Vertical.zip)
+
+Intro, Hablar, Pausa y Salida del Pack Minimal en vertical para TikTok, Shorts, Reels o Kick vertical, con chat horizontal abajo. Se instala con el JWT de StreamElements (`Instalar - Escenas verticales.html`) y cada pieza se mueve por separado.
+
 ### 🔔 Alertas Minimal (solo las alertas)
 
 ### [👉 Descargar Alertas-Minimal-ViceCity.zip](https://github.com/alejox/gta6-alertas/raw/main/descargas/Alertas-Minimal-ViceCity.zip)

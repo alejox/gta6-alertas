@@ -28,7 +28,7 @@ const sino = (label, value) => drop(label, value, { si: 'Sí', no: 'No' });
 const lado = v => drop('Alineación', v || 'izq', { izq: 'Izquierda', der: 'Derecha' });
 function campos(k, c) {
   switch (k) {
-    case 'fondo': return c.hueco ? { mHueco: sino('Hueco transparente para la cámara (posición de fábrica)', 'si') }
+    case 'fondo': return c.hueco ? { mHueco: sino('Hueco transparente para la cámara (posición de fábrica)', 'si'), ...(c.caja ? { mCaja: { type: 'hidden', label: '-', value: c.caja }, mLienzo: { type: 'hidden', label: '-', value: c.lienzo } } : {}) }
       : { mFondo: drop('Fondo', c.fondo || 'solido', { solido: 'Sólido (oscuro)', velo: 'Transparente con velo oscuro suave', nada: 'Transparente del todo' }) };
     case 'titulo': return { mOver: txt('Texto pequeño de arriba', c.over), mTitulo: txt('Título', c.titulo), mSub: txt('Texto de abajo', c.sub), mLado: drop('Alineación', 'centro', { centro: 'Centrado', izq: 'Izquierda' }) };
     case 'logo': return { mLogo: txt('Imagen del logo (URL; vacío = logo de GTA VI del pack)', '') };
@@ -52,7 +52,9 @@ function widget([name, k, b, c], i, tema) {
 }
 // Las alertas van en su propio overlay, para ponerlo encima de las escenas que quieras
 const ALERTAS = { name: 'Minimal · Alertas', desc: '9 alertas: ponla encima de Streaming y Hablar', widgets: [widget(L.alertas, 0, 'intro')] };
-const scenes = [ALERTAS, ...Object.keys(L.escenas).map(key => {
+const escena = key => { const s = L.escenas[key]; return { name: s.lienzo ? s.nombre : 'Minimal · ' + s.nombre, desc: s.desc, lienzo: s.lienzo, widgets: piezas[key].map((p, i) => widget(p, i, s.tema)) }; };
+const VERT = Object.keys(L.escenas).filter(k => L.escenas[k].lienzo).map(escena);
+const scenes = [ALERTAS, ...Object.keys(L.escenas).filter(k => !L.escenas[k].lienzo).map(key => {
   const s = L.escenas[key];
   return { name: 'Minimal · ' + s.nombre, desc: s.desc, widgets: piezas[key].map((p, i) => widget(p, i, s.tema)) };
 })];
@@ -142,7 +144,7 @@ btn.onclick = async () => {
         css: x.css, variables: { html: PACK.html, css: PACK.css, js: PACK.js, fields: x.fields, fieldData: x.fieldData },
         provider: me.provider || me.providerId || undefined
       }));
-      const body = { name: s.name, type: 'regular', settings: { width: 1920, height: 1080, name: '1080p' }, widgets };
+      const body = { name: s.name, type: 'regular', settings: s.lienzo ? { width: s.lienzo[0], height: s.lienzo[1], name: s.lienzo[0] + 'x' + s.lienzo[1] } : { width: 1920, height: 1080, name: '1080p' }, widgets };
       if (cover) body.preview = cover;
       const ov = await call('/overlays/' + me._id, token, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
       results.push({ name: s.name, desc: s.desc, id: ov._id });
@@ -192,4 +194,15 @@ const soloAlertas = page({ ...PACK, scenes: [{ ...ALERTAS, name: 'Alertas Minima
     </ol>` });
 fs.writeFileSync(path.join(ROOT, 'instalar-alertas-minimal.html'), soloAlertas);
 
+/* Instalador de las escenas verticales (1080x1920) */
+const vertical = page({ ...PACK, scenes: VERT }, { titulo: 'Pack Minimal Vertical · Vice City',
+  sub: 'Pega tu JWT y este instalador crea en tu cuenta de <b>StreamElements</b> las escenas <b>verticales (1080×1920)</b> del Pack Minimal: <b>Intro, Hablar, Pausa y Salida</b>, con chat horizontal abajo. Cada pieza se mueve, escala u oculta por separado.',
+  pasos: `<ol>
+      <li>Añade cada URL como <b>Fuente de navegador de 1080×1920</b> (ancho 1080, alto 1920) en tu escena vertical de OBS (plugin Aitum Vertical o lienzo vertical) o de Streamlabs Desktop (salida doble / vertical).</li>
+      <li>En <b>Hablar</b> pon tu cámara debajo de la fuente y ajústala al marco.</li>
+      <li>En <b>Intro</b> y <b>Salida</b> el fondo es transparente con un velo suave: pon detrás lo que quieras mostrar con un filtro de desenfoque.</li>
+      <li>En el editor (enlace "Editar") cada pieza es independiente: arrástrala, cámbiale el tamaño u ocúltala. En <b>Settings</b> están <b>⚙️ Canal</b> y <b>⚙️ Elemento</b>.</li>
+    </ol>` });
+fs.writeFileSync(path.join(ROOT, 'instalar-minimal-vertical.html'), vertical);
+console.log('instalar-minimal-vertical.html ·', VERT.map(s => s.name + '(' + s.widgets.length + ')').join(' | '));
 console.log('instalar-minimal.html', (html.length / 1e6).toFixed(2), 'MB ·', scenes.map(s => s.name + '(' + s.widgets.length + ')').join(' | '));

@@ -175,37 +175,785 @@ body.menu{background:#0d0616;overflow:auto}
 <div id="p"></div>
 <script id="layout" type="application/json">
 {
-  "sonidos": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d926553af1227572d2e1112b55b146e9cb55c1c1/sonidos/",
-  "logo": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d926553af1227572d2e1112b55b146e9cb55c1c1/stickers/vi.png",
-  "alertas": ["Alertas", "alerta", [560, 60, 800, 124], {}],
-  "escenas": {
-    "intro":     {"nombre": "Intro",     "desc": "Empezamos pronto, con cuenta atrás", "tema": "intro",  "full": {"over": "El directo", "titulo": "Empezamos", "sub": "No te vayas", "cuenta": true, "fondo": "velo"}},
-    "streaming": {"nombre": "Streaming", "desc": "Cámara, placas, alertas y chat horizontal", "tema": "intro", "piezas": [
-      ["Franja del chat",  "barra",    [0, 1020, 1920, 60], {"retraso": "0"}],
-      ["Chat horizontal",  "chat",     [24, 1020, 1872, 60], {"retraso": "0.3"}],
-      ["Marco de cámara",  "marco",    [1488, 727, 400, 225], {"retraso": "0.25"}],
-      ["Nombre del canal", "nombre",   [1488, 962, 300, 46], {"retraso": "1.2"}],
-      ["Placa · Último seguidor", "etiqueta", [32, 28, 250, 56], {"lt": "Último seguidor", "lv": "—", "retraso": "0.5"}],
-      ["Placa · Último sub",      "etiqueta", [298, 28, 250, 56], {"lt": "Último sub", "lv": "—", "retraso": "0.65"}],
-      ["Placa · Top donación",    "etiqueta", [564, 28, 250, 56], {"lt": "Top donación", "lv": "—", "retraso": "0.8"}],
-      ["En vivo",          "envivo",   [1688, 34, 200, 44], {"lado": "der", "retraso": "0.9"}]
-    ]},
-    "hablar":    {"nombre": "Hablar",    "desc": "Cámara grande y chat horizontal", "tema": "intro", "piezas": [
-      ["Fondo",            "fondo",    [0, 0, 1920, 1080], {"hueco": "si"}],
-      ["Título",           "texto",    [240, 34, 700, 44], {"texto": "Charlando"}],
-      ["En vivo",          "envivo",   [1480, 34, 200, 44], {"lado": "der"}],
-      ["Marco de cámara",  "marco",    [240, 96, 1440, 810], {}],
-      ["Nombre del canal", "nombre",   [240, 922, 300, 46], {}],
-      ["Placa · Último seguidor", "etiqueta", [898, 918, 250, 56], {"lt": "Último seguidor", "lv": "—"}],
-      ["Placa · Último sub",      "etiqueta", [1164, 918, 250, 56], {"lt": "Último sub", "lv": "—"}],
-      ["Placa · Top donación",    "etiqueta", [1430, 918, 250, 56], {"lt": "Top donación", "lv": "—"}],
-      ["Franja del chat",  "barra",    [0, 1020, 1920, 60], {}],
-      ["Chat horizontal",  "chat",     [24, 1020, 1872, 60], {}]
-    ]},
-    "pausa":     {"nombre": "Pausa",     "desc": "Directo en pausa", "tema": "pausa",  "full": {"over": "Directo", "titulo": "En pausa", "sub": "Un momento"}},
-    "vuelvo":    {"nombre": "Ya vuelvo", "desc": "Descanso corto",   "tema": "vuelvo", "full": {"over": "No te muevas", "titulo": "Ya volvemos", "sub": "Enseguida regreso"}},
-    "fin":       {"nombre": "Salida",    "desc": "Fin del directo",  "tema": "fin",    "full": {"over": "Fin del directo", "titulo": "Gracias", "sub": "Nos vemos en el próximo", "fondo": "velo"}}
+ "sonidos": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d926553af1227572d2e1112b55b146e9cb55c1c1/sonidos/",
+ "logo": "https://cdn.jsdelivr.net/gh/alejox/gta6-alertas@d926553af1227572d2e1112b55b146e9cb55c1c1/stickers/vi.png",
+ "alertas": [
+  "Alertas",
+  "alerta",
+  [
+   560,
+   60,
+   800,
+   124
+  ],
+  {}
+ ],
+ "escenas": {
+  "intro": {
+   "nombre": "Intro",
+   "desc": "Empezamos pronto, con cuenta atrás",
+   "tema": "intro",
+   "full": {
+    "over": "El directo",
+    "titulo": "Empezamos",
+    "sub": "No te vayas",
+    "cuenta": true,
+    "fondo": "velo"
+   }
+  },
+  "streaming": {
+   "nombre": "Streaming",
+   "desc": "Cámara, placas, alertas y chat horizontal",
+   "tema": "intro",
+   "piezas": [
+    [
+     "Franja del chat",
+     "barra",
+     [
+      0,
+      1020,
+      1920,
+      60
+     ],
+     {
+      "retraso": "0"
+     }
+    ],
+    [
+     "Chat horizontal",
+     "chat",
+     [
+      24,
+      1020,
+      1872,
+      60
+     ],
+     {
+      "retraso": "0.3"
+     }
+    ],
+    [
+     "Marco de cámara",
+     "marco",
+     [
+      1488,
+      727,
+      400,
+      225
+     ],
+     {
+      "retraso": "0.25"
+     }
+    ],
+    [
+     "Nombre del canal",
+     "nombre",
+     [
+      1488,
+      962,
+      300,
+      46
+     ],
+     {
+      "retraso": "1.2"
+     }
+    ],
+    [
+     "Placa · Último seguidor",
+     "etiqueta",
+     [
+      32,
+      28,
+      250,
+      56
+     ],
+     {
+      "lt": "Último seguidor",
+      "lv": "—",
+      "retraso": "0.5"
+     }
+    ],
+    [
+     "Placa · Último sub",
+     "etiqueta",
+     [
+      298,
+      28,
+      250,
+      56
+     ],
+     {
+      "lt": "Último sub",
+      "lv": "—",
+      "retraso": "0.65"
+     }
+    ],
+    [
+     "Placa · Top donación",
+     "etiqueta",
+     [
+      564,
+      28,
+      250,
+      56
+     ],
+     {
+      "lt": "Top donación",
+      "lv": "—",
+      "retraso": "0.8"
+     }
+    ],
+    [
+     "En vivo",
+     "envivo",
+     [
+      1688,
+      34,
+      200,
+      44
+     ],
+     {
+      "lado": "der",
+      "retraso": "0.9"
+     }
+    ]
+   ]
+  },
+  "hablar": {
+   "nombre": "Hablar",
+   "desc": "Cámara grande y chat horizontal",
+   "tema": "intro",
+   "piezas": [
+    [
+     "Fondo",
+     "fondo",
+     [
+      0,
+      0,
+      1920,
+      1080
+     ],
+     {
+      "hueco": "si"
+     }
+    ],
+    [
+     "Título",
+     "texto",
+     [
+      240,
+      34,
+      700,
+      44
+     ],
+     {
+      "texto": "Charlando"
+     }
+    ],
+    [
+     "En vivo",
+     "envivo",
+     [
+      1480,
+      34,
+      200,
+      44
+     ],
+     {
+      "lado": "der"
+     }
+    ],
+    [
+     "Marco de cámara",
+     "marco",
+     [
+      240,
+      96,
+      1440,
+      810
+     ],
+     {}
+    ],
+    [
+     "Nombre del canal",
+     "nombre",
+     [
+      240,
+      922,
+      300,
+      46
+     ],
+     {}
+    ],
+    [
+     "Placa · Último seguidor",
+     "etiqueta",
+     [
+      898,
+      918,
+      250,
+      56
+     ],
+     {
+      "lt": "Último seguidor",
+      "lv": "—"
+     }
+    ],
+    [
+     "Placa · Último sub",
+     "etiqueta",
+     [
+      1164,
+      918,
+      250,
+      56
+     ],
+     {
+      "lt": "Último sub",
+      "lv": "—"
+     }
+    ],
+    [
+     "Placa · Top donación",
+     "etiqueta",
+     [
+      1430,
+      918,
+      250,
+      56
+     ],
+     {
+      "lt": "Top donación",
+      "lv": "—"
+     }
+    ],
+    [
+     "Franja del chat",
+     "barra",
+     [
+      0,
+      1020,
+      1920,
+      60
+     ],
+     {}
+    ],
+    [
+     "Chat horizontal",
+     "chat",
+     [
+      24,
+      1020,
+      1872,
+      60
+     ],
+     {}
+    ]
+   ]
+  },
+  "pausa": {
+   "nombre": "Pausa",
+   "desc": "Directo en pausa",
+   "tema": "pausa",
+   "full": {
+    "over": "Directo",
+    "titulo": "En pausa",
+    "sub": "Un momento"
+   }
+  },
+  "vuelvo": {
+   "nombre": "Ya vuelvo",
+   "desc": "Descanso corto",
+   "tema": "vuelvo",
+   "full": {
+    "over": "No te muevas",
+    "titulo": "Ya volvemos",
+    "sub": "Enseguida regreso"
+   }
+  },
+  "fin": {
+   "nombre": "Salida",
+   "desc": "Fin del directo",
+   "tema": "fin",
+   "full": {
+    "over": "Fin del directo",
+    "titulo": "Gracias",
+    "sub": "Nos vemos en el próximo",
+    "fondo": "velo"
+   }
+  },
+  "v_intro": {
+   "nombre": "Vertical · Intro",
+   "desc": "Empezamos pronto, con cuenta atrás",
+   "tema": "intro",
+   "lienzo": [
+    1080,
+    1920
+   ],
+   "piezas": [
+    [
+     "Fondo",
+     "fondo",
+     [
+      0,
+      0,
+      1080,
+      1920
+     ],
+     {
+      "fondo": "velo"
+     }
+    ],
+    [
+     "Título",
+     "titulo",
+     [
+      40,
+      520,
+      1000,
+      280
+     ],
+     {
+      "over": "El directo",
+      "titulo": "Empezamos",
+      "sub": "No te vayas",
+      "retraso": "0.5"
+     }
+    ],
+    [
+     "Cuenta atrás",
+     "cuenta",
+     [
+      370,
+      1100,
+      340,
+      110
+     ],
+     {
+      "min": "5",
+      "retraso": "1.8"
+     }
+    ],
+    [
+     "Nombre del canal",
+     "canal",
+     [
+      40,
+      1712,
+      700,
+      44
+     ],
+     {
+      "retraso": "1.5"
+     }
+    ],
+    [
+     "Vice City",
+     "texto",
+     [
+      540,
+      70,
+      480,
+      40
+     ],
+     {
+      "texto": "Vice City",
+      "lado": "der",
+      "retraso": "1.5"
+     }
+    ],
+    [
+     "Franja del chat",
+     "barra",
+     [
+      0,
+      1830,
+      1080,
+      90
+     ],
+     {
+      "retraso": "0.2"
+     }
+    ],
+    [
+     "Chat horizontal",
+     "chat",
+     [
+      20,
+      1830,
+      1040,
+      90
+     ],
+     {
+      "retraso": "0.6"
+     }
+    ]
+   ]
+  },
+  "v_hablar": {
+   "nombre": "Vertical · Hablar",
+   "desc": "Cámara grande y chat horizontal",
+   "tema": "intro",
+   "lienzo": [
+    1080,
+    1920
+   ],
+   "piezas": [
+    [
+     "Fondo",
+     "fondo",
+     [
+      0,
+      0,
+      1080,
+      1920
+     ],
+     {
+      "hueco": "si",
+      "caja": "60,240,960,1280",
+      "lienzo": "1080,1920"
+     }
+    ],
+    [
+     "Título",
+     "texto",
+     [
+      60,
+      160,
+      600,
+      48
+     ],
+     {
+      "texto": "Charlando",
+      "retraso": "0.9"
+     }
+    ],
+    [
+     "En vivo",
+     "envivo",
+     [
+      760,
+      160,
+      260,
+      48
+     ],
+     {
+      "lado": "der",
+      "retraso": "0.9"
+     }
+    ],
+    [
+     "Marco de cámara",
+     "marco",
+     [
+      60,
+      240,
+      960,
+      1280
+     ],
+     {
+      "retraso": "0.25"
+     }
+    ],
+    [
+     "Nombre del canal",
+     "nombre",
+     [
+      60,
+      1544,
+      420,
+      56
+     ],
+     {
+      "retraso": "1.2"
+     }
+    ],
+    [
+     "Placa · Último seguidor",
+     "etiqueta",
+     [
+      60,
+      1628,
+      300,
+      64
+     ],
+     {
+      "lt": "Último seguidor",
+      "lv": "—",
+      "retraso": "0.5"
+     }
+    ],
+    [
+     "Placa · Último sub",
+     "etiqueta",
+     [
+      390,
+      1628,
+      300,
+      64
+     ],
+     {
+      "lt": "Último sub",
+      "lv": "—",
+      "retraso": "0.65"
+     }
+    ],
+    [
+     "Placa · Top donación",
+     "etiqueta",
+     [
+      720,
+      1628,
+      300,
+      64
+     ],
+     {
+      "lt": "Top donación",
+      "lv": "—",
+      "retraso": "0.8"
+     }
+    ],
+    [
+     "Franja del chat",
+     "barra",
+     [
+      0,
+      1830,
+      1080,
+      90
+     ],
+     {
+      "retraso": "0.2"
+     }
+    ],
+    [
+     "Chat horizontal",
+     "chat",
+     [
+      20,
+      1830,
+      1040,
+      90
+     ],
+     {
+      "retraso": "0.6"
+     }
+    ]
+   ]
+  },
+  "v_pausa": {
+   "nombre": "Vertical · Pausa",
+   "desc": "Directo en pausa",
+   "tema": "pausa",
+   "lienzo": [
+    1080,
+    1920
+   ],
+   "piezas": [
+    [
+     "Fondo",
+     "fondo",
+     [
+      0,
+      0,
+      1080,
+      1920
+     ],
+     {}
+    ],
+    [
+     "Título",
+     "titulo",
+     [
+      40,
+      520,
+      1000,
+      280
+     ],
+     {
+      "over": "Directo",
+      "titulo": "En pausa",
+      "sub": "Un momento",
+      "retraso": "0.5"
+     }
+    ],
+    [
+     "Logo",
+     "logo",
+     [
+      390,
+      1040,
+      300,
+      200
+     ],
+     {
+      "retraso": "1.3"
+     }
+    ],
+    [
+     "Nombre del canal",
+     "canal",
+     [
+      40,
+      1712,
+      700,
+      44
+     ],
+     {
+      "retraso": "1.5"
+     }
+    ],
+    [
+     "Vice City",
+     "texto",
+     [
+      540,
+      70,
+      480,
+      40
+     ],
+     {
+      "texto": "Vice City",
+      "lado": "der",
+      "retraso": "1.5"
+     }
+    ],
+    [
+     "Franja del chat",
+     "barra",
+     [
+      0,
+      1830,
+      1080,
+      90
+     ],
+     {
+      "retraso": "0.2"
+     }
+    ],
+    [
+     "Chat horizontal",
+     "chat",
+     [
+      20,
+      1830,
+      1040,
+      90
+     ],
+     {
+      "retraso": "0.6"
+     }
+    ]
+   ]
+  },
+  "v_fin": {
+   "nombre": "Vertical · Salida",
+   "desc": "Fin del directo",
+   "tema": "fin",
+   "lienzo": [
+    1080,
+    1920
+   ],
+   "piezas": [
+    [
+     "Fondo",
+     "fondo",
+     [
+      0,
+      0,
+      1080,
+      1920
+     ],
+     {
+      "fondo": "velo"
+     }
+    ],
+    [
+     "Título",
+     "titulo",
+     [
+      40,
+      520,
+      1000,
+      280
+     ],
+     {
+      "over": "Fin del directo",
+      "titulo": "Gracias",
+      "sub": "Nos vemos en el próximo",
+      "retraso": "0.5"
+     }
+    ],
+    [
+     "Logo",
+     "logo",
+     [
+      390,
+      1040,
+      300,
+      200
+     ],
+     {
+      "retraso": "1.3"
+     }
+    ],
+    [
+     "Nombre del canal",
+     "canal",
+     [
+      40,
+      1712,
+      700,
+      44
+     ],
+     {
+      "retraso": "1.5"
+     }
+    ],
+    [
+     "Vice City",
+     "texto",
+     [
+      540,
+      70,
+      480,
+      40
+     ],
+     {
+      "texto": "Vice City",
+      "lado": "der",
+      "retraso": "1.5"
+     }
+    ],
+    [
+     "Franja del chat",
+     "barra",
+     [
+      0,
+      1830,
+      1080,
+      90
+     ],
+     {
+      "retraso": "0.2"
+     }
+    ],
+    [
+     "Chat horizontal",
+     "chat",
+     [
+      20,
+      1830,
+      1040,
+      90
+     ],
+     {
+      "retraso": "0.6"
+     }
+    ]
+   ]
   }
+ }
 }
 </script>
 <script>
@@ -222,8 +970,8 @@ root.style.setProperty('--d',(parseFloat(Q.get('retraso'))||0)+'s');   // entrad
 const canal=P('canal','@TUCANAL');
 
 if(k==='fondo'){
-  const h=(Q.get('hueco')==='si')?(Q.get('caja')||'240,96,1440,810').split(',').map(Number):null;
-  const m=h?`-webkit-mask-image:linear-gradient(#000,#000),linear-gradient(#000,#000);-webkit-mask-size:100% 100%,${(h[2]-6)/19.2}% ${(h[3]-6)/10.8}%;-webkit-mask-position:0 0,${(h[0]+3)/(1920-h[2]+6)*100}% ${(h[1]+3)/(1080-h[3]+6)*100}%;-webkit-mask-repeat:no-repeat;-webkit-mask-composite:xor;mask-composite:exclude`:'';
+  const h=(Q.get('hueco')==='si')?(Q.get('caja')||'240,96,1440,810').split(',').map(Number):null, [LW,LH]=(Q.get('lienzo')||'1920,1080').split(',').map(Number);
+  const m=h?`-webkit-mask-image:linear-gradient(#000,#000),linear-gradient(#000,#000);-webkit-mask-size:100% 100%,${(h[2]-6)/LW*100}% ${(h[3]-6)/LH*100}%;-webkit-mask-position:0 0,${(h[0]+3)/(LW-h[2]+6)*100}% ${(h[1]+3)/(LH-h[3]+6)*100}%;-webkit-mask-repeat:no-repeat;-webkit-mask-composite:xor;mask-composite:exclude`:'';
   root.innerHTML=`<div class="bg ${({velo:'velo',nada:'nada'})[Q.get('fondo')]||''}" style="${m}"><div class="st"></div><div class="sw"><div class="sun"></div></div><div class="cut"></div><div class="hz"></div><div class="ray"></div>${[0,1,2,3].map(i=>`<div class="ln" style="top:67%;animation-delay:${-i*1.5}s"></div>`).join('')}</div>`;
 }
 else if(k==='titulo') root.innerHTML=`<div class="tit in ${Q.get('lado')==='izq'?'izq':''}"><small>${P('over','El directo')}</small><h1>${P('titulo','Empezamos')}</h1><i></i><span>${P('sub','No te vayas')}</span></div>`;
@@ -333,14 +1081,15 @@ function minLocal(){
   const e=Q.get('escena'), canal=Q.get('canal')||'@TUCANAL';
   const url=(tema,p)=>'?'+new URLSearchParams({pieza:p[1],tema,canal,demo:'1',...p[3]}).toString();
   if(e&&piezas[e]){
-    const c=document.createElement('div');c.id='comp';document.body.appendChild(c);
+    const [W,H]=L.escenas[e].lienzo||[1920,1080];
+    const c=document.createElement('div');c.id='comp';c.style.width=W+'px';c.style.height=H+'px';document.body.appendChild(c);
     piezas[e].forEach(p=>{const f=document.createElement('iframe');f.src=url(L.escenas[e].tema,p);f.style.cssText=`left:${p[2][0]}px;top:${p[2][1]}px;width:${p[2][2]}px;height:${p[2][3]}px`;c.appendChild(f);});
-    const fit=()=>{c.style.transform=`scale(${Math.min(innerWidth/1920,innerHeight/1080)})`;};addEventListener('resize',fit);fit();return;
+    const fit=()=>{const k=Math.min(innerWidth/W,innerHeight/H);c.style.transform=`translateX(${(innerWidth-W*k)/2}px) scale(${k})`;};addEventListener('resize',fit);fit();return;
   }
   document.body.classList.add('menu');const m=document.createElement('div');m.id='menu';document.body.appendChild(m);
   m.innerHTML=`<h1>Pack Minimal · Vice City</h1><p>Vista previa de las escenas. En OBS: fuente de navegador 1920×1080 con <code>?escena=streaming&canal=TuCanal</code>. Para mover cada pieza por separado, instálalo con el JWT (<code>instalar-minimal.html</code>).</p><div class="gr">`+
-    Object.keys(piezas).map(k=>`<a href="?escena=${k}"><div class="th"><iframe src="?escena=${k}" loading="lazy"></iframe></div><div class="cp">${L.escenas[k].nombre} <code>?escena=${k}</code></div></a>`).join('')+'</div>';
-  const fit=()=>m.querySelectorAll('.th').forEach(t=>{t.firstChild.style.transform=`scale(${t.clientWidth/1920})`;});addEventListener('resize',fit);fit();
+    Object.keys(piezas).map(k=>`<a href="?escena=${k}"><div class="th"><iframe src="?escena=${k}" loading="lazy" data-v="${L.escenas[k].lienzo?1:''}"></iframe></div><div class="cp">${L.escenas[k].nombre} <code>?escena=${k}</code></div></a>`).join('')+'</div>';
+  const fit=()=>m.querySelectorAll('.th').forEach(t=>{const f=t.firstChild,v=f.dataset.v;if(v){f.style.width='1080px';f.style.height='1920px';const k=t.clientHeight/1920;f.style.transform=`translateX(${(t.clientWidth-1080*k)/2}px) scale(${k})`;}else f.style.transform=`scale(${t.clientWidth/1920})`;});addEventListener('resize',fit);fit();
 }
 /* Lista de piezas de cada escena (la usa también el generador del instalador) */
 window.minPiezas=function(L){
