@@ -13,6 +13,14 @@ Todo en un solo zip: las 9 alertas, las 6 escenas (intro, streaming, hablar, pau
 
 **Instalación con el JWT:** abre `Instalar - Pack completo.html`, pega tu JWT Token de StreamElements y en un clic se crean el overlay de alertas y un overlay por cada escena, con su URL lista para pegar como fuente de navegador en OBS o Streamlabs Desktop. Cada pieza de cada escena (fondo, título, marco de cámara, nombre, placas, EN VIVO, cuenta atrás…) es un elemento independiente que se mueve, escala u oculta en el editor, con sus ajustes de canal y textos. El `LEEME.txt` trae también la instalación manual.
 
+### ✨ Pack Minimal (escenas minimalistas + chat horizontal + alertas discretas)
+
+### [👉 Descargar Pack-Minimal-ViceCity.zip](https://github.com/alejox/gta6-alertas/raw/main/descargas/Pack-Minimal-ViceCity.zip)
+
+![Pack Minimal](minimal/portada.jpg)
+
+Los mismos colores en versión minimalista: 6 escenas con una franja inferior para el chat horizontal, chat horizontal propio y avisos de alerta discretos. Se instala con el JWT de StreamElements (`Instalar - Pack Minimal.html`) y cada pieza se mueve, escala u oculta por separado.
+
 ### Solo las alertas
 
 ![Alertas GTA 6 · Vice City](portada.jpg)
