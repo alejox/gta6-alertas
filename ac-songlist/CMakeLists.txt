@@ -45,13 +45,20 @@ target_compile_definitions(acsl-core PUBLIC QT_NO_CAST_TO_ASCII ACSL_VERSION="${
 # ---------------------------------------------------------------- plugin
 if(ACSL_BUILD_PLUGIN)
   if(OBS_SDK_DIR)
+    if(APPLE)
+      set(_obs_lib "${OBS_SDK_DIR}/lib/libobs.dylib")
+      set(_obs_frontend_lib "${OBS_SDK_DIR}/lib/obs-frontend-api.dylib")
+    else()
+      set(_obs_lib "${OBS_SDK_DIR}/lib/obs.lib")
+      set(_obs_frontend_lib "${OBS_SDK_DIR}/lib/obs-frontend-api.lib")
+    endif()
     add_library(OBS::libobs UNKNOWN IMPORTED)
     set_target_properties(OBS::libobs PROPERTIES
-      IMPORTED_LOCATION "${OBS_SDK_DIR}/lib/obs.lib"
+      IMPORTED_LOCATION "${_obs_lib}"
       INTERFACE_INCLUDE_DIRECTORIES "${OBS_SDK_DIR}/include")
     add_library(OBS::obs-frontend-api UNKNOWN IMPORTED)
     set_target_properties(OBS::obs-frontend-api PROPERTIES
-      IMPORTED_LOCATION "${OBS_SDK_DIR}/lib/obs-frontend-api.lib"
+      IMPORTED_LOCATION "${_obs_frontend_lib}"
       INTERFACE_INCLUDE_DIRECTORIES "${OBS_SDK_DIR}/include")
   else()
     find_package(libobs REQUIRED)
@@ -67,6 +74,12 @@ if(ACSL_BUILD_PLUGIN)
     src/ui/song-dialog.hpp src/ui/song-dialog.cpp)
   target_link_libraries(ac-songlist PRIVATE acsl-core OBS::libobs OBS::obs-frontend-api Qt6::Widgets)
   set_target_properties(ac-songlist PROPERTIES PREFIX "")
+  if(APPLE)
+    # Qt y libobs se resuelven dentro de OBS.app, no en la maquina donde se compilo.
+    set_target_properties(ac-songlist PROPERTIES
+      BUILD_WITH_INSTALL_RPATH ON
+      INSTALL_RPATH "@executable_path/../Frameworks")
+  endif()
 
   if(WIN32)
     # Estructura de C:\ProgramData\obs-studio\plugins\ac-songlist

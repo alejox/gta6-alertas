@@ -33,6 +33,8 @@ Requiere **OBS Studio 30.2 o superior** (64 bits).
 
 **Windows.** Descarga `AC-Songlist-Windows` desde la última ejecución de [Actions → AC Songlist](https://github.com/alejox/gta6-alertas/actions/workflows/ac-songlist.yml) (o desde *Releases* cuando haya una etiqueta publicada), descomprime y ejecuta `instalar.bat` con OBS cerrado. A mano: copia la carpeta `ac-songlist` a `C:\ProgramData\obs-studio\plugins\`.
 
+**macOS** (Apple Silicon e Intel). Descarga `AC-Songlist-macOS` desde el mismo sitio, descomprime y, con OBS cerrado, abre Terminal, escribe `bash ` y arrastra `instalar.command` a la ventana. El plugin no está firmado con una cuenta de desarrollador de Apple, por eso se instala desde Terminal; los detalles y la instalación a mano están en `LEEME-MAC.txt`.
+
 **Linux.** Copia la carpeta `ac-songlist` del paquete a `~/.config/obs-studio/plugins/`.
 
 Después abre OBS y activa el panel en *Paneles → AC Songlist*.
@@ -78,6 +80,7 @@ Las canciones repetidas (mismo título y artista) no se duplican.
 ## Dónde se guardan los datos
 
 - Windows: `%APPDATA%\obs-studio\plugin_config\ac-songlist\songlist.json`
+- macOS: `~/Library/Application Support/obs-studio/plugin_config/ac-songlist/songlist.json`
 - Linux: `~/.config/obs-studio/plugin_config/ac-songlist/songlist.json`
 
 Biblioteca, cola, historial y ajustes van en ese archivo. Reinstalar o actualizar el plugin no lo toca.
@@ -100,7 +103,7 @@ cmake --build build
 QT_QPA_PLATFORM=offscreen ./build/acsl-tests
 ```
 
-En Windows lo compila [el flujo de GitHub Actions](../.github/workflows/ac-songlist.yml), que arma un SDK mínimo de OBS (cabeceras de la versión 30.2.3 y librerías de importación generadas desde los `.dll` oficiales) y enlaza con Qt 6.6.
+En Windows y macOS lo compila [el flujo de GitHub Actions](../.github/workflows/ac-songlist.yml), que arma un SDK mínimo de OBS (cabeceras de la versión 30.2.3 y, para enlazar, los binarios de la versión oficial) y usa Qt 6.6. El de macOS es universal (arm64 + x86_64).
 
 ### Estructura
 
@@ -116,4 +119,4 @@ En Windows lo compila [el flujo de GitHub Actions](../.github/workflows/ac-songl
 
 - Solo lee el chat de **Twitch** (no Kick ni YouTube).
 - No tiene página web pública de la lista: el público la ve en el stream con `!lista`.
-- Probado dentro de OBS 30 en Linux. La versión de Windows se compila y pasa las pruebas del núcleo en GitHub Actions, pero no se ha ejecutado dentro de OBS en Windows antes de publicarla aquí: si algo falla al cargarlo, el registro de OBS (*Ayuda → Archivos de registro*) lo dirá en las líneas `[ac-songlist]`.
+- Probado dentro de OBS 30 en Linux. Las versiones de Windows y macOS se compilan y pasan las pruebas del núcleo en GitHub Actions, pero no se han ejecutado dentro de OBS en esos sistemas antes de publicarlas aquí: si algo falla al cargarlo, el registro de OBS (*Ayuda → Archivos de registro*) lo dirá en las líneas `[ac-songlist]`.

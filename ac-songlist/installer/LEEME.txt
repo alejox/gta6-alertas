@@ -19,6 +19,10 @@ A mano, si lo prefieres: copia la carpeta "ac-songlist" dentro de
 de modo que quede
   C:\ProgramData\obs-studio\plugins\ac-songlist\bin\64bit\ac-songlist.dll
 
+INSTALAR EN MAC
+---------------
+Mira LEEME-MAC.txt (viene en el paquete de macOS).
+
 INSTALAR EN LINUX
 -----------------
 Copia la carpeta "ac-songlist" dentro de ~/.config/obs-studio/plugins/
@@ -82,6 +86,7 @@ cancion actual, abrir/cerrar pedidos y mostrar la lista en pantalla.
 DONDE SE GUARDAN TUS DATOS
 --------------------------
 Windows: %APPDATA%\obs-studio\plugin_config\ac-songlist\songlist.json
+Mac:     ~/Library/Application Support/obs-studio/plugin_config/ac-songlist/songlist.json
 Linux:   ~/.config/obs-studio/plugin_config/ac-songlist/songlist.json
 Haz una copia de ese archivo de vez en cuando, o usa CSV > Exportar.
 

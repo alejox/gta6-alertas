@@ -1,0 +1,43 @@
+AC SONGLIST PARA macOS
+======================
+
+Funciona en Mac con Apple Silicon (M1, M2, M3...) y con Intel.
+Requisitos: OBS Studio 30.2 o superior y macOS 11 o superior.
+
+
+INSTALAR
+--------
+1. Cierra OBS.
+2. Abre la app Terminal (Aplicaciones > Utilidades > Terminal).
+3. Escribe  bash  seguido de un espacio, arrastra el archivo
+   "instalar.command" a la ventana de Terminal y pulsa Enter.
+4. Abre OBS. En el menu superior: Paneles > AC Songlist.
+
+Por que con Terminal: este plugin no esta firmado con una cuenta de
+desarrollador de Apple, asi que macOS bloquea el doble clic sobre archivos
+descargados. Ejecutarlo desde Terminal evita ese bloqueo.
+
+
+INSTALAR A MANO
+---------------
+Si prefieres no usar el instalador, copia y pega estas dos lineas en Terminal
+(estando en la carpeta donde descomprimiste el paquete):
+
+  mkdir -p ~/Library/Application\ Support/obs-studio/plugins && cp -R ac-songlist.plugin ~/Library/Application\ Support/obs-studio/plugins/
+
+  xattr -dr com.apple.quarantine ~/Library/Application\ Support/obs-studio/plugins/ac-songlist.plugin
+
+La segunda linea es necesaria: sin ella OBS no puede cargar el plugin.
+
+
+SI EL PANEL NO APARECE EN OBS
+-----------------------------
+En OBS: Ayuda > Archivos de registro > Ver registro actual, y busca las
+lineas que contienen "ac-songlist". Ahi dice si se cargo o por que no.
+
+
+DONDE SE GUARDAN TUS DATOS
+--------------------------
+~/Library/Application Support/obs-studio/plugin_config/ac-songlist/songlist.json
+
+El uso (biblioteca, comandos del chat, overlay) esta explicado en LEEME.txt.
