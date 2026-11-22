@@ -46,6 +46,14 @@ También se pueden bajar sueltos desde [`descargas/videos/`](descargas/videos). 
 
 Escenas animadas 1920x1080 para OBS como fuente de navegador (`escenas/index.html?escena=intro&canal=TuCanal`), con textos editables desde la dirección, más una transición stinger en WebM transparente y con sonido (punto de transición: 750 ms) y las versiones en PNG. Instrucciones en el `LEEME.txt` del zip.
 
+### 🎹 AC Songlist · plugin de OBS para pedidos de canciones
+
+![Sonando ahora](ac-songlist/docs/sonando-ahora.png)
+
+Plugin nativo de OBS Studio para quien toca en directo: armas tu biblioteca de canciones dentro de OBS, tu público las pide por el chat de Twitch (`!lista`, `!sr 12`, `!sr nombre`) y la que estás tocando aparece en el stream con una tarjeta minimalista. Sin servicios externos, con estilo configurable.
+
+Instalación, uso y comandos en **[ac-songlist/README.md](ac-songlist/README.md)**. El instalador de Windows se descarga desde [Actions → AC Songlist](https://github.com/alejox/gta6-alertas/actions/workflows/ac-songlist.yml).
+
 ---
 
 Este repositorio aloja los recursos públicos (stickers y sonidos) que usan los widgets de StreamElements y Streamlabs del pack.

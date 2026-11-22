@@ -1,0 +1,88 @@
+AC SONGLIST - pedidos de canciones para OBS Studio
+===================================================
+
+Arma tu biblioteca de canciones dentro de OBS, deja que tu publico las pida
+por el chat de Twitch y muestra en el stream la que estas tocando.
+
+Requisitos: OBS Studio 30.2 o superior, 64 bits.
+
+
+INSTALAR EN WINDOWS
+-------------------
+1. Cierra OBS.
+2. Descomprime este zip completo.
+3. Doble clic en "instalar.bat".
+4. Abre OBS. En el menu superior: Paneles > AC Songlist.
+
+A mano, si lo prefieres: copia la carpeta "ac-songlist" dentro de
+  C:\ProgramData\obs-studio\plugins\
+de modo que quede
+  C:\ProgramData\obs-studio\plugins\ac-songlist\bin\64bit\ac-songlist.dll
+
+INSTALAR EN LINUX
+-----------------
+Copia la carpeta "ac-songlist" dentro de ~/.config/obs-studio/plugins/
+
+
+PRIMEROS PASOS
+--------------
+1. BIBLIOTECA. En el panel, pestana "Canciones": escribe titulo y artista y
+   pulsa Enter. Cada cancion recibe un numero. Tambien puedes importar un CSV
+   (boton "CSV"), por ejemplo el que exporta StreamerSonglist.
+
+2. CHAT. Pestana "Ajustes": escribe el nombre de tu canal de Twitch y pulsa
+   "Guardar y conectar". No hace falta iniciar sesion para leer los pedidos.
+
+3. OVERLAY. En tu escena: Fuentes > + > "AC Songlist". En sus propiedades
+   elige que mostrar:
+     - Sonando ahora      tarjeta minimalista con la cancion que estas tocando
+     - Cola de pedidos    los pedidos pendientes y quien los hizo
+     - Lista de canciones tu biblioteca numerada, por paginas
+   Puedes agregar la fuente varias veces, una por cada cosa.
+   Fuente, colores, fondo, tamano y alineacion se cambian ahi mismo.
+
+4. EN DIRECTO. Tu publico escribe:
+     !lista            ve la lista en pantalla
+     !sr 12            pide la cancion numero 12
+     !sr dancing queen pide por nombre (no importan acentos ni mayusculas)
+   Cuando vayas a tocar una, pulsa "Tocar ahora" o "Siguiente": aparece la
+   tarjeta en el stream. Al terminar, "Terminar" o "Siguiente".
+
+
+COMANDOS DEL CHAT
+-----------------
+  !sr <numero o nombre>   pedir una cancion       (tambien !pedir, !request)
+  !lista                  mostrar la lista        (tambien !canciones, !list)
+  !cola                   ver la cola             (tambien !queue)
+  !cancion                que suena ahora         (tambien !song)
+  !siguiente              cual viene despues      (tambien !next)
+  !mipedido               en que puesto voy       (tambien !posicion)
+  !quitar                 retirar mi ultimo pedido (tambien !wrongsong, !ws)
+
+  Solo streamer y moderadores:
+  !abrir / !cerrar        abrir o cerrar pedidos
+  !tocada                 terminar la actual y pasar a la siguiente
+  !saltar                 quitar la actual sin contarla
+
+
+QUE EL PLUGIN CONTESTE EN EL CHAT (opcional)
+--------------------------------------------
+Sin configurar nada mas, el plugin lee los pedidos pero no escribe en el chat.
+Para que responda ("entro a la cola en el puesto 3"), en Ajustes pon una cuenta
+de Twitch (la tuya o la de un bot) y su token OAuth con permisos chat:read y
+chat:edit. El token se guarda solo en tu equipo.
+
+
+ATAJOS DE TECLADO
+-----------------
+En OBS: Ajustes > Atajos, busca "AC Songlist": siguiente cancion, terminar
+cancion actual, abrir/cerrar pedidos y mostrar la lista en pantalla.
+
+
+DONDE SE GUARDAN TUS DATOS
+--------------------------
+Windows: %APPDATA%\obs-studio\plugin_config\ac-songlist\songlist.json
+Linux:   ~/.config/obs-studio/plugin_config/ac-songlist/songlist.json
+Haz una copia de ese archivo de vez en cuando, o usa CSV > Exportar.
+
+Hecho por AlejoxCode. Codigo fuente: https://github.com/alejox/gta6-alertas

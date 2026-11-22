@@ -1,0 +1,187 @@
+# Compila el plugin AC Songlist para OBS Studio (Windows y Linux) y ejecuta sus pruebas.
+# El .dll listo para instalar queda como artefacto "AC-Songlist-Windows" en cada ejecucion.
+# Al crear una etiqueta ac-songlist-vX.Y.Z se publica ademas como Release.
+name: AC Songlist
+
+on:
+  push:
+    branches: ['**']
+    tags: ['ac-songlist-v*']
+    paths:
+      - 'ac-songlist/**'
+      - '.github/workflows/ac-songlist.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  # Se compila contra la version mas antigua soportada: un plugin hecho para OBS 30.2
+  # carga tambien en las versiones posteriores, pero no al reves.
+  OBS_VERSION: '30.2.3'
+  QT_VERSION: '6.6.3'
+
+jobs:
+  linux:
+    name: Linux (compilar y probar)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Dependencias
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends cmake ninja-build g++ libobs-dev qt6-base-dev libgl1-mesa-dev
+
+      - name: Compilar
+        run: |
+          cmake -S ac-songlist -B build -G Ninja -DACSL_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo
+          cmake --build build
+
+      - name: Pruebas
+        run: QT_QPA_PLATFORM=offscreen ./build/acsl-tests
+
+      - name: Empaquetar
+        run: |
+          mkdir -p pkg/ac-songlist/bin/64bit pkg/ac-songlist/data
+          cp build/ac-songlist.so pkg/ac-songlist/bin/64bit/
+          cp -r ac-songlist/data/locale pkg/ac-songlist/data/
+          cp ac-songlist/installer/LEEME.txt pkg/
+          tar -C pkg -czf AC-Songlist-Linux.tar.gz .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AC-Songlist-Linux
+          path: AC-Songlist-Linux.tar.gz
+          if-no-files-found: error
+
+  windows:
+    name: Windows (.dll)
+    runs-on: windows-2022
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
+      - name: Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: windows
+          target: desktop
+          arch: win64_msvc2019_64
+          cache: true
+
+      # OBS no publica un SDK para Windows. Se arma uno minimo: las cabeceras salen del
+      # codigo fuente de esa version y las librerias de importacion se generan a partir
+      # de los .dll del instalador oficial.
+      - name: SDK de OBS
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $ver = $env:OBS_VERSION
+          New-Item -ItemType Directory -Force sdk/include, sdk/lib, obs-bin, obs-dl | Out-Null
+
+          $assets = gh release view $ver --repo obsproject/obs-studio --json assets --jq '.assets[].name'
+          $zip = $assets | Where-Object { $_ -match '\.zip$' -and $_ -notmatch 'PDB|Sources|arm64|macOS' } | Select-Object -First 1
+          if (-not $zip) { throw "No encuentro el zip de Windows de OBS $ver. Archivos: $assets" }
+          Write-Host "Binarios de OBS: $zip"
+          gh release download $ver --repo obsproject/obs-studio --pattern $zip --dir obs-dl
+          Expand-Archive "obs-dl/$zip" -DestinationPath obs-bin
+
+          git clone --quiet --depth 1 --branch $ver https://github.com/obsproject/obs-studio.git obs-src
+          robocopy obs-src/libobs sdk/include *.h *.hpp /S /NFL /NDL /NJH /NJS /NP
+          if ($LASTEXITCODE -ge 8) { throw "robocopy fallo ($LASTEXITCODE)" }
+          $global:LASTEXITCODE = 0
+          $frontend = Get-ChildItem obs-src -Recurse -Filter obs-frontend-api.h | Select-Object -First 1
+          if (-not $frontend) { throw 'No encuentro obs-frontend-api.h' }
+          Copy-Item $frontend.FullName sdk/include/
+          Copy-Item obs-src/deps/w32-pthreads/*.h sdk/include/
+          # obsconfig.h lo genera el CMake de OBS; para compilar un plugin basta con esto
+          Set-Content sdk/include/obsconfig.h -Encoding ascii -Value @(
+            '#pragma once',
+            '#define OBS_DATA_PATH "../../data"',
+            '#define OBS_PLUGIN_PATH "../../obs-plugins/64bit"',
+            '#define OBS_PLUGIN_DESTINATION "obs-plugins/64bit"')
+
+          function New-ImportLib([string]$name) {
+            $dll = Get-ChildItem obs-bin -Recurse -Filter "$name.dll" | Select-Object -First 1
+            if (-not $dll) { throw "No encuentro $name.dll en el zip de OBS" }
+            $exports = & dumpbin /nologo /exports $dll.FullName | ForEach-Object {
+              if ($_ -match '^\s+\d+\s+[0-9A-Fa-f]+\s+[0-9A-Fa-f]{8}\s+(\S+)') { $Matches[1] }
+            }
+            if (@($exports).Count -lt 5) { throw "No pude leer los simbolos de $name.dll" }
+            Set-Content "sdk/lib/$name.def" -Encoding ascii -Value (@("LIBRARY `"$name`"", 'EXPORTS') + ($exports | ForEach-Object { "  $_" }))
+            & lib /nologo "/def:sdk/lib/$name.def" /machine:x64 "/out:sdk/lib/$name.lib"
+            if ($LASTEXITCODE -ne 0) { throw "lib.exe fallo con $name" }
+            Write-Host "$name.lib: $(@($exports).Count) simbolos"
+          }
+          New-ImportLib 'obs'
+          New-ImportLib 'obs-frontend-api'
+
+      - name: Compilar
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $sdk = (Resolve-Path sdk).Path.Replace('\', '/')
+          $qt = "$env:QT_ROOT_DIR".Replace('\', '/')
+          cmake -S ac-songlist -B build -G "Visual Studio 17 2022" -A x64 "-DOBS_SDK_DIR=$sdk" "-DCMAKE_PREFIX_PATH=$qt" -DACSL_BUILD_TESTS=ON
+          if ($LASTEXITCODE -ne 0) { throw 'cmake (configurar)' }
+          cmake --build build --config RelWithDebInfo --parallel
+          if ($LASTEXITCODE -ne 0) { throw 'cmake (compilar)' }
+
+      - name: Pruebas
+        run: |
+          ./build/RelWithDebInfo/acsl-tests.exe
+          if ($LASTEXITCODE -ne 0) { throw 'Fallaron las pruebas' }
+
+      - name: Empaquetar
+        run: |
+          $ErrorActionPreference = 'Stop'
+          cmake --install build --config RelWithDebInfo --prefix pkg
+          if ($LASTEXITCODE -ne 0) { throw 'cmake (instalar)' }
+          Copy-Item ac-songlist/installer/instalar.bat, ac-songlist/installer/LEEME.txt pkg/
+          $dll = 'pkg/ac-songlist/bin/64bit/ac-songlist.dll'
+          if (-not (Test-Path $dll)) { throw "Falta $dll" }
+          Write-Host '--- contenido del paquete'
+          Get-ChildItem pkg -Recurse -File | ForEach-Object { '{0,10}  {1}' -f $_.Length, $_.FullName.Substring((Resolve-Path pkg).Path.Length + 1) }
+          Write-Host '--- de que depende el .dll (todo esto ya viene con OBS)'
+          dumpbin /nologo /dependents $dll | Select-String '\.dll'
+          Compress-Archive -Path pkg/* -DestinationPath AC-Songlist-Windows.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AC-Songlist-Windows
+          path: pkg/
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        if: startsWith(github.ref, 'refs/tags/ac-songlist-v')
+        with:
+          name: release-windows
+          path: AC-Songlist-Windows.zip
+
+  release:
+    name: Publicar release
+    if: startsWith(github.ref, 'refs/tags/ac-songlist-v')
+    needs: [linux, windows]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+      - name: Crear release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" \
+            --title "AC Songlist ${GITHUB_REF_NAME#ac-songlist-v}" \
+            --notes "Plugin de OBS Studio para pedidos de canciones. Windows: descomprime AC-Songlist-Windows.zip y ejecuta instalar.bat." \
+            dist/release-windows/AC-Songlist-Windows.zip dist/AC-Songlist-Linux/AC-Songlist-Linux.tar.gz
