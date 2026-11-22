@@ -48,11 +48,9 @@ Escenas animadas 1920x1080 para OBS como fuente de navegador (`escenas/index.htm
 
 ### 🎹 AC Songlist · plugin de OBS para pedidos de canciones
 
-![Sonando ahora](ac-songlist/docs/sonando-ahora.png)
+Plugin nativo de OBS Studio para quien toca en directo: armas tu biblioteca de canciones dentro de OBS, tu público las pide por el chat de Twitch (`!lista`, `!sr 12`, `!sr nombre`) y la que estás tocando aparece en el stream con una tarjeta minimalista. Para Windows, macOS y Linux.
 
-Plugin nativo de OBS Studio para quien toca en directo: armas tu biblioteca de canciones dentro de OBS, tu público las pide por el chat de Twitch (`!lista`, `!sr 12`, `!sr nombre`) y la que estás tocando aparece en el stream con una tarjeta minimalista. Sin servicios externos, con estilo configurable.
-
-Instalación, uso y comandos en **[ac-songlist/README.md](ac-songlist/README.md)**. El instalador de Windows se descarga desde [Actions → AC Songlist](https://github.com/alejox/gta6-alertas/actions/workflows/ac-songlist.yml).
+Tiene su propio repositorio: **[alejox/ac-songlist](https://github.com/alejox/ac-songlist)** · [descargas](https://github.com/alejox/ac-songlist/releases/latest).
 
 ---
 
